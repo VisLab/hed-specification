@@ -1,5 +1,11 @@
 # CHANGELOG for HED specification
 
+## Changes for HED specification 4.0.0
+This is a breaking change:
+- The PDF versions of the schema (formerly stored in `hedspec`) has been removed. HED specifications will just undergo the GITHUB releases.
+- The versions of the standard HED schema that were stored in `hedxml` for backwards compatibility has been removed.
+- The `tests` directory containing the JSON tests that HED validators must pass has been moved to the GitHub `hed-standard/hed-tests` repository.
+
 ## Changes for HED specification 3.2.0
 
 - The `Inset` tag was introduced to mark intermediate points in events of temporal extent.

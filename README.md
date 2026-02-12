@@ -10,7 +10,7 @@ The latest version of the HED specification is available at the [**HED specifica
 
 The official library schemas are now housed on the [**hed-schemas**](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
-The most current officially released version of the HED specification can be found at \[**HED specification (PDF)**\](<https://raw.githubusercontent.com/hed-standard/hed-specification/main/hedspec/HEDSpecification_3_3_0.pdf>\`)
+
 
 ## About HED
 
