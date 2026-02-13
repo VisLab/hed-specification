@@ -5,6 +5,7 @@
 project = "HED specification"
 copyright = "2025, HED Working Group"
 author = "HED Working Group"
+version = "4.0"
 release = "4.0.0"
 
 
@@ -15,7 +16,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
-    "myst_parser",
     "sphinx_copybutton",
 ]
 
