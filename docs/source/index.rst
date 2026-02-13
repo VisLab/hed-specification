@@ -12,12 +12,9 @@ HED specification
    * `HED online tools <https://hedtools.org/hed>`_
 
 
-Welcome to the official specification for Hierarchical Event Descriptors (HED), a system for annotating events and experimental structure using controlled vocabularies.
-
-About HED
----------
-
-HED (Hierarchical Event Descriptors) is a system for annotating events and experimental structure using controlled vocabularies. The HED ecosystem includes:
+Welcome to the official specification for Hierarchical Event Descriptors (HED),
+a system for annotating events and experimental structure using controlled
+vocabularies. The HED ecosystem includes:
 
 - **Vocabularies** - Standardized terms organized in hierarchical schemas
 - **Annotation tools** - Software for creating and validating HED annotations
@@ -35,8 +32,6 @@ Specification contents
    :local:
    :depth: 2
 
-**Topics:**
-
 - HED system overview
 - Integration with neuroimaging standards
 - Schema vocabulary
@@ -49,8 +44,6 @@ Specification contents
 .. contents:: Chapter contents
    :local:
    :depth: 2
-
-**Topics:**
 
 - Character sets and restrictions
 - HED vocabulary terminology
@@ -65,8 +58,6 @@ Specification contents
    :local:
    :depth: 2
 
-**Topics:**
-
 - Schema format
 - HED string format
 - Sidecar format
@@ -79,8 +70,6 @@ Specification contents
 .. contents:: Chapter contents
    :local:
    :depth: 2
-
-**Topics:**
 
 - Annotation principles
 - Basic event markup
@@ -95,8 +84,6 @@ Specification contents
    :local:
    :depth: 2
 
-**Topics:**
-
 - Definitions
 - Temporal scope
 - Event structure
@@ -109,8 +96,6 @@ Specification contents
 .. contents:: Chapter contents
    :local:
    :depth: 2
-
-**Topics:**
 
 - HED tools overview
 - Validation services
@@ -125,8 +110,6 @@ Specification contents
    :local:
    :depth: 2
 
-**Topics:**
-
 - Library schema concept
 - Creating library schemas
 - Using library schemas
@@ -139,8 +122,6 @@ Specification contents
 .. contents:: Chapter contents
    :local:
    :depth: 2
-
-**Topics:**
 
 - Ontological foundations
 - Semantic relationships
@@ -166,3 +147,6 @@ Appendices
    08_HED_ontology
    Appendix_A
    Appendix_B
+
+
+* :ref:`genindex`

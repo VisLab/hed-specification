@@ -1,0 +1,45 @@
+{% extends "!base.html" %}
+
+{%- block scripts %}
+  {{ super() }}
+
+  <!-- OSA Chat Widget (HED Assistant)
+       Privacy Note: This widget sends page content to an external AI service when
+       allowPageContext is enabled. The widget provides contextual help for HEDTools documentation.
+       Data sent: Page text content, user questions
+       Service: OSA Chat Widget (osa-demo.pages.dev)
+  -->
+  <script>
+    // Widget instructions for HED Assistant
+    const widgetInstructions = `
+User is on the HED specification documentation and most likely has a question about
+rules for HED syntax of semantics. Use the pages on this site first, but also consider
+https://www.hedtags.org/hed-resources/HEDAnnotationSemantics.html.
+For errors, Appendix_B.html is useful.
+    `.trim().replace(/\s+$/gm, '');
+
+    // Define config before the widget script loads
+    window.osaChatConfig = {
+      communityId: 'hed',
+      title: 'HED Assistant',
+      initialMessage: 'Questions about HED rules and requirements? Ask me!',
+      placeholder: 'Questions about the HED specification?',
+      suggestedQuestions: [
+        'What are the basic syntax rules for HED?',
+        'How do definitions work in HED?',
+        'What errors have this HED error code?',
+        'How does tag grouping work?'
+      ],
+      widgetInstructions: widgetInstructions,
+      showExperimentalBadge: true,
+      allowPageContext: true,
+      pageContextDefaultEnabled: true
+    };
+  </script>
+  <script src="https://osa-demo.pages.dev/osa-chat-widget.js"
+    crossorigin="anonymous"
+    defer
+    onload="window.OSAChatWidget && window.OSAChatWidget.setConfig(window.osaChatConfig)">
+  </script>
+{%- endblock scripts %}
+
