@@ -5,8 +5,8 @@
 project = "HED specification"
 copyright = "2025, HED Working Group"
 author = "HED Working Group"
-release = "3.3.0"
-version = "3.3.0"
+release = "4.0.0"
+
 
 # -- General configuration ---------------------------------------------------
 extensions = [
@@ -15,7 +15,7 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.napoleon",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.todo",
+    "myst_parser",
     "sphinx_copybutton",
 ]
 
@@ -69,7 +69,6 @@ html_sidebars = {
         "sidebar/scroll-start.html",
         "sidebar/navigation.html",
         "quicklinks.html",
-        "sidebar/ethical-ads.html",
         "sidebar/scroll-end.html",
     ]
 }
@@ -81,44 +80,6 @@ autodoc_default_options = {
     "show-inheritance": True,
 }
 
-# -- Options for LaTeX output -----------------------------------------------
-latex_engine = "pdflatex"
-latex_elements = {
-    "papersize": "letterpaper",
-    "pointsize": "10pt",
-    "preamble": r"""
-        \usepackage[utf8]{inputenc}
-        \usepackage{fancyhdr}
-        \usepackage{graphicx}
-        \usepackage{longtable}
-        \usepackage{booktabs}
-        \usepackage{array}
-        \pagestyle{fancy}
-        \fancyhf{}
-        \fancyhead[L]{HED specification}
-        \fancyhead[R]{\thepage}
-        \renewcommand{\headrulewidth}{0.4pt}
-        \setcounter{tocdepth}{2}
-    """,
-    "fncychap": "\\usepackage[Bjornstrup]{fncychap}",
-    "printindex": "\\footnotesize\\raggedright\\printindex",
-    "extraclassoptions": "openany,oneside",
-    "babel": "\\usepackage[english]{babel}",
-}
-
-latex_documents = [
-    (
-        "index",
-        "HEDSpecification.tex",
-        "HED specification",
-        "HED Working Group",
-        "manual",
-    ),
-]
-
-latex_show_pagerefs = False
-latex_show_urls = "footnote"
-latex_use_xindy = False
 
 # -- MyST Configuration -----------------------------------------------------
 myst_enable_extensions = [
@@ -129,9 +90,6 @@ myst_enable_extensions = [
     "linkify",
     "replacements",
     "smartquotes",
-    "substitution",
-    "tasklist",
-    "attrs_inline",
 ]
 
 # Configure MyST to parse headings for navigation
