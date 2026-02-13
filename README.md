@@ -12,12 +12,12 @@ While HED can be used to annotate any type of data, the current HED community fo
 
 The HED schema represents the allowed vocabulary for use in annotation. The HED specification document specifies how tools should implement and validate various features of HED.
 
-| Specification<br>Version                            | Release date | Schema<br>versions | Description                                                       |
-| --------------------------------------------------- | ------------ | ------------------ | ----------------------------------------------------------------- |
-| 3.0.0                                               | Oct 27, 2022 | ≥ 8.0.0            | - First official release                                          |
-| 3.1.0                                               | Apr 5, 2023  | ≥ 8.0.0            | - Cleanup and clarification<br>- JSON unit tests keyed to errors. |
-| 3.2.0                                               | May 12, 2023 | ≥ 8.2.0            | - Inset tag<br>- Curly braces                                     |
-| 3.3.0                                               | Jul 5, 2024  | ≥ 8.2.0            | - Lazy partnering of libraries<br>- Specification of ontology format. |
+| Specification<br>Version | Release date | Schema<br>versions | Description                                                           |
+| ------------------------ | ------------ | ------------------ | --------------------------------------------------------------------- |
+| 3.0.0                    | Oct 27, 2022 | ≥ 8.0.0            | - First official release                                              |
+| 3.1.0                    | Apr 5, 2023  | ≥ 8.0.0            | - Cleanup and clarification<br>- JSON unit tests keyed to errors.     |
+| 3.2.0                    | May 12, 2023 | ≥ 8.2.0            | - Inset tag<br>- Curly braces                                         |
+| 3.3.0                    | Jul 5, 2024  | ≥ 8.2.0            | - Lazy partnering of libraries<br>- Specification of ontology format. |
 
 The first official release of the HED specification, HED specification 3.0.0, marked the separation of the versioning of the specification and the schema.
 
