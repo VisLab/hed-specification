@@ -542,6 +542,60 @@ class: tip
 
 See [property example](#a255-schema-properties) for an example in MediaWiki format.
 
+### A.1.6. Schema sources
+
+The schema sources section provides references to external resources used during schema development or that provide background information for schema terms. Each schema source entry includes a name, a link (URL), and a description of how the source was used or its relevance to the schema.
+
+Schema sources serve as documentation and attribution for the intellectual sources that informed the schema design. For example, the HED standard schema typically includes Wikipedia as a source, since many term descriptions and conceptual definitions are informed by or adapted from Wikipedia definitions. Other sources might include published ontologies, scientific literature, or technical standards documents.
+
+While schema sources are informational and do not affect validation or tool processing, they provide important provenance information for schema maintainers and users who need to understand the basis for schema terminology and organization. Each source has three components:
+
+- **Name**: A short identifier for the source (e.g., "Wikipedia", "NCIT")
+- **Link**: A URL pointing to the source resource
+- **Description**: A brief explanation of how the source was used or its relevance
+
+The schema sources were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward.
+
+### A.1.7. Schema prefixes
+
+The schema prefixes section defines namespace prefixes used for linking HED schema elements to external ontologies and controlled vocabularies. Each prefix entry associates a short prefix string (e.g., `dc:`, `ncit:`, `owl:`) with its full namespace IRI and provides a description of the ontology or vocabulary it represents.
+
+Schema prefixes are essential for the `annotation` schema attribute, which uses prefix notation to create links between HED elements and external ontology terms. For example, the annotation `ncit:C25499` uses the `ncit:` prefix to reference term C25499 in the NCI Thesaurus. Without the prefix definition, tools cannot resolve these references to their full IRIs.
+
+Each prefix entry has three required components:
+
+- **Name**: The prefix string including the colon separator (e.g., `dc:`, `foaf:`, `rdfs:`)
+- **Namespace**: The full IRI or URL for the ontology namespace
+- **Description**: A brief description of the ontology or vocabulary, often including standard references
+
+Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
+
+Schema prefixes were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
+
+### A.1.8. External annotations
+
+The external annotations section defines specific annotation properties that can be used to attach metadata to HED schema elements. Each external annotation entry specifies a property from an external ontology or vocabulary that is recognized for schema documentation and integration purposes.
+
+External annotations extend beyond the HED schema's internal structure to enable rich metadata using standard ontology properties. For example, Dublin Core properties like `dc:creator`, `dc:contributor`, and `dc:date` can be used to document authorship and provenance. Properties from the PROV ontology (`prov:`) support detailed provenance tracking. The Friend-of-a-Friend vocabulary (`foaf:`) enables linking to personal and organizational homepages.
+
+Each external annotation entry has four required components:
+
+- **Name**: The prefix identifying the ontology (must match a defined schema prefix)
+- **ID**: The local identifier for the property within its namespace
+- **IRI**: The full internationalized resource identifier for the property
+- **Description**: A clear explanation of the property's meaning and intended use
+
+External annotations serve multiple purposes:
+
+1. **Documentation**: Properties like `dc:description` and `dc:title` provide standardized ways to document schema elements
+2. **Provenance**: Properties like `dc:creator`, `dc:contributor`, and `dc:date` track authorship and version history
+3. **Cross-references**: Properties like `obogo:has_dbxref` enable systematic cross-referencing with external databases
+4. **Licensing**: Properties like `terms:license` formally declare usage rights
+
+The external annotations section works in conjunction with the schema prefixes section. Each annotation must use a prefix that is defined in the schema prefixes section. Tools can use external annotations to generate rich metadata, export schemas to RDF/OWL formats, and integrate HED with broader ontology frameworks.
+
+External annotations were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward.
+
 ## A.2. MediaWiki file format
 
 The rules for creating a valid `.mediawiki` specification of a HED schema are given below. The format is line-oriented, meaning that all information about an individual entity should be on a single line. Empty lines and lines containing only blanks are ignored.
@@ -562,8 +616,11 @@ unit-modifier-specification
 value-class-specification
 schema-attribute-specification
 property-specification
-!# end hed
 epilogue
+sources
+prefixes
+external-annotations
+!# end hed
 ```
 ````
 
@@ -637,7 +694,7 @@ The prologue is an optional paragraph of text appearing after the *header*. The 
 
 Early versions of HED use the prologue section to record a CHANGE_LOG as well as information about the syntax and rules. HED versions ≥ 8.0.0 include a separate change log file for released versions.
 
-Similar to the prologue section, the epilogue is an optional paragraph of text, usually containing references and license information. The epilogue appears directly before the ending line of the file.
+The epilogue is described in [Section A.2.5.6](#a256-epilogue) as part of the auxiliary sections that appear after the main schema specification.
 
 Both the prologue and epilogue may contain commas and new lines in addition to the characters specified by the [`textClass`](./Appendix_A.md#a13-value-classes).
 
@@ -704,7 +761,7 @@ The `Duration` tag of this example is at the fifth level below the root (top nod
 
 ### A.2.5. MediaWiki auxiliary sections
 
-After the line marking the end of the schema (`!# end schema`), the `.mediawiki` file contains the unit class definitions, unit modifier definitions, value class definitions, the schema attribute definitions, and property definitions. All of these sections are required starting with HED version 8.0.0 and must be given in this order.
+After the line marking the end of the schema (`!# end schema`), the `.mediawiki` file contains the unit class definitions, unit modifier definitions, value class definitions, the schema attribute definitions, property definitions, and optionally the epilogue, schema sources, schema prefixes, and external annotations sections. The first five sections are required starting with HED version 8.0.0 and must be given in that order. The optional sections (epilogue, sources, prefixes, and external annotations) follow after the properties section.
 
 #### A.2.5.1. Unit classes and units
 
@@ -757,30 +814,99 @@ Value classes give rules about what kind of value is allowed to be substituted f
 
 The schema attributes specify other characteristics about how particular tags may be used in annotation. These attributes allow validators and other tools to process tag strings based on the HED schema specification, thus avoiding hard-coding particular behavior.
 
-````{admonition} **Example:** HED schema attributes allowedChaaracter and defaultUnits in .mediawiki format.
+````{admonition} **Example:** HED schema attributes allowedCharacter and extensionAllowed in .mediawiki format.
 
 ```moin
 '''Schema attributes'''
-* allowedCharacter <nowiki>{valueClassProperty}[Value may contain this character.]</nowiki>
-* extensionAllowed <nowiki>{boolProperty}[This schema node may be extended.]</nowiki> 
+* allowedCharacter <nowiki>{valueClassDomain, stringRange}[A character that is allowed in the value of a placeholder that has this value class.]</nowiki>
+* extensionAllowed <nowiki>{tagDomain, boolRange}[This tag may be extended by user-defined terms.]</nowiki> 
 ```
 ````
 
-The schema attributes, themselves, have attributes referred to as*schema properties*. These schema properties are listed in the `Properties` section of the schema. The example indicates that `allowedCharacter` is associated with value classes, while `defaultUnits` is associated with unit classes.
+The schema attributes, themselves, have attributes referred to as *schema properties*. These schema properties are listed in the `Properties` section of the schema. The example indicates that `allowedCharacter` is associated with value classes (via `valueClassDomain`), while `extensionAllowed` applies to tags (via `tagDomain`).
 
 #### A.2.5.5. Schema properties
 
-Properties apply only to schema attributes. The following example defines the `valueClassProperty` in `.mediawiki` format.
+Properties apply only to schema attributes. The following example defines the `valueClassDomain` property in `.mediawiki` format.
 
-````{admonition} **Example:** HED schema property valueClassProperty in .mediawiki format.
+````{admonition} **Example:** HED schema property valueClassDomain in .mediawiki format.
 
 ```moin
 '''Properties''' 
-* valueClassProperty <nowiki>[Attribute is meant to be applied to value classes.]</nowiki> 
+* valueClassDomain <nowiki>{hedId=HED_0010713} [This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki> 
 ```
 ````
 
 See [Schema properties](#a15-schema-properties) for a list of available schema properties.
+
+#### A.2.5.6. Epilogue
+
+The epilogue section is marked by `'''Epilogue'''` and contains a text block with information about the schema license, attribution, and other metadata. The epilogue text appears on lines following the header without any special formatting markers. The epilogue may contain commas and extended characters as allowed for `textClass`.
+
+````{admonition} **Example:** HED schema epilogue in .mediawiki format.
+
+```moin
+'''Epilogue'''
+This schema is released under the Creative Commons Attribution 4.0 International and is a product of the HED Working Group. The DOI for the latest version of the HED standard schema is 10.5281/zenodo.7876037.
+```
+````
+
+#### A.2.5.7. Schema sources
+
+The schema sources section is marked by `'''Sources'''` and lists external resources used during schema development. Each source is specified on a single line at level 1 (one asterisk) with comma-separated name-value pairs in `<nowiki>` tags.
+
+````{admonition} **Example:** HED schema source in .mediawiki format.
+
+```moin
+'''Sources'''
+* <nowiki>source=Wikipedia,link=https://en.wikipedia.org,description=General definitions of concepts.</nowiki>
+```
+````
+
+Each source entry has three required components:
+
+- `source`: A short name for the source
+- `link`: A URL pointing to the source
+- `description`: A brief explanation of the source's relevance
+
+#### A.2.5.8. Schema prefixes
+
+The schema prefixes section is marked by `'''Prefixes'''` and defines namespace prefixes for ontology integration. Each prefix is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags.
+
+````{admonition} **Example:** HED schema prefixes in .mediawiki format.
+
+```moin
+'''Prefixes'''
+* <nowiki>prefix=dc:,namespace=http://purl.org/dc/elements/1.1/#,description=The Dublin Core elements</nowiki>
+* <nowiki>prefix=ncit:,namespace=http://purl.obolibrary.org/obo/ncit.owl,description=NCI Thesaurus OBO Edition</nowiki>
+```
+````
+
+Each prefix entry has three required components:
+
+- `prefix`: The prefix string including the colon (e.g., `dc:`)
+- `namespace`: The full IRI for the ontology namespace
+- `description`: A description of the ontology or vocabulary
+
+#### A.2.5.9. External annotations
+
+The external annotations section is marked by `'''External annotations'''` and defines annotation properties from external ontologies. Each annotation is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags.
+
+````{admonition} **Example:** HED external annotations in .mediawiki format.
+
+```moin
+'''External annotations'''
+* <nowiki>prefix=dc:,id=creator,iri=http://purl.org/dc/elements/1.1/creator,description=An entity primarily responsible for making the resource.</nowiki>
+* <nowiki>prefix=dc:,id=contributor,iri=http://purl.org/dc/elements/1.1/contributor,description=An entity responsible for making contributions to the resource.</nowiki>
+```
+````
+
+Each external annotation entry has four required components:
+
+- `prefix`: The ontology prefix (must be defined in the prefixes section)
+- `id`: The local identifier for the property
+- `iri`: The full IRI for the property
+- `description`: An explanation of the property's meaning
 
 ## A.3. XML file format
 
@@ -828,6 +954,24 @@ The XML schema file format has a header, prologue, main schema, definitions, and
 </propertyDefinitions>
 
 <epilogue>unique optional text blob</epilogue>
+
+<schemaSources>
+   <schemaSource> ... </schemaSource>
+                  ...
+   <schemaSource> ... </schemaSource>
+</schemaSources>
+
+<schemaPrefixes>
+   <schemaPrefix> ... </schemaPrefix>
+                  ...
+   <schemaPrefix> ... </schemaPrefix>
+</schemaPrefixes>
+
+<externalAnnotations>
+   <externalAnnotation> ... </externalAnnotation>
+                        ...
+   <externalAnnotation> ... </externalAnnotation>
+</externalAnnotations>
 </HED>
 ```
 ````
@@ -856,8 +1000,6 @@ Library schemas must include the `library` attribute with the library name in th
 The `library` and `version` values are used to form the official xml file name `HED_testlib_1.0.2.xml`. The file is found in [library_schemas/testlib/hedxml](https://github.com/hed-standard/hed-schemas/tree/main/library_schemas/testlib/hedxml) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
 Unknown header attributes are translated as attributes of the `HED` root node of the `.xml` version, but a warning is issued when the `.mediawiki` file is validated.
-
-The `library` and `version` values are used to form the official xml file name `HED_testlib_1.0.2.xml`.
 
 Library schemas may also be partnered as is `HED_testlib_2.0.0.xml`.
 
@@ -1053,16 +1195,39 @@ The `<schemaAttributeDefinitions>` section specifies the allowed attributes of t
 <schemaAttributeDefinitions>
     <schemaAttributeDefinition>
         <name>allowedCharacter</name>
-        <description>Value may contain this character.</description>
+        <description>A special character that is allowed in expressing the value of a placeholder of a specified value class.</description>
         <property>
-            <name>valueClassProperty</name>
+            <name>unitDomain</name>
+        </property>
+        <property>
+            <name>unitModifierDomain</name>
+        </property>
+        <property>
+            <name>valueClassDomain</name>
+        </property>
+        <property>
+            <name>stringRange</name>
+        </property>
+        <property>
+            <name>hedId</name>
+            <value>HED_0010304</value>
         </property>
     </schemaAttributeDefinition>
     <schemaAttributeDefinition>
-        <name>extensionAllowed</name>
-        <description>This schema node may be extended.</description>
+        <name>takesValue</name>
+        <description>This tag is a hashtag placeholder that is expected to be replaced with a user-defined value.</description>
         <property>
-            <name>boolProperty</name>
+            <name>tagDomain</name>
+        </property>
+        <property>
+            <name>boolRange</name>
+        </property>
+        <property>
+            <name>hedId</name>
+            <value>HED_0010503</value>
+        </property>
+        <property>
+            <name>annotationProperty</name>
         </property>
     </schemaAttributeDefinition>
     . . .
@@ -1072,7 +1237,7 @@ The `<schemaAttributeDefinitions>` section specifies the allowed attributes of t
 
 #### A.3.5.5. Schema properties
 
-The following is an example of the layout of the `valueClassProperty` in `.xml` format.
+The following is an example of the layout of the `valueClassDomain` in `.xml` format.
 
 ````{admonition} Example XML layout of the schema property definitions.
 ```xml
@@ -1080,14 +1245,107 @@ The following is an example of the layout of the `valueClassProperty` in `.xml` 
   <propertyDefinitions>
                   . . .
       <propertyDefinition>
-         <name>valueClassProperty</name>
-         <description>Indicates that the schema attribute is meant to be applied to value classes.</description>
+         <name>valueClassDomain</name>
+         <description>This schema attribute can apply to value classes. This property was formerly named valueClassProperty.</description>
+         <property>
+            <name>hedId</name>
+            <value>HED_0010713</value>
+         </property>
       </propertyDefinition>
    </propertyDefinitions>
 ```
 ````
 
 See [Schema properties](#a15-schema-properties) for a list of available schema properties.
+
+#### A.3.5.6. Epilogue
+
+The `<epilogue>` element contains optional text providing information about the schema license, attribution, and other metadata. It appears as a single child element of the root `<HED>` element.
+
+````{admonition} **Example:** XML layout of the epilogue section.
+```xml
+<epilogue>This schema is released under the Creative Commons Attribution 4.0 International and is a product of the HED Working Group. The DOI for the latest version of the HED standard schema is 10.5281/zenodo.7876037.</epilogue>
+```
+````
+
+#### A.3.5.7. Schema sources
+
+The `<schemaSources>` element contains one or more `<schemaSource>` child elements, each documenting an external resource used during schema development.
+
+````{admonition} **Example:** XML layout of the schema sources section.
+```xml
+<schemaSources>
+   <schemaSource>
+      <name>Wikipedia</name>
+      <link>https://en.wikipedia.org</link>
+      <description>General definitions of concepts.</description>
+   </schemaSource>
+</schemaSources>
+```
+````
+
+Each `<schemaSource>` element has three required child elements:
+
+- `<name>`: A short identifier for the source
+- `<link>`: A URL pointing to the source resource
+- `<description>`: A brief explanation of the source's relevance
+
+#### A.3.5.8. Schema prefixes
+
+The `<schemaPrefixes>` element contains one or more `<schemaPrefix>` child elements, each defining a namespace prefix for ontology integration.
+
+````{admonition} **Example:** XML layout of the schema prefixes section.
+```xml
+<schemaPrefixes>
+   <schemaPrefix>
+      <name>dc:</name>
+      <namespace>http://purl.org/dc/elements/1.1/#</namespace>
+      <description>The Dublin Core elements</description>
+   </schemaPrefix>
+   <schemaPrefix>
+      <name>ncit:</name>
+      <namespace>http://purl.obolibrary.org/obo/ncit.owl</namespace>
+      <description>NCI Thesaurus OBO Edition</description>
+   </schemaPrefix>
+</schemaPrefixes>
+```
+````
+
+Each `<schemaPrefix>` element has three required child elements:
+
+- `<name>`: The prefix string including the colon (e.g., `dc:`)
+- `<namespace>`: The full IRI for the ontology namespace
+- `<description>`: A description of the ontology or vocabulary
+
+#### A.3.5.9. External annotations
+
+The `<externalAnnotations>` element contains one or more `<externalAnnotation>` child elements, each defining an annotation property from an external ontology.
+
+````{admonition} **Example:** XML layout of the external annotations section.
+```xml
+<externalAnnotations>
+   <externalAnnotation>
+      <name>dc:</name>
+      <id>creator</id>
+      <iri>http://purl.org/dc/elements/1.1/creator</iri>
+      <description>An entity primarily responsible for making the resource.</description>
+   </externalAnnotation>
+   <externalAnnotation>
+      <name>dc:</name>
+      <id>contributor</id>
+      <iri>http://purl.org/dc/elements/1.1/contributor</iri>
+      <description>An entity responsible for making contributions to the resource.</description>
+   </externalAnnotation>
+</externalAnnotations>
+```
+````
+
+Each `<externalAnnotation>` element has four required child elements:
+
+- `<name>`: The ontology prefix (must be defined in the prefixes section)
+- `<id>`: The local identifier for the property
+- `<iri>`: The full IRI for the property
+- `<description>`: An explanation of the property's meaning
 
 ## A.4. JSON file format
 
@@ -1122,6 +1380,7 @@ The JSON schema file format is a nested structure representing the schema in Jav
   "value_classes": {...},
   "schema_attributes": {...},
   "properties": {...},
+  "sources": [...],
   "prefixes": [...],
   "external_annotations": [...]
 }
@@ -1297,18 +1556,101 @@ The `properties` section defines schema attribute properties in JSON format:
 ```json
 "properties": {
   "tagDomain": {
-    "description": "This schema attribute can apply to node (tag-term) elements.",
+    "description": "This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.",
     "hedId": "HED_0010704"
   },
   "boolRange": {
-    "description": "This schema attribute's value can be true or false.",
+    "description": "This schema attribute's value can be true or false. This property was formerly named boolProperty.",
     "hedId": "HED_0010702"
+  },
+  "valueClassDomain": {
+    "description": "This schema attribute can apply to value classes. This property was formerly named valueClassProperty.",
+    "hedId": "HED_0010713"
   }
 }
 ```
 ````
 
 See [Schema properties](#a15-schema-properties) for a list of available schema properties.
+
+#### A.4.5.6. Schema sources
+
+The `sources` section (optional) defines external resources used during schema development as an array of objects:
+
+````{admonition} Example JSON layout of schema sources.
+```json
+"sources": [
+  {
+    "name": "Wikipedia",
+    "link": "https://en.wikipedia.org",
+    "description": "General definitions of concepts."
+  }
+]
+```
+````
+
+Each source object has three required properties:
+
+- `name`: A short identifier for the source
+- `link`: A URL pointing to the source resource
+- `description`: A brief explanation of the source's relevance
+
+#### A.4.5.7. Schema prefixes
+
+The `prefixes` section (optional) defines namespace prefixes for ontology integration as an array of objects:
+
+````{admonition} Example JSON layout of schema prefixes.
+```json
+"prefixes": [
+  {
+    "name": "dc:",
+    "namespace": "http://purl.org/dc/elements/1.1/#",
+    "description": "The Dublin Core elements"
+  },
+  {
+    "name": "ncit:",
+    "namespace": "http://purl.obolibrary.org/obo/ncit.owl",
+    "description": "NCI Thesaurus OBO Edition"
+  }
+]
+```
+````
+
+Each prefix object has three required properties:
+
+- `name`: The prefix string including the colon (e.g., `dc:`)
+- `namespace`: The full IRI for the ontology namespace
+- `description`: A description of the ontology or vocabulary
+
+#### A.4.5.8. External annotations
+
+The `external_annotations` section (optional) defines annotation properties from external ontologies as an array of objects:
+
+````{admonition} Example JSON layout of external annotations.
+```json
+"external_annotations": [
+  {
+    "name": "dc:",
+    "id": "creator",
+    "iri": "http://purl.org/dc/elements/1.1/creator",
+    "description": "An entity primarily responsible for making the resource."
+  },
+  {
+    "name": "dc:",
+    "id": "contributor",
+    "iri": "http://purl.org/dc/elements/1.1/contributor",
+    "description": "An entity responsible for making contributions to the resource."
+  }
+]
+```
+````
+
+Each external annotation object has four required properties:
+
+- `name`: The ontology prefix (must be defined in the prefixes section)
+- `id`: The local identifier for the property
+- `iri`: The full IRI for the property
+- `description`: An explanation of the property's meaning
 
 ## A.5. TSV file format
 
@@ -1437,8 +1779,8 @@ Defines properties with data type ranges (string, numeric, boolean):
 ````{admonition} Example TSV DataProperty file layout.
 ```tsv
 hedId	rdfs:label	Type	omn:Domain	omn:Range	Properties	dc:description
-HED_0010304	allowedCharacter	DataProperty	HedUnit or HedValueClass	string	unitDomain, valueClassDomain	A special character...
-HED_0010311	SIUnit	DataProperty	HedUnit	boolean	unitDomain, boolRange	This unit element is an SI unit...
+HED_0010304	allowedCharacter	DataProperty	HedUnit or HedUnitModifier or HedValueClass	string	unitDomain, unitModifierDomain, valueClassDomain, stringRange	A special character...
+HED_0010305	conversionFactor	DataProperty	HedUnit or HedUnitModifier	float	unitDomain, unitModifierDomain, numericRange	The factor to multiply...
 ```
 ````
 
@@ -1473,36 +1815,69 @@ The AttributeProperty file defines the schema attribute properties (formerly cal
 ````{admonition} Example TSV AttributeProperty file layout.
 ```tsv
 hedId	rdfs:label	Type	dc:description
-HED_0010704	tagDomain	AnnotationProperty	This schema attribute can apply to node elements...
-HED_0010702	boolRange	AnnotationProperty	This schema attribute's value can be true or false...
+HED_0010704	tagDomain	AnnotationProperty	This schema attribute can apply to node (tag-term) elements. This was added so attributes could apply to multiple types of elements. This property was formerly named nodeProperty.
+HED_0010702	boolRange	AnnotationProperty	This schema attribute's value can be true or false. This property was formerly named boolProperty.
+HED_0010713	valueClassDomain	AnnotationProperty	This schema attribute can apply to value classes. This property was formerly named valueClassProperty.
 ```
 ````
 
-### A.5.11. TSV prefixes and annotations
+### A.5.11. TSV sources, prefixes, and annotations
 
-#### A.5.11.1. Prefixes file
+The TSV format includes separate files for schema sources, namespace prefixes, and external annotation properties.
+
+#### A.5.11.1. Sources file
+
+Defines external resources used during schema development:
+
+````{admonition} Example TSV Sources file layout.
+```tsv
+source	link	description
+Wikipedia	https://en.wikipedia.org	General definitions of concepts.
+```
+````
+
+Each row has three required columns:
+
+- `source`: A short name for the source
+- `link`: A URL pointing to the source
+- `description`: A brief explanation of the source's relevance
+
+#### A.5.11.2. Prefixes file
 
 Defines namespace prefixes used for external ontology references:
 
 ````{admonition} Example TSV Prefixes file layout.
 ```tsv
-hedId	rdfs:label	omn:Namespace	dc:description
-HED_0010901	dc:	http://purl.org/dc/elements/1.1/	Dublin Core Metadata Element Set Version 1.1
-HED_0010902	dcterms:	http://purl.org/dc/terms/	DCMI Metadata Terms
+prefix	namespace	description
+dc:	http://purl.org/dc/elements/1.1/#	The Dublin Core elements
+ncit:	http://purl.obolibrary.org/obo/ncit.owl	NCI Thesaurus OBO Edition
 ```
 ````
 
-#### A.5.11.2. External annotations file
+Each row has three required columns:
+
+- `prefix`: The prefix string including the colon (e.g., `dc:`)
+- `namespace`: The full IRI or URL for the ontology namespace
+- `description`: A description of the ontology or vocabulary
+
+#### A.5.11.3. External annotations file
 
 Defines external annotation properties that can be used:
 
 ````{admonition} Example TSV AnnotationPropertyExternal file layout.
 ```tsv
-hedId	rdfs:label	dc:identifier	dc:description
-HED_0010903	dc:creator	http://purl.org/dc/elements/1.1/creator	An entity primarily responsible...
-HED_0010904	dc:description	http://purl.org/dc/elements/1.1/description	An account of the resource
+prefix	id	iri	description
+dc:	creator	http://purl.org/dc/elements/1.1/creator	An entity primarily responsible for making the resource.
+dc:	contributor	http://purl.org/dc/elements/1.1/contributor	An entity responsible for making contributions to the resource.
 ```
 ````
+
+Each row has four required columns:
+
+- `prefix`: The ontology prefix (must be defined in the Prefixes file)
+- `id`: The local identifier for the property
+- `iri`: The full IRI for the property
+- `description`: An explanation of the property's meaning
 
 ### A.5.12. TSV format conventions
 
