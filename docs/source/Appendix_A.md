@@ -327,68 +327,118 @@ header-rows: 1
 
 #### A.1.4.1. allowedCharacter
 
-The `allowedCharacter` attribute should appear separately for each individual character to be allowed. However, the following group designations are allowed as values for this attribute:
+The `allowedCharacter` attribute specifies individual characters or character groups that are allowed in values of a value class, unit class, or unit modifier. This attribute determines what characters can be used when values are substituted for placeholders or when units are specified. Each allowed character should have a separate `allowedCharacter` attribute entry in the schema. The following group designations are allowed as shorthand values:
 
-- `letters` designates upper and lower case alphabetic characters.
-- `blank` indicates a space is an allowed character.
+- `letters` designates upper and lower case alphabetic characters (A-Z, a-z).
+- `blank` indicates a space character is allowed.
 - `digits` indicates the digits 0-9 may be used in the value.
-- `alphanumeric` indicates `letters` and `digits`
+- `alphanumeric` indicates both `letters` and `digits`.
+
+For example, the `numericClass` value class includes `allowedCharacter` entries for `digits`, `E`, `e`, `+`, `-`, and `.` to support scientific notation and signed decimal numbers. The union of all `allowedCharacter` values for a value class defines the complete set of permissible characters.
 
 #### A.1.4.2. annotation
 
+The `annotation` attribute provides a link from a HED schema element to a corresponding term in an external ontology or controlled vocabulary. This attribute, added in version 8.3.0, enables semantic interoperability and allows HED to integrate with broader ontological frameworks. The attribute value uses a standard prefix notation format (e.g., `ncit:C25499` for an NCI Thesaurus term, where `ncit` is the ontology prefix and `C25499` is the term identifier). These cross-references support linked data applications, ontology mapping, and semantic reasoning tools. Multiple `annotation` attributes can be used to link a single HED element to terms in multiple external ontologies.
+
 #### A.1.4.3. conversionFactor
 
-The value of `conversionFactor` is the factor to multiply by the current units to convert to default units. (Added in version 8.1.0.). The `conversionFactor` value must be numeric and positive.
+The `conversionFactor` attribute specifies the multiplicative factor needed to convert a unit or unit modifier to the default units of its unit class. This attribute was added in version 8.1.0 to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
 
 #### A.1.4.4. defaultUnits
 
-If placeholder (`#`) has a `unitClass`, but the replacement value for the placeholder does not have units, tools may assume the value has `defaultUnits` if the unit class has them. For example, the `timeUnits` has the attribute `defaultUnits=s` in HED versions. Tools may assume that tag `Duration/3` is equivalent to `Duration/3 s` because `Duration` has `defaultUnits` of `s`.
+The `defaultUnits` attribute specifies which unit should be assumed when a value is provided without explicit units for a placeholder that has a `unitClass` attribute. This attribute is applied to unit classes rather than individual tags. For example, the `timeUnits` class has the attribute `defaultUnits=s` (seconds). When a user provides a tag like `Duration/3` without units, tools interpret this as `Duration/3 s` because the `Duration` tag's `#` placeholder has `unitClass=timeUnits`, which has `defaultUnits=s`. This feature improves annotation convenience while maintaining unambiguous interpretation. The `defaultUnits` does not affect validation, but may be used by downstream tools.
 
 #### A.1.4.5. deprecatedFrom
 
-The `deprecatedFrom` attribute value takes a value that must be an existing semantic schema version earlier than the current version. Since `deprecatedFrom` has the `elementProperty`, it may be applied to any element in the schema. It is an error for the schema to use an element that has the `deprecatedFrom` attribute in a non-deprecated context. For example, if a tag has the `deprecatedFrom` attribute, then that tag may not appear as a `suggestedTag` or `relatedTag`. Deprecated schema attributes, units, unit modifiers, or value classes cannot be applied except to elements that are deprecated. In addition, the children of a deprecated tag must be deprecated or moved to a parent that is not deprecated.
+The `deprecatedFrom` attribute indicates that a schema element is deprecated (no longer recommended for use) and specifies the schema version from which deprecation began. The attribute value must be a valid semantic schema version that is earlier than the current schema version. Since `deprecatedFrom` can be applied to any element type (tags, units, unit classes, schema attributes, etc.), it provides a comprehensive deprecation mechanism. Deprecated elements remain in the schema for backward compatibility but are subject to strict usage rules:
+
+- Deprecated tags cannot appear as values in `suggestedTag` or `relatedTag` attributes of non-deprecated tags.
+- Deprecated schema attributes, units, unit modifiers, or value classes cannot be applied to non-deprecated elements.
+- Child tags of deprecated tags must themselves be deprecated unless they are moved to a non-deprecated parent.
+
+Validators should issue warnings when deprecated elements are encountered in annotations, helping users transition to preferred alternatives.
 
 #### A.1.4.6. extensionAllowed
 
-The `extensionAllowed` tag indicates that descendents of this node may be extended by annotators. However, any node that has a placeholder (`#`) child cannot be extended, regardless of the `extensionAllowed` attribute, since the node's single child is always interpreted as a user-supplied value.
+The `extensionAllowed` attribute indicates that annotators may add unlimited levels of child nodes (extensions) under this tag without validation errors. This attribute enables domain-specific customization and extension of the HED vocabulary beyond the terms explicitly defined in the schema. When a tag has `extensionAllowed`, validators will accept any child path extensions provided they follow HED naming conventions. The attribute is typically propagated to child nodes in the schema, allowing extensions at any level of the subtree. However, nodes that have a placeholder (`#`) child cannot be extended, regardless of the `extensionAllowed` attribute, since the `#` placeholder indicates the node takes a user-supplied value rather than extended taxonomy terms. For example, if `Property` has `extensionAllowed`, then `Property/My-custom-property` is valid even though `My-custom-property` is not in the schema.
 
 #### A.1.4.7. hedId
 
+The `hedId` attribute provides a unique identifier for each element in the HED namespace. This identifier remains stable across schema versions and is used to track elements when names change or elements are restructured. The `hedId` format follows a structured pattern (e.g., `HED_0012001`) that categorizes elements by type. These identifiers are essential for maintaining references to HED elements in ontologies, linked data representations, and cross-version mappings. Tools use `hedId` values to maintain consistency when schemas evolve.
+
+A `hedId` value is the prefix `HED_` followed by a 7 digit integer. The standard schema occupies an ID range [0010000, 0039999]. Each library schema is assigned its own range of 20000 identifiers when the library is officially created. The assignment list is kept in the [library_data.json](https://raw.githubusercontent.com/hed-standard/hed-schemas/refs/heads/main/library_data.json) file in the [hed-standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository. Structural elements have their own ID range. For more information, see the section [8.3.2 Ontology Namespace](./08_HED_ontology.md#832-ontology-namespace).
+
 #### A.1.4.8. inLibrary
+
+The `inLibrary` attribute indicates that a schema element originates from a named library schema rather than the standard schema. The attribute value is the library name in lowercase (e.g., `inLibrary=testlib`). This attribute is automatically added by tools during the schema merging process when a partnered library schema is merged with a standard schema. In unmerged library schemas, nodes cannot have the `inLibrary` attribute. The attribute helps tools and validators track the provenance of schema elements when multiple schemas are combined and ensures proper validation against the original library schema definitions. Users should not manually add this attribute to the schema as it is managed automatically by tools.
 
 #### A.1.4.9. isPartOf
 
+The `isPartOf` attribute indicates a hierarchical or compositional relationship where the current tag is semantically considered part of another tag. This attribute, added in version 8.3.0, helps define ontological relationships beyond the structural hierarchy of the schema tree. The value of `isPartOf` must be a valid node in the schema. This relationship can be used by tools for semantic reasoning and for identifying related concepts that may not share a direct parent-child relationship in the schema tree structure.
+
 #### A.1.4.10. relatedTag
+
+The `relatedTag` attribute specifies a HED tag that is closely related to the current tag. The value must be an existing valid tag in the schema. This attribute helps tagging tools provide context and suggestions to users by identifying semantically related concepts. For example, tags describing related sensory modalities or complementary experimental conditions might reference each other. A tag cannot have `relatedTag` values that reference deprecated tags. The relationship is informational and does not impose validation constraints on annotations.
 
 #### A.1.4.11. requireChild
 
+The `requireChild` attribute indicates that a tag must have at least one child tag when used in an annotation. This attribute enforces structural requirements to ensure annotations are sufficiently specific. For example, a general category tag with `requireChild` cannot be used alone; users must select a more specific descendant. If a tag with the `requireChild` attribute appears without a child in an annotation, a [TAG_REQUIRES_CHILD](./Appendix_B.md#tag_requires_child) error is generated. This attribute helps maintain annotation quality by preventing overly generic tags from being used when more specific information is required. The `requireChild` attribute is also used for certain tags with placeholder children, such as `Delay`, which are not meaningful without a value.
+
 #### A.1.4.12. reserved
+
+The `reserved` attribute indicates that a tag has special meaning within the HED framework and requires special handling by tools. Reserved tags define fundamental HED structures and behaviors that tools must recognize and process according to specific rules. Examples include tags like `Definition`, `Onset`, `Offset`, `Inset`, and `Event-context` which control temporal event structure, definitions, and event organization. Tools must hardcode logic for handling reserved tags, and their behavior cannot be modified through schema attributes alone. The `reserved` attribute ensures these structural elements are protected from misuse.
 
 #### A.1.4.13. rooted
 
+The `rooted` attribute specifies where a library schema node should be placed in the standard schema hierarchy during the merging process. The attribute value (e.g., `rooted=Statistical-value`) must be a valid node name in the partnered standard schema. In an unmerged library schema, nodes with the `rooted` attribute must be top-level tags. During merging, these nodes are relocated to appear directly under the specified standard schema node, allowing library-specific terms to be integrated into the appropriate standard schema hierarchy. This mechanism enables library schemas to extend standard schema branches logically while maintaining separate development and versioning.
+
 #### A.1.4.14. SIUnit
+
+The `SIUnit` attribute indicates that a unit is an International System of Units (SI) unit and can be modified with SI unit prefixes (multiples and sub-multiples). Units with this attribute can be combined with modifiers like `kilo`, `mega`, `milli`, `micro`, etc. If a unit has the `SIUnit` attribute but not the `unitSymbol` attribute, it is modified using `SIUnitModifier` modifiers (e.g., `second` can become `kilosecond`, `millisecond`). If a unit has both `SIUnit` and `unitSymbol` attributes, it is modified using `SIUnitSymbolModifier` modifiers instead (e.g., `s` becomes `ks`, `ms`). The attribute enables consistent expression of scaled measurements.
 
 #### A.1.4.15. SIUnitModifier
 
+The `SIUnitModifier` attribute identifies a unit modifier that can be applied to SI base units (those with the `SIUnit` attribute but not the `unitSymbol` attribute). These modifiers represent powers of 10 for scaling units and include prefixes like `kilo` (10³), `mega` (10⁶), `milli` (10⁻³), and `micro` (10⁻⁶). For example, the modifier `kilo` with `SIUnitModifier` can be applied to `second` to create `kilosecond`. These modifiers can be pluralized following standard English rules, so both `kiloseconds` and `kilosecond` are valid. SI unit modifiers must only appear in the unit modifier section of the schema.
+
 #### A.1.4.16. SIUnitSymbolModifier
+
+The `SIUnitSymbolModifier` attribute identifies a unit modifier that can be applied to SI unit symbols (units with both `SIUnit` and `unitSymbol` attributes). These are single-letter or abbreviated prefix symbols such as `k` (kilo), `M` (mega), `m` (milli), and `u` (micro). For example, the modifier `k` can be applied to the unit symbol `s` to create `ks` (kiloseconds). Unlike `SIUnitModifier` modifiers, symbol modifiers are case-sensitive (`M` for mega vs. `m` for milli) and cannot be pluralized. Unit symbol modifiers must only appear in the unit modifier section of the schema.
 
 #### A.1.4.17. suggestedTag
 
+The `suggestedTag` attribute specifies one or more HED tags that tagging tools might suggest to users when the current tag is used. The attribute values must be valid existing tags in the schema (or in the merged schema for partnered library schemas). This attribute is intended to help annotators by prompting them to consider related tags that often co-occur or provide complementary information. For example, a sensory event tag might suggest task-related tags. Suggested tags are informational hints for tools and do not impose validation requirements. A tag cannot use deprecated tags as `suggestedTag` values.
+
 #### A.1.4.18. tagGroup
+
+The `tagGroup` attribute indicates that a tag must appear within a tag group (enclosed in parentheses) and cannot be used as a standalone tag. This attribute enforces structural requirements for tags that only make sense in association with other tags. For example, temporal offset tags or relational tags might require grouping to establish their context. If a tag with the `tagGroup` attribute appears outside parentheses, a [TAG_GROUP_ERROR](./Appendix_B.md#tag_group_error) error is generated. This attribute ensures proper semantic grouping and prevents tags from being used in isolation when their meaning depends on association.
 
 #### A.1.4.19. takesValue
 
+The `takesValue` attribute indicates that a node represents a placeholder (`#`) that must be replaced by a user-defined value during annotation. This attribute can only be applied to `#` placeholder nodes. The value that replaces the placeholder must conform to any `valueClass` restrictions (e.g., `numericClass`, `textClass`, `dateTimeClass`) and, if a `unitClass` is specified, may include valid units from that class. Tags with `takesValue` provide a mechanism for annotators to specify measurements, labels, identifiers, and other variable information. The actual schema node that is the parent of the `#` placeholder is said to "take a value."
+
 #### A.1.4.20. topLevelTagGroup
+
+The `topLevelTagGroup` attribute indicates that a tag must appear in a top-level tag group (not nested within other groups) in an assembled HED annotation. Only one tag with the `topLevelTagGroup` attribute may appear in the same top-level group, with the exception that `Duration` and `Delay` may coexist. This attribute is typically associated with tags that have special structural meaning, such as `Definition`, `Onset`, `Offset`, `Inset`, and `Event-context`. The restriction to top-level groups ensures these structural elements are properly positioned for tool processing and prevents nested definitions or temporal event structures.
 
 #### A.1.4.21. unique
 
+The `unique` attribute indicates that a tag or its descendants can appear only once in a HED string. This constraint is checked after all definitions are expanded and column-based annotations are assembled into a complete event annotation. If a tag with the `unique` attribute appears multiple times, a [TAG_NOT_UNIQUE](./Appendix_B.md#tag_not_unique) error is generated. The `Event-context` is one of the few tags that has the `unique` attribute.
+
 #### A.1.4.22. unitClass
+
+The `unitClass` attribute specifies which unit class the value of a placeholder (`#`) node can belong to. The attribute value must be a valid unit class defined in the schema (e.g., `timeUnits`, `physicalLengthUnits`, `frequencyUnits`). When a `unitClass` is specified, the value substituted for the placeholder may include units from that class, and validators will check that any units provided are valid members of the specified unit class. If the replacement value has no units and the unit class has `defaultUnits` defined, tools may assume those default units. The `unitClass` attribute can only be applied to `#` placeholder nodes.
 
 #### A.1.4.23. unitPrefix
 
+The `unitPrefix` attribute indicates that a unit appears before its corresponding value rather than after it in annotations. Most units in HED appear after their values (e.g., `3 s`, `5 meters`), but certain units like currency symbols conventionally precede values (e.g., `$ 50`). Units with the `unitPrefix` attribute follow this reversed ordering convention. HED parsers recognize these prefix units and handle them appropriately during validation and processing. Even though prefix units appear before values, they are still separated from the value by a single space. Note: The `unitPrefix` attribute is being deprecated and should not be used in new schemas. It was introduced mainly for the dollar sign (`$`), and users should use the full unit name `dollar` instead.
+
 #### A.1.4.24. unitSymbol
 
+The `unitSymbol` attribute indicates that a unit represents an abbreviated symbolic form rather than a full unit name. Unit symbols are typically single letters or short abbreviations (e.g., `s` for second, `m` for meter, `Hz` for hertz) and follow international conventions. Unit symbols are case-sensitive and cannot be pluralized. When a unit has both the `SIUnit` and `unitSymbol` attributes, it can only be modified with `SIUnitSymbolModifier` modifiers (not `SIUnitModifier` modifiers). Unit symbols without the `SIUnit` attribute remain unmodifiable by SI prefixes.
+
 #### A.1.4.25. valueClass
+
+The `valueClass` attribute specifies the type of value that can be substituted for a placeholder (`#`) node. The attribute value must be a valid value class defined in the schema (e.g., `numericClass`, `textClass`, `nameClass`, `dateTimeClass`, `posixPath`). Each value class defines a set of allowed characters and format requirements. Multiple `valueClass` attributes may be applied to the same placeholder, and tools validate the substituted value against the union of allowed characters from all specified value classes. If no `valueClass` is specified, the placeholder is assumed to take `textClass` values. The `valueClass` attribute can only be applied to `#` placeholder nodes.
 
 #### A.1.4.x. Deprecated attributes
 
