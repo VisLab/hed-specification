@@ -298,7 +298,7 @@ header-rows: 1
 * - [`takesValue`](#a1419-takesvalue)
   - node
   - boolean 
-  - Placeholder (#)should be replaced by a value.  
+  - Placeholder (#) should be replaced by a value.  
 * - [`topLevelTagGroup`](#a1420-topleveltaggroup)
   - node
   - boolean     
