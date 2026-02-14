@@ -49,29 +49,19 @@ packages = []  # This is a documentation-only project, no Python packages
 "*" = ["*.md", "*.rst", "*.txt", "*.yaml", "*.yml"]
 
 [project.optional-dependencies]
-docs = [
-    "sphinx>=7.1.0,<8.2.0",
-    "furo>=2023.9.10",
-    "myst-parser>=3.0.0",
-    "sphinx-design>=0.6.1",
-    "sphinx-copybutton>=0.5.2",
-    "linkify-it-py>=2.0.3",
-]
-quality = [
-    "linkchecker>=10.0.0",
-    "codespell>=2.0.0",
-]
 dev = [
-    # Documentation dependencies (from docs group)
-    "sphinx>=7.1.0",
-    "furo>=2023.9.10",
+    # Documentation dependencies
+    "sphinx>=7.1.0,<10.0.0",
+    "furo>=2024.1.29",
     "myst-parser>=3.0.0",
-    "sphinx-design>=0.6.1",
     "sphinx-copybutton>=0.5.2",
     "linkify-it-py>=2.0.3",
-    # Quality/dev dependencies (from quality group)
-    "linkchecker>=10.0.0",
-    "codespell>=2.0.0",
+    # Quality/development tools
+    "codespell>=2.2.0",
+    "ruff>=0.8.0",
+    "black[jupyter]>=26.1.0",
+    "mdformat>=0.7.0",
+    "mdformat-myst>=0.1.5",
 ]
 
 [project.urls]
