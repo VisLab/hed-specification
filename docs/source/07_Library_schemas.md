@@ -208,7 +208,7 @@ entry might be added to the standard schema instead.
 
 ## 7.4. Library schema design
 
-Library schema should be developed and maintained in MediaWiki format for readability. Developers should always validate the schema before converting to XML. Only validated versions of the schema should be uploaded to the GitHub [hed-schemas](https://github.com/) repository. More information about the development process is contained in the [HED schema developers guide](https://www.hedtags.org/hed-resources/HedSchemaDevelopersGuide.html).
+Library schema should be developed and maintained in MediaWiki format for readability. Developers should always validate the schema before converting to XML. Only validated versions of the schema should be uploaded to the GitHub [hed-schemas](https://github.com/hed-standard/hed-schemas) repository. More information about the development process is contained in the HED [Schema developers guide](https://www.hedtags.org/hed-schemas/developer_guide.html).
 
 ### 7.4.1. General design rules
 
