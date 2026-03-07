@@ -7,7 +7,6 @@ max_concurrency = 8
 exclude_all_private = false
 exclude_loopback = true
 exclude_link_local = true
-exclude_mail = false
 
 # Exclude specific problematic URLs and patterns
 exclude = [
