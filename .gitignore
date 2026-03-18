@@ -3,9 +3,6 @@ site/
 .idea
 venvs
 
-# Copilot instructions (user-specific)
-.github/copilot-instructions.md
-
 pdf_build_src/bids-spec.pdf
 pdf_build_src/src_copy
 
@@ -141,6 +138,9 @@ venv.bak/
 
 # mkdocs documentation
 /site
+
+# ruff
+.ruff_cache/
 
 # mypy
 .mypy_cache/
