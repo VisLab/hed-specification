@@ -400,7 +400,7 @@ In the MediaWiki format, schema attributes appear in the `Schema Attributes` sec
 Note: this example has line breaks added to fit on the page. Each element in MediaWiki must appear on one line.
 ````
 
-The `extensionAllowed` attribute has a unique `hedId` value `HED_0010307`. The `tagDomain` attribute indicates that `extensionAllowed` is only a schema attribute of HED tags. The `boolRange` attribute indicates that `extenstionAllowed` is true if present and false if absent.
+The `extensionAllowed` attribute has a unique `hedId` value `HED_0010307`. The `tagDomain` attribute indicates that `extensionAllowed` is only a schema attribute of HED tags. The `boolRange` attribute indicates that `extensionAllowed` is true if present and false if absent.
 
 #### 8.2.3.5. XML attribute format
 
@@ -455,7 +455,7 @@ Similarly, the HED `ObjectProperty` entities map an entity (Domain) into another
 
 ````{admonition} **Example** HED Manchester OWL syntax for rooted.
 ```text
-bjectProperty: hed:HED_0010106
+ObjectProperty: hed:HED_0010106
 	Annotations:
 		dc:description "A tag that is often associated with this tag. This attribute is used by tagging tools to provide tagging suggestions.",
 		rdfs:label "suggestedTag",
