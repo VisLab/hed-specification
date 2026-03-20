@@ -10,24 +10,43 @@ exclude_link_local = true
 
 # Exclude specific problematic URLs and patterns
 exclude = [
-    # NPM registry (often blocks automated checkers)
-    "https://www.npmjs.com/.*",
-    "https://npmjs.com/.*", 
-    "https://registry.npmjs.org/.*",
-    # ScienceDirect articles (from original .lycheeignore)
-    "https://www.sciencedirect.com/science/article/pii/S1053811921010387",
-    "https://www.sciencedirect.com/science/article/pii/S0010945221001106",
-    "https://www.sciencedirect.com/science/article/pii/S1388245717309069",
+    # NPM registry (blocks automated checkers)
+    'https://www.npmjs.com/.*',
+    'https://npmjs.com/.*',
+    'https://registry.npmjs.org/.*',
+    # ScienceDirect articles (require authentication/cookies)
+    'https://www.sciencedirect.com/science/article/pii/S1053811921010387',
+    'https://www.sciencedirect.com/science/article/pii/S0010945221001106',
+    'https://www.sciencedirect.com/science/article/pii/S1388245717309069',
+    # INCF links (certificate/network issues)
+    '^https?://.*\.incf\.org/',
+    '^https?://incf\.org/',
+    # DOI links that return 403 but work in browsers
+    '^https?://doi\.org/10\.1111/epi\.18113',
+    # NPM HED validator package (blocks automated requests)
+    '^https?://.*\.npmjs\.com/package/hed-validator',
+    # MathWorks links (blocks automated requests)
+    '^https?://.*\.mathworks\.com/',
+    # Brain Meeting poster links (expired/removed)
+    '^https?://brainmeeting.*\.ipostersessions\.com/',
+    '^https?://globalbrainconsortium\.org/documents/GBC_March-2023_Agenda_Annual_Meeting\.pdf',
+    # CANCTA network links (authentication/access issues)
+    '^https?://.*\.cancta\.net/',
+    '^https?://cancta\.net/',
+    # GitHub discussions (programmatic access blocked)
+    '^https?://github\.com/hed-standard/hed-python/discussions',
+    # HED tools services (programmatic access blocked)
+    '^https?://hedtools\.org/hed/services_submit',
     # Localhost and local development URLs
-    "http://localhost.*",
-    "http://127.0.0.1.*",
-    "https://localhost.*",
+    'http://localhost.*',
+    'http://127\.0\.0\.1.*',
+    'https://localhost.*',
+    '^file://',
     # GitHub edit links that may not exist
-    ".*/edit/.*",
+    '.*/edit/.*',
     # Static files and build artifacts
-    ".*/html/_static/.*",
-    ".*/_build/.*",
-    # Anchor patterns from original config
-    ".*anchor.*",
-    ".*#.*"
+    '.*/html/_static/.*',
+    '.*/_build/.*',
+    # Internal anchor false positives
+    '.*(_anchor|-anchor).*',
 ]

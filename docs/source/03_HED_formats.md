@@ -883,7 +883,7 @@ The following rules govern how tags should be grouped:
 5. **Reserved tags** - Reserved tags have special rules for grouping and location in an annotation.
 
    - Tags: `Definition`, `Def`, `Def-expand`, `Onset`, `Inset`, `Offset`, `Duration`, `Event-context`
-   - See: [3.2.8. Special tags](./03_HED_formats.md#3-2-8-special-tags) and [3.3.5. Temporal semantics](./03_HED_formats.md#3-3-3-temproal-semantics) for details of the specification.
+   - See: [3.2.8. Special tags](./03_HED_formats.md#3-2-8-special-tags) and [3.3.5. Temporal semantics](./03_HED_formats.md#3-3-3-temporal-semantics) for details of the specification.
    - See: [5. Advanced Annotation](./05_Advanced_annotation.md) for example usage.
 
 See [TAG_GROUP_ERROR](./Appendix_B.md#tag-group-error) for validation errors related to grouping.

@@ -57,7 +57,7 @@ dev = [
     "sphinx-copybutton>=0.5.2",
     "linkify-it-py>=2.0.3",
     # Quality/development tools
-    "codespell>=2.2.0",
+    "typos>=1.29.0",
     "ruff>=0.8.0",
     "mdformat>=0.7.0",
     "mdformat-myst>=0.1.5",
@@ -73,9 +73,29 @@ Changelog = "https://github.com/hed-standard/hed-specification/blob/main/CHANGEL
 "HED Resources" = "https://www.hedtags.org/hed-resources"
 
 # Tool configurations
-[tool.codespell]
-skip = ".git,*.pdf,*.svg,deprecated,*.xml,*.mediawiki,*.omn,*.json,*.html,*.js,*.css,*.png,*.jpg,.venv/*,docs/_build/*,docs/source/_static/*,hedspec/*,tests/*"
-ignore-words-list = "covert,hed,recuse,disjointness"
-check-filenames = true
-check-hidden = true
-quiet-level = 2
+[tool.typos.files]
+extend-exclude = [
+    "*.pdf",
+    "*.svg",
+    "*.xml",
+    "*.mediawiki",
+    "*.omn",
+    "*.json",
+    "*.html",
+    "*.js",
+    "*.css",
+    "*.png",
+    "*.jpg",
+    "deprecated/",
+    ".venv/",
+    "docs/_build/",
+    "docs/source/_static/",
+    "hedspec/",
+    "tests/",
+]
+
+[tool.typos.default.extend-words]
+covert = "covert"
+hed = "hed"
+recuse = "recuse"
+disjointness = "disjointness"
