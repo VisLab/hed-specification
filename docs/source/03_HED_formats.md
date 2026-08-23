@@ -58,6 +58,8 @@ Schemas are combined by **merge group**: the schemas listed without a namespace 
 | Element compatibility | An element (tag, unit class, unit, or schema attribute) appearing in more than one schema of a merge group must have the same attribute values, the same description, and the same ancestor path in each schema. |
 | Element compatibility | An element appearing in more than one schema of a merge group must either have a `#` child in all of them, or in none of them.                                                                                   |
 | Element compatibility | A shared element can have different non-`#` children, but the compatibility rules apply to shared children in the same way.                                                                                      |
+| Element compatibility | The `inLibrary` bookkeeping attribute is excluded from the comparison of attribute values: an element contributed by different library schemas necessarily carries a different `inLibrary` value in each library's merged schema. |
+| Element compatibility | An element contributed by more than one library schema of a merge group carries the `inLibrary` attribute of each contributing library in the merged result.                                                     |
 | Auxiliary sections    | Partnered library schemas can specify schema attributes or properties.                                                                                                                                           |
 | Auxiliary sections    | New library schema unit classes and their accompanying units are merged directly.                                                                                                                                |
 | Auxiliary sections    | New library schema units under an existing unit class are merged if there are no conflicts.                                                                                                                      |
@@ -88,6 +90,7 @@ Here is a summary of the types of changes that correspond to different levels of
 | New unit class added to node.                   | Minor          |
 | New value class added to node.                  | Minor          |
 | Node moved in schema without change in meaning. | Minor          |
+| Standard schema partner version changed.        | Minor          |
 | Revision of description field in schema.        | Patch          |
 | Correction of suggestedTag or relatedTag.       | Patch          |
 
