@@ -88,7 +88,7 @@ Notice that the indentation asterisks (\*) indicate that the node's children are
                        . . .
 **** Data-minimum <nowiki>[The smallest possible quantity.]</nowiki>
 ***** <nowiki># {takesValue, valueClass=numericClass}</nowiki>
-**** Data-mode''' <nowiki>{inLibrary=testlib, rooted}[A value that occurs most often in data.]</nowiki>
+**** Data-mode <nowiki>{inLibrary=testlib, rooted}[A value that occurs most often in data.]</nowiki>
 ***** <nowiki># {takesValue, valueClass=numericClass, inLibrary=testlib}</nowiki>
 **** Probability <nowiki> [A measure of the expectation of the occurrence of a particular event.]</nowiki>
 ***** <nowiki># {takesValue, valueClass=numericClass}</nowiki>
@@ -189,7 +189,7 @@ entry might be added to the standard schema instead.
 
 #### 7.3.6.1. Schemas used in the examples
 
-The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). Each example mirrors a test case in that repository's `SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
+The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). Each example mirrors a test case in that repository's `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
 
 | Schema versions                                                  | Standard schema partner (`withStandard`) |
 | ---------------------------------------------------------------- | ---------------------------------------- |
