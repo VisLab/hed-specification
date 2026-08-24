@@ -28,10 +28,10 @@ The XML file corresponding to a partnered library schema is a single, unified sc
 
 This XML merged schema file is downloaded and used by tools. Downstream tools see a single schema and can process it with no special handling. The following example shows the XML header for merged TESTLIB library version 2.0.0.
 
-````{admonition} XML header for TESTLIB library 2.0.0 partnered with 8.2.0 (merged).
+````{admonition} XML header for TESTLIB library 2.0.0 partnered with 8.4.0 (merged).
 ```xml
 <?xml version="1.0" ?>
-<HED library="testlib" version="2.0.0" withStandard="8.2.0">
+<HED library="testlib" version="2.0.0" withStandard="8.4.0">
 
 ```
 ````
@@ -40,9 +40,9 @@ The canonical filename for this `.xml` file is `HED_testlib_2.0.0.xml`. This fil
 
 As with any HED schema, schema builders develop and maintain their schema in MediaWiki mark-down format and use tools to convert to XML. The schema developer's version is unmerged, containing only the information specific to the library schema. The following example shows the header for the `.mediawiki` developer's version of a partnered library schema.
 
-````{admonition} MediaWiki header for TESTLIB library 2.0.0 partnered with 8.2.0 (unmerged).
+````{admonition} MediaWiki header for TESTLIB library 2.0.0 partnered with 8.4.0 (unmerged).
 ```html
-HED library="testlib" version="2.0.0" withStandard="8.2.0" unmerged="true"
+HED library="testlib" version="2.0.0" withStandard="8.4.0" unmerged="true"
 ```
 ````
 
@@ -73,8 +73,8 @@ The following excerpt from an unmerged TESTLIB library schema in MediaWiki forma
 ````{admonition} Example of a rooted node in an unmerged schema in MediaWiki format.
 ```html
                       . . .
-'''Data-mode''' <nowiki>{rooted=Statistical-value}[A value that occurs most often in data.]</nowiki>   
-* <nowiki># {takesValue, valueClass=numericClass}</nowiki> 
+'''Data-mode''' <nowiki>{rooted=Statistical-value}[A value that occurs most often in data.]</nowiki>
+* <nowiki># {takesValue, valueClass=numericClass}</nowiki>
                       . . .
 ```
 ````
@@ -82,14 +82,14 @@ The following excerpt from an unmerged TESTLIB library schema in MediaWiki forma
 Notice that the indentation asterisks (\*) indicate that the node's children are at the first level. In the merged schema, these are adjusted accordingly as shown in the following:
 
 ````{admonition} When merged with the standard schema, the indentation levels are adjusted.
-```html 
+```html
                       . . .
-*** Statistical-value <nowiki>{extensionAllowed}[A value based on or employing the principles of statistics.]</nowiki>              
+*** Statistical-value <nowiki>{extensionAllowed}[A value based on or employing the principles of statistics.]</nowiki>
                        . . .
 **** Data-minimum <nowiki>[The smallest possible quantity.]</nowiki>
 ***** <nowiki># {takesValue, valueClass=numericClass}</nowiki>
-**** Data-mode''' <nowiki>{inLibrary=testlib, rooted}[A value that occurs most often in data.]</nowiki>   
-***** <nowiki># {takesValue, valueClass=numericClass, inLibrary=testlib}</nowiki> 
+**** Data-mode''' <nowiki>{inLibrary=testlib, rooted}[A value that occurs most often in data.]</nowiki>
+***** <nowiki># {takesValue, valueClass=numericClass, inLibrary=testlib}</nowiki>
 **** Probability <nowiki> [A measure of the expectation of the occurrence of a particular event.]</nowiki>
 ***** <nowiki># {takesValue, valueClass=numericClass}</nowiki>
                       . . .
@@ -160,16 +160,16 @@ Unpartnered library schemas cannot use the `suggestedTag` or `relatedTag` attrib
 
 HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have an associated prefix. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
 
-In the following example, all the library schemas are partnered with '8.2.0'. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.2.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
+In the following example, all the library schemas are partnered with '8.4.0'. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.4.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
 
 ````{admonition} Example: Merging of multiple schemas.
 
 ```
-     ['liba_1.0.0', 'ac:libb_2.8.1', 'libc_4.3.2', '8.2.0', 'sc:test_1.3.2', 'ac:exam_2.3.2']
+     ['liba_1.0.0', 'ac:libb_2.8.1', 'libc_4.3.2', '8.4.0', 'sc:test_1.3.2', 'ac:exam_2.3.2']
 ```
 ````
 
-The full set of rules governing merge groups and partnered combination is given in the rule table of [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination).
+The full set of rules governing merge groups and partnered combination is given in the rule table of [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). The subsections below give worked examples of version specifications that load and version specifications that fail, organized by the row groups of that table.
 
 If an incompatible list of schemas is given, a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error is generated.
 
@@ -177,15 +177,87 @@ If an incompatible list of schemas is given, a [SCHEMA_LOAD_FAILED](./Appendix_B
 ---
 class: warning
 ---
-**Note:** With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas 
-should not have auxiliary sections except for the `prologue` and `epilogue`.  
+**Note:** With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas
+will have empty auxiliary sections except for the `prologue` and `epilogue`.
 
 Auxiliary sections have information for HED tools, and new entries may require modification to
-schema validation tools.  
+schema validation and analysis tools.
 
 If a new entry is needed, contact the HED Working Group (hed.maintainers@gmail.com) to see if the
 entry might be added to the standard schema instead.
 ```
+
+#### 7.3.6.1. Schemas used in the examples
+
+The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). Each example mirrors a test case in that repository's `SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
+
+| Schema versions                                                  | Standard schema partner (`withStandard`) |
+| ---------------------------------------------------------------- | ---------------------------------------- |
+| `testconflict_1.0.0`, `testconflict_1.1.0`, `testconflict_1.1.2` | None (unpartnered)                       |
+| `testconflict_2.0.0`, `testconflict_2.1.0`, `testconflict_2.1.1` | 8.5.0                                    |
+| `testclash_1.0.0` through `testclash_12.0.0`                     | 8.5.0                                    |
+| `testminimal_1.0.0`                                              | None (unpartnered)                       |
+| `testminimal_2.0.0`                                              | 8.4.0                                    |
+| `testminimal_2.1.0`                                              | 8.5.0                                    |
+
+The examples rely on the following facts about these libraries:
+
+- `testconflict_2.1.0` is `testconflict_2.0.0` plus one added tag, so every element the two versions share is identical. `testconflict_2.1.1` differs from `testconflict_2.1.0` only in one revised tag description (a patch-level change).
+- `testconflict_2.0.0` declares the top-level tags `Shared-item`, `Attribute-item` (with `suggestedTag=Object-one`), `Description-item`, `Anchor-item` (with child `Nested-item`), `Placeholder-item` (with a `#` child), and `Rooted-tag` (with `rooted=Event`), whose children are `Rooted-one` (with child `Deep-one`) and `Rooted-two`.
+- Each `testclash` version declares its own `Clash-tag` subtree plus at most one probe element also declared by `testconflict_2.0.0`, identical except for at most one controlled difference. The probe differences are tabulated in [7.3.6.5. Element compatibility examples](#7365-element-compatibility-examples).
+- `testminimal` declares only its own `Mini-tag` subtree, which is disjoint from the vocabularies of the other two libraries.
+
+#### 7.3.6.2. Merge group examples
+
+| Version specification                                            | Loads | Explanation                                                                                                                                           |
+| ---------------------------------------------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `['testconflict_2.1.0', 'testclash_1.0.0', 'testminimal_2.1.0']` | Yes   | All three libraries are partnered with 8.5.0, and their elements are either disjoint or identical, so they merge into a single unprefixed vocabulary. |
+| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']`     | Yes   | Three merge groups (unprefixed, `sc:`, `ts:`) resolve independently; the standard schema partners of different groups do not have to agree.           |
+| `['8.5.0', 'sc:8.4.0']`                                          | Yes   | A standard schema under a namespace prefix forms its own merge group, so the two standard versions do not conflict.                                   |
+| `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | Yes   | Different versions of one library may share a merge group; these two share the 8.5.0 partner and every shared element is identical.                   |
+| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | No    | A merge group cannot have multiple copies of the same schema (the same name and version).                                                             |
+| `['8.5.0', 'sc:testconflict_2.0.0', 'sc:testminimal_2.0.0']`     | No    | The rules apply inside each prefixed group: the `sc:` group has conflicting partners (8.5.0 versus 8.4.0), even though the unprefixed group is fine.  |
+
+#### 7.3.6.3. Standard schema partner examples
+
+| Version specification                         | Loads | Explanation                                                                                                                                                                     |
+| --------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `['testconflict_2.0.0']`                      | Yes   | A partnered library schema automatically includes its standard schema partner (8.5.0), so standard schema tags such as `Red` validate without the standard schema being listed. |
+| `['8.5.0', 'testconflict_2.0.0']`             | Yes   | A standard schema matching the group partner is redundant and ignored.                                                                                                          |
+| `['8.4.0', 'testconflict_2.0.0']`             | No    | A standard schema in a merge group must match the group partner; `testconflict_2.0.0` is partnered with 8.5.0, not 8.4.0.                                                       |
+| `['testconflict_2.0.0', 'testminimal_2.0.0']` | No    | Partnered library schemas in a merge group must have the same partner; here the partners are 8.5.0 and 8.4.0.                                                                   |
+| `['8.4.0', '8.5.0']`                          | No    | Two bare standard schema versions give the unprefixed group two conflicting partners.                                                                                           |
+
+#### 7.3.6.4. Unpartnered schema examples
+
+| Version specification                                        | Loads | Explanation                                                                                                            |
+| ------------------------------------------------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------- |
+| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']` | Yes   | The unpartnered `testminimal_1.0.0` is alone in its own `ts:` namespace, which is where an unpartnered schema must be. |
+| `['8.5.0', 'testconflict_1.1.0']`                            | No    | The unpartnered `testconflict_1.1.0` cannot share the unprefixed merge group with another schema.                      |
+| `['ts:testconflict_1.1.2', 'ts:testminimal_1.0.0']`          | No    | Two unpartnered library schemas cannot share a namespace; each needs its own prefix.                                   |
+
+#### 7.3.6.5. Element compatibility examples
+
+Each example in this subsection loads `testconflict_2.0.0` together with one version of `testclash`. Every `testclash` version carries at most one probe element shared with `testconflict_2.0.0`, so each pair isolates a single element compatibility rule:
+
+| Version specification                        | Probe element        | Difference from `testconflict_2.0.0`                                                                                                                                                                                                                                  | Loads |
+| -------------------------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `['testconflict_2.0.0', 'testclash_1.0.0']`  | `Shared-item`        | None: an identical copy. Identical shared elements are compatible, and the merged vocabulary keeps a single copy.                                                                                                                                                     | Yes   |
+| `['testconflict_2.0.0', 'testclash_2.0.0']`  | `Attribute-item`     | The `suggestedTag` value is `Clash-one` instead of `Object-one`: the attribute values differ.                                                                                                                                                                         | No    |
+| `['testconflict_2.0.0', 'testclash_3.0.0']`  | `Description-item`   | The description text differs.                                                                                                                                                                                                                                         | No    |
+| `['testconflict_2.0.0', 'testclash_4.0.0']`  | `Nested-item`        | Declared at the top level instead of as a child of `Anchor-item`: the ancestor paths differ.                                                                                                                                                                          | No    |
+| `['testconflict_2.0.0', 'testclash_5.0.0']`  | `Placeholder-item`   | Has no `#` child, while `testconflict`'s has one.                                                                                                                                                                                                                     | No    |
+| `['testconflict_2.0.0', 'testclash_6.0.0']`  | `Rooted-tag`         | Declared as an ordinary top-level tag instead of with `rooted=Event`: the merged ancestor paths differ (`Rooted-tag` versus `Event/Rooted-tag`).                                                                                                                      | No    |
+| `['testconflict_2.0.0', 'testclash_7.0.0']`  | `Rooted-tag`         | Declared with `rooted=Item` instead of `rooted=Event`: the same tag is anchored at different standard schema nodes.                                                                                                                                                   | No    |
+| `['testconflict_2.0.0', 'testclash_8.0.0']`  | `Rooted-tag` subtree | `Rooted-tag` and its child `Rooted-one` are identical; `testclash` adds its own child `Rooted-three`. A shared element may have different non-`#` children, so the merged `Rooted-tag` has children `Rooted-one` (with `Deep-one`), `Rooted-two`, and `Rooted-three`. | Yes   |
+| `['testconflict_2.0.0', 'testclash_9.0.0']`  | `Rooted-tag` subtree | The shared child `Rooted-one` carries a different description. The compatibility rules apply to shared children, so the changed shared child fails the merge even though the non-shared sibling `Rooted-three` would be allowed.                                      | No    |
+| `['testconflict_2.0.0', 'testclash_10.0.0']` | `Rooted-tag`         | Identical, but its only child is `testclash`'s own `Rooted-four`: a shared element's children may be entirely disjoint.                                                                                                                                               | Yes   |
+| `['testconflict_2.0.0', 'testclash_11.0.0']` | `Rooted-tag` subtree | The chain `Rooted-tag`/`Rooted-one` is identical; below it `testclash` declares `Deep-two` where `testconflict` declares `Deep-one`. The differing grandchildren are not shared, so the merged `Rooted-one` carries both.                                             | Yes   |
+| `['testconflict_2.0.0', 'testclash_12.0.0']` | `Rooted-tag` subtree | The shared grandchild `Deep-one` carries a different description. Compatibility applies at every depth of a shared hierarchy.                                                                                                                                         | No    |
+
+The same rules govern two versions of one library. The specification `['testconflict_2.1.0', 'testconflict_2.1.1']` fails to load even though the versions differ only in one description (a patch-level change): versions of one library merge only when their shared elements are identical, exactly like different libraries.
+
+Any failing pair in this subsection can still be used together by giving one schema its own namespace. For example, `['testconflict_2.0.0', 'cl:testclash_2.0.0']` loads because the two `Attribute-item` declarations are in different merge groups and are never compared.
 
 ## 7.4. Library schema design
 
@@ -208,7 +280,7 @@ A library library must use semantic versioning and follow the versioning update 
 the HED standard schema as specified in [3.1.3. Version updates](./03_HED_formats.md#313-version-updates).
 <br>&nbsp;</br>
 3. **Tag uniqueness**:<br/>
-Every term must be unique within the library schema and must 
+Every term must be unique within the library schema and must
 conform to the rules for HED schema terms.
 <br>&nbsp;</br>
 4. **Have a meaningful prologue**:<br/>
@@ -257,9 +329,9 @@ The terms in the library schema should not overlap terms present in the latest
 version of the HED schema at the time of its release.
 <br>&nbsp;</br>
 2. **Do not modify the special auxiliary sections**:<br/>
-The unpartnered library schema should exactly duplicate the special auxiliary sections 
+The unpartnered library schema should exactly duplicate the special auxiliary sections
 of the HED standard schema that was the latest version when this schema version was released.
-The special sections include:  schema attributes, unit classes, 
+The special sections include:  schema attributes, unit classes,
 unit modifiers, value classes, and schema properties.
 <br>&nbsp;</br>
 3. **Avoid adding special auxiliary items**:<br/>
