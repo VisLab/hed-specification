@@ -160,7 +160,7 @@ Unpartnered library schemas cannot use the `suggestedTag` or `relatedTag` attrib
 
 HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have distinct prefixes. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
 
-In the following example, all the library schemas are partnered with standard schema `8.4.0`. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.4.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
+In the following example, all the library schemas are partnered with standard schema `8.4.0`. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same, and listing `8.4.0` adds nothing, since it is already the partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
 
 ````{admonition} Example: Merging of multiple schemas.
 
@@ -223,7 +223,7 @@ The examples rely on the following facts about these libraries:
 | Version specification                         | Loads | Explanation                                                                                                                                                                     |
 | --------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `['testconflict_2.0.0']`                      | Yes   | A partnered library schema automatically includes its standard schema partner (8.5.0), so standard schema tags such as `Red` validate without the standard schema being listed. |
-| `['8.5.0', 'testconflict_2.0.0']`             | Yes   | A standard schema matching the group partner is redundant and ignored.                                                                                                          |
+| `['8.5.0', 'testconflict_2.0.0']`             | Yes   | A standard schema matching the group partner is allowed and adds nothing to the merged result.                                                                                  |
 | `['8.4.0', 'testconflict_2.0.0']`             | No    | A standard schema in a merge group must match the group partner; `testconflict_2.0.0` is partnered with 8.5.0, not 8.4.0.                                                       |
 | `['testconflict_2.0.0', 'testminimal_2.0.0']` | No    | Partnered library schemas in a merge group must have the same partner; here the partners are 8.5.0 and 8.4.0.                                                                   |
 | `['8.4.0', '8.5.0']`                          | No    | Two bare standard schema versions give the unprefixed group two conflicting partners.                                                                                           |
