@@ -1,6 +1,6 @@
 # 1. Introduction to HED
 
-This document contains the specification for third generation HED or HED-3G. It is meant for the implementers and users of HED tools. Other tutorials and tagging guides are available to researchers using HED to annotate their data. This specification applies to HED Schema versions > 8.0.0 and above.
+This document contains the specification for third generation HED or HED-3G. It is meant for the implementers and users of HED tools. Other tutorials and tagging guides are available to researchers using HED to annotate their data. This specification applies to HED Schema versions > `8.0.0` and above.
 
 The aspects of HED that are described in this document are supported or will soon be supported by validators and other tools and are available for immediate use by annotators. The schema vocabulary can be viewed using an expandable [schema viewer](https://www.hedtags.org/hed-schema-browser).
 
@@ -18,7 +18,7 @@ HED (an acronym for Hierarchical Event Descriptors) is an evolving framework tha
 
 As the name HED implies, much of the HED framework focuses on associating metadata with the experimental timeline to make datasets analysis-ready and machine-actionable. However, HED annotations and framework can be used to incorporate other types of metadata into analysis by providing a common API (Application Programming Interface) for building interoperable tools.
 
-This specification describes the official release of third generation of HED or HED-3G, which is HED version 8.0.0. Third generation HED represents a significant advance in documenting the content and intent of experiments in a format that enables large-scale cross-study analysis of time-series behavioral and neuroimaging data, including but not limited to EEG, MEG, iEEG, fMRI, eye-tracking, motion-capture, EKG, and audiovisual recording.
+This specification describes the official release of third generation of HED or HED-3G, which is HED version `8.0.0`. Third generation HED represents a significant advance in documenting the content and intent of experiments in a format that enables large-scale cross-study analysis of time-series behavioral and neuroimaging data, including but not limited to EEG, MEG, iEEG, fMRI, eye-tracking, motion-capture, EKG, and audiovisual recording.
 
 HED annotations may be included in BIDS (Brain Imaging Data Structure) datasets [https://bids.neuroimaging.io](https://bids.neuroimaging.io) as described in [Chapter 6: Infrastructure and tools](06_Infrastructure_and_tools.md).
 
@@ -26,11 +26,11 @@ HED annotations may be included in BIDS (Brain Imaging Data Structure) datasets 
 
 HED was originally proposed by Nima Bigdely-Shamlo in 2010 to support annotation in HeadIT an early public repository for EEG data hosted by the Swartz Center for Computational Neuroscience, UCSD (Bigdely-Shamlo et al., 2013). HED-1G was partially based on CogPO (Turner and Laird, 2012).
 
-Event annotation in HED-1G was organized around a single hierarchy whose root was the `Time-Locked Event`. Users could extend the HED-1G hierarchy at its deepest (leaf) nodes. First generation HED (HED-1G, versions < 4.0.0) attempted to describe events using a strictly hierarchical vocabulary.
+Event annotation in HED-1G was organized around a single hierarchy whose root was the `Time-Locked Event`. Users could extend the HED-1G hierarchy at its deepest (leaf) nodes. First generation HED (HED-1G, versions < `4.0.0`) attempted to describe events using a strictly hierarchical vocabulary.
 
 HED-1G was oriented toward annotating stimuli and responses, but its lack of orthogonality in vocabulary design presented major difficulties. If `Red/Triangle` and `Green/Triangle` are terms in a hierarchy, one is also likely to need `Red/Square` and `Green/Square` as well as other color and shape combinations.
 
-HED-2G (versions 4.0.0 - 7.x.x) introduced a more orthogonal vocabulary, meaning that independent terms were in different subtrees of the vocabulary tree. Separating independent concepts, such as shapes and colors into separate hierarchies, eliminates an exponential vocabulary growth due to term duplication in different branches of the hierarchy. The HED-2G represents a **sub-tag** system.
+HED-2G (versions `4.0.0` - `7.x.x`) introduced a more orthogonal vocabulary, meaning that independent terms were in different subtrees of the vocabulary tree. Separating independent concepts, such as shapes and colors into separate hierarchies, eliminates an exponential vocabulary growth due to term duplication in different branches of the hierarchy. The HED-2G represents a **sub-tag** system.
 
 Parentheses were introduced so that terms could be grouped. Tools for validation and epoching based on HED tags were built, and large-scale cross-study "mega-analyses" were performed. However, as more complicated and varied datasets were annotated using HED-2G, the vocabulary started to become less manageable as HED tried to adapt to more complex annotation demands.
 

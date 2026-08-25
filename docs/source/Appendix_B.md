@@ -24,7 +24,7 @@ HED schema developers are mainly concerned with errors and inconsistencies in th
 
 **Notes:**
 
-1. Starting with HED 8.3.0, HED supports UTF-8 encoding.
+1. Starting with HED `8.3.0`, HED supports UTF-8 encoding.
 2. Different parts of a HED string have different rules for acceptable characters. For example tag names must satisfy the rules for the HED name class. The values used after tag names depend on the value classes of the tag and the unit classes of the tag.
 
 **See also:**

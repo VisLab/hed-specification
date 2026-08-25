@@ -26,7 +26,7 @@ The following diagram shows the ontology view of HED. The nodes of the HED schem
 
 ![ontologist view](_static/images/OntologyView.png)
 
-The ontology represents a complex network of interrelationships among the terms in the HED hierarchy and terms in other ontologies. The HED ontology and its mapping has been made explicit starting with HED standard schema 8.3.0. The goal is to include links to additional information including provenance and examples during annotation and to leverage AI tools during annotation and analysis.
+The ontology represents a complex network of interrelationships among the terms in the HED hierarchy and terms in other ontologies. The HED ontology and its mapping has been made explicit starting with HED standard schema `8.3.0`. The goal is to include links to additional information including provenance and examples during annotation and to leverage AI tools during annotation and analysis.
 
 ### 8.1.3. HED information space
 
@@ -34,7 +34,7 @@ The HED schema is embedded in a larger information space that includes additiona
 
 ![hed information space](_static/images/HEDInformationSpace.png)
 
-The embedding is anchored by the `hedId` schema attribute introduced with HED standard schema 8.3.0. The `hedId` values are of the form `HED_xxxxxxx` and resolve to IRIs (International Resource Identifiers) in the [https://purl.org/hed/hed.owl](https://purl.org/hed/hed.owl) file. This file is currently hosted on GitHub and does not have a mechanism to address individual IDs defined within the file. The ontology files are versioned by release date. Releases are located in the [releases](https://github.com/hed-standard/hed-ontology/tree/main/releases) subdirectory of the [hed-ontology](https://github.com/hed-standard/hed-ontology) repository on GitHub.
+The embedding is anchored by the `hedId` schema attribute introduced with HED standard schema `8.3.0`. The `hedId` values are of the form `HED_xxxxxxx` and resolve to IRIs (International Resource Identifiers) in the [https://purl.org/hed/hed.owl](https://purl.org/hed/hed.owl) file. This file is currently hosted on GitHub and does not have a mechanism to address individual IDs defined within the file. The ontology files are versioned by release date. Releases are located in the [releases](https://github.com/hed-standard/hed-ontology/tree/main/releases) subdirectory of the [hed-ontology](https://github.com/hed-standard/hed-ontology) repository on GitHub.
 
 The extended information space is completely represented by the HED ontology in OWL format. In this document we use OWL Manchester format (`.omn`) for readability.
 
@@ -72,7 +72,7 @@ The spreadsheet format consists of 10 tab-separated value (tsv) files each conta
 | `xxx_UnitModifier`       | Definitions of the HED unit modifiers.                                                                                   |
 | `xxx_ValueClass`         | Definitions of the HED value classes.                                                                                    |
 
-The `xxx_` prefix identifies the schema version. For example, the prefix for standard schema version 8.3.0 is `HED8.3.0_` and the prefix for SCORE library schema 2.0.0 is `HED_score_2.0.0_`.
+The `xxx_` prefix identifies the schema version. For example, the prefix for standard schema version `8.3.0` is `HED8.3.0_` and the prefix for SCORE library schema `2.0.0` is `HED_score_2.0.0_`.
 
 Most schema developers will only edit the `xxx_Tag.tsv` file or the `xxx_Structure.tsv` file.
 
@@ -495,9 +495,9 @@ For example the value classes that are defined in the standard schema should inh
 
 The HED tags in each HED schema are unique, so a HED tag is uniquely identified by its name (label) and schema version. If the tag is from a library schema, the library name is part of the version. The rules for updating HED version numbers are specified in [HED semantic versioning](https://github.com/hed-standard/hed-schemas/blob/main/README.md#hed-semantic-versioning).
 
-Starting with HED schema version 8.2.0 (released April 28, 2023), HED library schemas are strongly recommended to be [partnered with a standard schema](./07_Library_schemas.md#73-partnered-schemas). Partnered schemas are joined with a specific version of the standard schema and are treated as a single integrated vocabulary for annotation and analysis. Partnered schemas MUST not have name conflicts with their standard schema partner.
+Starting with HED schema version `8.2.0` (released April 28, 2023), HED library schemas are strongly recommended to be [partnered with a standard schema](./07_Library_schemas.md#73-partnered-schemas). Partnered schemas are joined with a specific version of the standard schema and are treated as a single integrated vocabulary for annotation and analysis. Partnered schemas MUST not have name conflicts with their standard schema partner.
 
-[Lazy partnering](./07_Library_schemas.md#736-lazy-partnering), introduced with HED schema version 8.3.0, allows any number of library schemas to be loaded into a single integrated vocabulary provided they are partnered with the same version of the standard schema and there are no name conflicts. If there are conflicts, user-selected namespace prefixes must be used in the version specification and in annotations to resolve the conflicts.
+[Lazy partnering](./07_Library_schemas.md#736-lazy-partnering), introduced with HED schema version `8.3.0`, allows any number of library schemas to be loaded into a single integrated vocabulary provided they are partnered with the same version of the standard schema and there are no name conflicts. If there are conflicts, user-selected namespace prefixes must be used in the version specification and in annotations to resolve the conflicts.
 
 ### 8.3.2. Ontology namespace
 

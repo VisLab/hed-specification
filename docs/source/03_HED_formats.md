@@ -20,7 +20,7 @@ Additional rules for HED annotations can be found in [4. Basic annotation](./04_
 
 ### 3.1.1. Schema versions
 
-A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version 8.4.0). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version 1.2.0 of the `lang` HED library schema).
+A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
 
 A schema version may be preceded by an alphabetic **namespace** name followed by a colon(`:`). An example of a schema version specification using a namespace is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace can be any alphabetic string. If the schema version has a namespace, then all tags drawn from that schema must appear in any corresponding annotation with that namespace name prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
 
@@ -28,7 +28,7 @@ A schema version may be preceded by an alphabetic **namespace** name followed by
 
 #### 3.1.2.1. Partnered versus unpartnered
 
-Library schemas are of two types: **partnered** and **unpartnered**. A partnered library schema is designed to be used with a specific version of the HED standard schema and has a `withStandard` attribute in its header. For example, the score library schema version 2.1.0 is partnered with standard schema version 8.4.0 and has the header (in XML format):
+Library schemas are of two types: **partnered** and **unpartnered**. A partnered library schema is designed to be used with a specific version of the HED standard schema and has a `withStandard` attribute in its header. For example, the score library schema version `2.1.0` is partnered with standard schema version `8.4.0` and has the header (in XML format):
 
 ```xml
 <HED version="2.1.0" library="score" withStandard="8.4.0">
@@ -40,7 +40,7 @@ Unpartnered schemas must be in their own namespace. The latest versions of all c
 
 #### 3.1.2.2. Rules for partnered combination
 
-HED has adopted a strategy that allows multiple small library schemas to be combined into a single build-your-own vocabulary that can reside in a single namespace. The rules for combining partnered library schemas were introduced in HED specification version 4.0.0.
+HED has adopted a strategy that allows multiple small library schemas to be combined into a single build-your-own vocabulary that can reside in a single namespace. The rules for combining partnered library schemas were introduced in HED specification version `4.0.0`.
 
 Schemas are combined by **merge group**: the schemas listed without a namespace prefix form one merge group, and the schemas sharing a given namespace prefix form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
 
@@ -432,7 +432,7 @@ Users must provide the version of the HED schema they are using when creating an
 
 ### 3.2.1. Vocabulary organization
 
-HED (Hierarchical Event Descriptors) are nodes (tag terms) organized hierarchically under their respective root or **top nodes**. In HED standard schema versions >= 8.0.0 these top nodes are: `Event`, `Agent`, `Action`, `Item`, `Property`, and `Relation`. Each top node and its subtrees represent distinct **is-a** relationships for the vocabulary schema.
+HED (Hierarchical Event Descriptors) are nodes (tag terms) organized hierarchically under their respective root or **top nodes**. In HED standard schema versions >= `8.0.0` these top nodes are: `Event`, `Agent`, `Action`, `Item`, `Property`, and `Relation`. Each top node and its subtrees represent distinct **is-a** relationships for the vocabulary schema.
 
 The `Event` subtree tags indicate the general event category, such as whether it is a sensory event, an agent action, a data feature, or an event indicating experiment control or structure.
 
@@ -456,7 +456,7 @@ A **HED tag** is a term in the HED vocabulary identified by a path consisting of
 
 Valid HED tags do not have leading or trailing forward slashes (`/`). A HED tag path may also not have consecutive forward slashes.
 
-An important requirement of third generation HED (versions >= 8.0.0) is that the node names in the HED schema **must be unique**. As a consequence, the user may specify as much of the path to the root as desired when using the tag in annotation.
+An important requirement of third generation HED (versions >= `8.0.0`) is that the node names in the HED schema **must be unique**. As a consequence, the user may specify as much of the path to the root as desired when using the tag in annotation.
 
 The full path version is referred to as **long form**, and the version with only the final tag element (excluding placeholder) is called **short form**.
 
@@ -713,7 +713,7 @@ If the placeholder is followed by a unit designator, the validator checks that t
 
 #### 3.2.9.3. Sidecar curly braces
 
-The curly brace notation is new with HED specification version 3.2.0 and is supported by all versions of the HED schema ≥ 8.0.0. The notation was introduced to facilitate proper nesting of HED tags associated with different event file columns when the complete HED annotation for an event marker is assembled.
+The curly brace notation is new with HED specification version `3.2.0` and is supported by all versions of the HED schema >= `8.0.0`. The notation was introduced to facilitate proper nesting of HED tags associated with different event file columns when the complete HED annotation for an event marker is assembled.
 
 When a column name appears in curly braces within a HED annotation in a JSON sidecar, the corresponding HED annotation for that row is substituted for the curly braces and their contents when the HED annotation is assembled.
 
@@ -847,9 +847,9 @@ See [DEFINITION_INVALID](./Appendix_B.md#definition_invalid) and [TEMPORAL_TAG_E
 
 After individual HED tags and HED strings in the `HED` column of tabular files and in the associated sidecars are validated or otherwise processed, the HED strings associated with each row of the tabular file must be assembled to provide an overall annotation for the row. We refer to this as *event-level* or *row* processing.
 
-If the HED schema used for processing contains a schema node that has the `required` attribute, then the assembled HED annotations for each row must include that tag. Currently, HED schema versions ≥ 8.0.0 do not contain any nodes with the `required` attribute, and this attribute may be deprecated in future versions of the schema.
+If the HED schema used for processing contains a schema node that has the `required` attribute, then the assembled HED annotations for each row must include that tag. Currently, HED schema versions >= `8.0.0` do not contain any nodes with the `required` attribute, and this attribute may be deprecated in future versions of the schema.
 
-If the HED schema used for processing contains a schema node that has the `unique` attribute, then the assembled HED annotations for each row must contain no more than one occurrence of that tag. Currently, only `Event-context` has the `unique` attribute for HED schema versions ≥ 8.0.0.
+If the HED schema used for processing contains a schema node that has the `unique` attribute, then the assembled HED annotations for each row must contain no more than one occurrence of that tag. Currently, only `Event-context` has the `unique` attribute for HED schema versions >= `8.0.0`.
 
 See [REQUIRED_TAG_MISSING](./Appendix_B.md#required_tag_missing) and [TAG_NOT_UNIQUE](./Appendix_B.md#tag_not_unique) for information on the validation errors that may occur with tags that have the `required` or `unique` schema attributes, respectively.
 
@@ -895,7 +895,7 @@ For more examples of event assembly, see [How HED works in BIDS](https://www.hed
 
 #### 3.2.10.4. File-level processing
 
-HED versions >= 8.0.0 allow annotation of relationships among rows in a tabular file. Hence, processing generally requires that annotations for all the rows be assembled so that consistency can be checked.
+HED versions >= `8.0.0` allow annotation of relationships among rows in a tabular file. Hence, processing generally requires that annotations for all the rows be assembled so that consistency can be checked.
 
 To validate temporal scope, the validator must assure that each `Onset` and `Offset` tag is associated with an appropriately defined identifier corresponding to a definition name. The validator must also check to make sure that `Onset` and `Offset` tags are properly matched within the data recording. In particular every `Offset` tag group must correspond to a preceding `Onset` tag group.
 
@@ -1110,6 +1110,6 @@ The `Event-context` tag group contains information about ongoing events at a spe
 
 Tags with the `unique` schema attribute MUST NOT appear more than once in an assembled annotation.
 
-Tags with the `required` schema attribute MUST appear in every assembled annotation. (Note: HED schema versions ≥ 8.0.0 do not currently use the `required` attribute.)
+Tags with the `required` schema attribute MUST appear in every assembled annotation. (Note: HED schema versions >= `8.0.0` do not currently use the `required` attribute.)
 
 See [TAG_NOT_UNIQUE](./Appendix_B.md#tag_not_unique) and [REQUIRED_TAG_MISSING](./Appendix_B.md#required_tag_missing) for related errors.

@@ -184,7 +184,7 @@ header-rows: 1
 * - posixPath
   - `digits`, `letters`, `slash`, `colon`
 * - textClass
-  - `text` (printable characters 32 ≤ ASCII < 127 excluding comma, square bracket, and curly braces, plus non-ASCII characters with ASCII codes > 127).
+  - `text` (printable characters 32 <= ASCII < 127 excluding comma, square bracket, and curly braces, plus non-ASCII characters with ASCII codes > 127).
 ```
 
 See [2.2 Character sets and restrictions](./02_Terminology.md#22-character-sets-and-restrictions) for definitions of the various character class definitions.
@@ -230,11 +230,11 @@ header-rows: 1
 * - [`annotation`](#a142-annotation)
   - element
   - string
-  - Annotation link to an item in another ontology. (Added in version 8.3.0.)
+  - Annotation link to an item in another ontology. (Added in version `8.3.0`.)
 * - [`conversionFactor`](#a143-conversionfactor)
   - unit<br/>unit modifier  
   - numeric  
-  - Multiplicative factor to multiply by to convert to default units. (Added in version 8.1.0.)    
+  - Multiplicative factor to multiply by to convert to default units. (Added in version `8.1.0`.)    
 * - [`defaultUnits`](#a144-defaultunits)
   - unit class  
   - unit
@@ -258,7 +258,7 @@ header-rows: 1
 * - [`isPartOf`](#a149-ispartof)
   - node
   - node
-  - This tag is part of the indicated tag. (Added in version 8.3.0.)
+  - This tag is part of the indicated tag. (Added in version `8.3.0`.)
 * - [`relatedTag`](#a1410-relatedtag)
   - node
   - node
@@ -338,11 +338,11 @@ For example, the `numericClass` value class includes `allowedCharacter` entries 
 
 #### A.1.4.2. annotation
 
-The `annotation` attribute provides a link from a HED schema element to a corresponding term in an external ontology or controlled vocabulary. This attribute, added in version 8.3.0, enables semantic interoperability and allows HED to integrate with broader ontological frameworks. The attribute value uses a standard prefix notation format (e.g., `ncit:C25499` for an NCI Thesaurus term, where `ncit` is the ontology prefix and `C25499` is the term identifier). These cross-references support linked data applications, ontology mapping, and semantic reasoning tools. Multiple `annotation` attributes can be used to link a single HED element to terms in multiple external ontologies.
+The `annotation` attribute provides a link from a HED schema element to a corresponding term in an external ontology or controlled vocabulary. This attribute, added in version `8.3.0`, enables semantic interoperability and allows HED to integrate with broader ontological frameworks. The attribute value uses a standard prefix notation format (e.g., `ncit:C25499` for an NCI Thesaurus term, where `ncit` is the ontology prefix and `C25499` is the term identifier). These cross-references support linked data applications, ontology mapping, and semantic reasoning tools. Multiple `annotation` attributes can be used to link a single HED element to terms in multiple external ontologies.
 
 #### A.1.4.3. conversionFactor
 
-The `conversionFactor` attribute specifies the multiplicative factor needed to convert a unit or unit modifier to the default units of its unit class. This attribute was added in version 8.1.0 to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
+The `conversionFactor` attribute specifies the multiplicative factor needed to convert a unit or unit modifier to the default units of its unit class. This attribute was added in version `8.1.0` to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
 
 #### A.1.4.4. defaultUnits
 
@@ -374,7 +374,7 @@ The `inLibrary` attribute indicates that a schema element originates from a name
 
 #### A.1.4.9. isPartOf
 
-The `isPartOf` attribute indicates a hierarchical or compositional relationship where the current tag is semantically considered part of another tag. This attribute, added in version 8.3.0, helps define ontological relationships beyond the structural hierarchy of the schema tree. The value of `isPartOf` must be a valid node in the schema. This relationship can be used by tools for semantic reasoning and for identifying related concepts that may not share a direct parent-child relationship in the schema tree structure.
+The `isPartOf` attribute indicates a hierarchical or compositional relationship where the current tag is semantically considered part of another tag. This attribute, added in version `8.3.0`, helps define ontological relationships beyond the structural hierarchy of the schema tree. The value of `isPartOf` must be a valid node in the schema. This relationship can be used by tools for semantic reasoning and for identifying related concepts that may not share a direct parent-child relationship in the schema tree structure.
 
 #### A.1.4.10. relatedTag
 
@@ -444,7 +444,7 @@ The `valueClass` attribute specifies the type of value that can be substituted f
 
 In addition to the attributes listed above, some schema attributes have been deprecated and are no longer supported in HED, although they are still present in earlier versions of the schema. The following table lists these.
 
-```{list-table} Schema attributes deprecated for versions &ge; 8.0.0.
+```{list-table} Schema attributes deprecated for versions >= 8.0.0.
 ---
 widths: 20 15 45
 header-rows: 1
@@ -454,26 +454,26 @@ header-rows: 1
   - Description
 * - `default`
   - node
-  - A default value used if no value is provided. Removed in standard schema version 8.0.0. 
+  - A default value used if no value is provided. Removed in standard schema version `8.0.0`. 
 * - `position`
   - node    
-  - Indicates where this tag should appear during display. Removed in standard schema version 8.0.0.  
+  - Indicates where this tag should appear during display. Removed in standard schema version `8.0.0`.  
 * - `predicateType`
   - node   
-  - Indicates the relationship of the node to its parent.  Removed standard schema version 8.0.0.  
+  - Indicates the relationship of the node to its parent.  Removed standard schema version `8.0.0`.  
 * - `recommended`
   - node
-  - Event-level HED strings should include this tag.  Removed in standard schema version 8.3.0.  
+  - Event-level HED strings should include this tag.  Removed in standard schema version `8.3.0`.  
 * - `required`
   - node      
-  - Event-level HED string must include this tag. Removed in standard schema version 8.3.0.  
+  - Event-level HED string must include this tag. Removed in standard schema version `8.3.0`.  
 ```
 
 The `default` attribute was not implemented in existing tools. The attribute is not used in HED-3G. Only the `defaultUnits` for the unit class will be implemented going forward.
 
-The `position` attribute was used to assist annotation tools, which sought to display required and recommend tags before others. The position attribute value is an integer and the order can start at 0 or 1. Required or recommended tags without this attribute or with negative position were to be shown after the others in canonical ordering. The tagging strategy of HED versions >= 8.0.0 using decomposition and definitions does not permit this type of ordering. The `position` attribute is not used for HED versions >= 8.0.0.
+The `position` attribute was used to assist annotation tools, which sought to display required and recommend tags before others. The position attribute value is an integer and the order can start at 0 or 1. Required or recommended tags without this attribute or with negative position were to be shown after the others in canonical ordering. The tagging strategy of HED versions >= `8.0.0` using decomposition and definitions does not permit this type of ordering. The `position` attribute is not used for HED versions >= `8.0.0`.
 
-The `predicateType` attribute was introduced in HED-2G to facilitate mapping to OWL or RDF. It was needed because the HED-2G schema had a mixture of children that were properties and subclasses. The possible values of `predicateType` were `propertyOf`, `subclassOf`, or `passThrough` to indicate which role each child node had with respect to its parent. In HED versions >= 8.0.0, the parent-child relationship MUST be `subclassOf` to allow search generality. The attribute is ignored by tools.
+The `predicateType` attribute was introduced in HED-2G to facilitate mapping to OWL or RDF. It was needed because the HED-2G schema had a mixture of children that were properties and subclasses. The possible values of `predicateType` were `propertyOf`, `subclassOf`, or `passThrough` to indicate which role each child node had with respect to its parent. In HED versions >= `8.0.0`, the parent-child relationship MUST be `subclassOf` to allow search generality. The attribute is ignored by tools.
 
 ### A.1.5. Schema properties
 
@@ -493,7 +493,7 @@ header-rows: 1
 * - `elementDomain`
   - This schema attribute can apply to any type<br/>of element (tag term, unit class, etc).<br/>This property was formerly named `elementProperty`. 
 * - `isInheritedProperty`
-  - **Deprecated from 8.2.0** in favor of `annotationProperty`.<br/>This schema attribute is inherited by child nodes.<br/>This property only applies to schema attributes for nodes.   
+  - **Deprecated from `8.2.0`** in favor of `annotationProperty`.<br/>This schema attribute is inherited by child nodes.<br/>This property only applies to schema attributes for nodes.   
 * - `tagDomain`
   - This schema attribute can apply to node (tag-term) elements.<br/>This was added so attributes could apply to multiple types of elements.<br/>This property was formerly named `nodeProperty`.   
 * - `tagRange`
@@ -518,9 +518,9 @@ header-rows: 1
   - This schema attribute's value can be a value class.
 ```
 
-Property names ending in `Range` designate the type of value a schema attribute has. Starting with HED standard schema version 8.3.0 the `boolProperty`, which indicates that a schema attribute value can be true or false, was renamed `boolRange`. In addition, `numericRange` and `stringRange` were added, since the `conversionFactor` schema attribute has a numeric value.
+Property names ending in `Range` designate the type of value a schema attribute has. Starting with HED standard schema version `8.3.0` the `boolProperty`, which indicates that a schema attribute value can be true or false, was renamed `boolRange`. In addition, `numericRange` and `stringRange` were added, since the `conversionFactor` schema attribute has a numeric value.
 
-Property names ending in `Domain` indicate the type of schema element that a schema attribute applies to. String with HED standard schema version 8.3.0 the property names `elementProperty`, `nodeProperty`, `unitClassProperty`, `unitModifierProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty` were renamed as `elementDomain`, `tagDomain`, `unitClassDomain`, `unitModifierDomain`, `unitModifierDomain`, `unitDomain`, and `valueClassDomain` to better clarify their role and to facilitate mapping to the HED ontology.
+Property names ending in `Domain` indicate the type of schema element that a schema attribute applies to. String with HED standard schema version `8.3.0` the property names `elementProperty`, `nodeProperty`, `unitClassProperty`, `unitModifierProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty` were renamed as `elementDomain`, `tagDomain`, `unitClassDomain`, `unitModifierDomain`, `unitModifierDomain`, `unitDomain`, and `valueClassDomain` to better clarify their role and to facilitate mapping to the HED ontology.
 
 ```{admonition} Format for schema attributes with schema property values.
 ---
@@ -554,7 +554,7 @@ While schema sources are informational and do not affect validation or tool proc
 - **Link**: A URL pointing to the source resource
 - **Description**: A brief explanation of how the source was used or its relevance
 
-The schema sources were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward.
+The schema sources were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward.
 
 ### A.1.7. Schema prefixes
 
@@ -570,7 +570,7 @@ Each prefix entry has three required components:
 
 Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
 
-Schema prefixes were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
+Schema prefixes were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
 
 ### A.1.8. External annotations
 
@@ -594,7 +594,7 @@ External annotations serve multiple purposes:
 
 The external annotations section works in conjunction with the schema prefixes section. Each annotation must use a prefix that is defined in the schema prefixes section. Tools can use external annotations to generate rich metadata, export schemas to RDF/OWL formats, and integrate HED with broader ontology frameworks.
 
-External annotations were added with the release of HED standard schema 8.4.0, and are now required of all schemas going forward.
+External annotations were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward.
 
 ## A.2. MediaWiki file format
 
@@ -662,7 +662,7 @@ The first line of the `.mediawiki` file should be a _header_ that starts with th
        | If omitted, assumed false.      
 ```
 
-The following example gives a sample *header* for standard schema version 8.0.0 in `.mediawiki` format.
+The following example gives a sample *header* for standard schema version `8.0.0` in `.mediawiki` format.
 
 ````{admonition} **Example:** Sample *header* for version 8.0.0 in .mediawiki format.
 
@@ -673,9 +673,9 @@ HED version="8.0.0"
 
 The schema `.mediawiki` file specified in this example is named `HED8.0.0.mediawiki` and can be found in the [standard_schema/hedwiki](https://github.com/hed-standard/hed-schemas/tree/main/standard_schema/hedwiki) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
-The versions of the schema that use XSD validation to verify the format (versions 8.0.0 and above) have `xmlns:xsi` and `xsi:noNamespaceSchemaLocation` attributes. The `xsi` attribute is required if `xmlns:xsi` is given. The [XSD file](https://github.com/hed-standard/hed-schemas/blob/main/standard_schema/hedxml/HED8.0.0.xsd) allows validators to check the format of the `.xml` using standard XML validators.
+The versions of the schema that use XSD validation to verify the format (versions `8.0.0` and above) have `xmlns:xsi` and `xsi:noNamespaceSchemaLocation` attributes. The `xsi` attribute is required if `xmlns:xsi` is given. The [XSD file](https://github.com/hed-standard/hed-schemas/blob/main/standard_schema/hedxml/HED8.0.0.xsd) allows validators to check the format of the `.xml` using standard XML validators.
 
-The following example shows a sample *header* for `testlib` library schema version 1.0.2 in `.mediawiki` format.
+The following example shows a sample *header* for `testlib` library schema version `1.0.2` in `.mediawiki` format.
 
 ````{admonition} **Example:** Sample *header* for testlib library version 1.0.2 in .mediawiki format.
 
@@ -692,7 +692,7 @@ A warning is generated when unknown header attributes are translated as attribut
 
 The prologue is an optional paragraph of text appearing after the *header*. The prologue is used by tools for help and display purposes.
 
-Early versions of HED use the prologue section to record a CHANGE_LOG as well as information about the syntax and rules. HED versions ≥ 8.0.0 include a separate change log file for released versions.
+Early versions of HED use the prologue section to record a CHANGE_LOG as well as information about the syntax and rules. HED versions >= `8.0.0` include a separate change log file for released versions.
 
 The epilogue is described in [Section A.2.5.6](#a256-epilogue) as part of the auxiliary sections that appear after the main schema specification.
 
@@ -730,9 +730,9 @@ Top node names are enclosed in triple single quotes (e.g., `'''Event'''`), while
 
 The number of asterisks indicates the level of the node in the subtree. The attributes are in curly braces (`{ }`) and the description is in square brackets (`[ ]`).
 
-Node names in HED versions ≥ 8.0.0 can only contain alphanumeric characters, hyphens, and under-bars (i.e., they must be of type [`nameClass`](./Appendix_A.md#a13-value-classes)). They cannot contain blanks and must be unique.
+Node names in HED versions >= `8.0.0` can only contain alphanumeric characters, hyphens, and under-bars (i.e., they must be of type [`nameClass`](./Appendix_A.md#a13-value-classes)). They cannot contain blanks and must be unique.
 
-HED versions < 8.0.0 allow blanks in node names and also have some duplicate node names. Use of HED versions < 8.0.0 is deprecated and validators no longer support their use.
+HED versions < `8.0.0` allow blanks in node names and also have some duplicate node names. Use of HED versions < `8.0.0` is deprecated and validators no longer support their use.
 
 For top nodes and normal nodes, everything after the node name must be contained within `<nowiki></nowiki>` tags. The `#` is included within the `<nowiki></nowiki>` tags in placeholder nodes.
 
@@ -761,7 +761,7 @@ The `Duration` tag of this example is at the fifth level below the root (top nod
 
 ### A.2.5. MediaWiki auxiliary sections
 
-After the line marking the end of the schema (`!# end schema`), the `.mediawiki` file contains the unit class definitions, unit modifier definitions, value class definitions, the schema attribute definitions, property definitions, and optionally the epilogue, schema sources, schema prefixes, and external annotations sections. The first five sections are required starting with HED version 8.0.0 and must be given in that order. The optional sections (epilogue, sources, prefixes, and external annotations) follow after the properties section.
+After the line marking the end of the schema (`!# end schema`), the `.mediawiki` file contains the unit class definitions, unit modifier definitions, value class definitions, the schema attribute definitions, property definitions, and optionally the epilogue, schema sources, schema prefixes, and external annotations sections. The first five sections are required starting with HED version `8.0.0` and must be given in that order. The optional sections (epilogue, sources, prefixes, and external annotations) follow after the properties section.
 
 #### A.2.5.1. Unit classes and units
 
@@ -1013,7 +1013,7 @@ Library schemas may also be partnered as is `HED_testlib_2.0.0.xml`.
 
 The `<prologue>...</prologue>` and `<epilogue>...</epilogue>` elements are meant to be treated as opaque as far as schema processing goes.
 
-HED versions < 8.0.0 contained a Change Log for the HED schema in the prologue section as well as some basic documentation of syntax. The epilogue section contained additional metadata to be ignored during processing.
+HED versions < `8.0.0` contained a Change Log for the HED schema in the prologue section as well as some basic documentation of syntax. The epilogue section contained additional metadata to be ignored during processing.
 
 ### A.3.4. XML schema section
 
@@ -1052,7 +1052,7 @@ The optional `<attribute>` elements are derived from the attribute list containe
 
 **Example:** The `requireChild` attribute represents a boolean value. In the `.mediawiki` representation this attribute appears as `{requireChild}` if present and is omitted if absent.
 
-The format of the XML attributes was changed with HED versions &ge 8.0.0. Earlier versions of the schema have been deprecated and tools no longer support their validation.
+The format of the XML attributes was changed with HED versions >= `8.0.0`. Earlier versions of the schema have been deprecated and tools no longer support their validation.
 
 ````{admonition} The requireChild attribute represents a boolean value.
 
