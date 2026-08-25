@@ -2,7 +2,7 @@
 
 ## 5.1. Creating definitions
 
-HED version 8.0.0 introduced the `Definition` tag to facilitate tag reuse and to allow implementation of concepts such as **temporal scope**. The `Definition` tag allows researchers to create a name to represent a group of tags and then use the name in place of these tags when annotating data. These short-cuts make tagging easier and reduce the chance of errors. Often laboratories have a standard setup and event codes with particular meanings. Researchers can define names and reuse them for multiple experiments.
+HED version `8.0.0` introduced the `Definition` tag to facilitate tag reuse and to allow implementation of concepts such as **temporal scope**. The `Definition` tag allows researchers to create a name to represent a group of tags and then use the name in place of these tags when annotating data. These short-cuts make tagging easier and reduce the chance of errors. Often laboratories have a standard setup and event codes with particular meanings. Researchers can define names and reuse them for multiple experiments.
 
 Another important role of definitions is to provide the structure for implementing temporal scope as introduced in [Chapter 5.3: Temporal Scope](05_Advanced_annotation.md#53-temporal-scope).
 
@@ -162,14 +162,14 @@ The mechanisms are summarized in the following table and discussed in more detai
 | --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `Onset`         | Marks start of event.                    | Used with a `Def` tag or `Def-expand` group anchor. <br/>The corresponding end is marked using<br/> `Onset` or `Offset` with same anchor.                                                                                 |
 | `Offset`        | Marks end of event.                      | Used with a `Def` tag or `Def-expand` group anchor. <br/> Must be preceded by an `Onset` <br/> anchored by the same definition.                                                                                           |
-| `Inset`         | Marks event intermediate pt              | New in standard schema 8.2.0. <br/> Used with a `Def` tag or `Def-expand` group anchor.<br/> Must be within an `Onset` and and `Inset`<br/>for an `Onset` marker with the same anchor.                                    |
+| `Inset`         | Marks event intermediate pt              | New in standard schema `8.2.0`. <br/> Used with a `Def` tag or `Def-expand` group anchor.<br/> Must be within an `Onset` and `Offset`<br/>for an `Onset` marker with the same anchor.                                     |
 | `Duration `     | Marks end of an event.                   | Doesn't use a definition anchor.<br/>Starts at the current event marker unless `Delay`.<br/>If `Delay` included, start = current marker + delay. <br/>The offset = start + duration.                                      |
 | `Delay`         | Marks delayed time<br/>of a time marker. | Doesn't use a definition anchor.<br/>May be used with `Onset`, `Inset`, `Offset`<br/>or `Duration`. If not grouped with other temporal<br/>tags, it is treated as a point event.<br/>Commonly for delayed response times. |
 | `Event-context` | Context of ongoing events.               | Should only be inserted by tools.<br/>Each unique event marker can have <br/>only one `Event-context` group.                                                                                                              |
 
-All of these tags must appear in a `topLevelTagGroup`, which implies that they can't be nested. `Delay` and `Duration` will not be fully supported until HED standard schema version 8.2.0.
+All of these tags must appear in a `topLevelTagGroup`, which implies that they can't be nested. `Delay` and `Duration` will not be fully supported until HED standard schema version `8.2.0`.
 
-The `Inset` tag will also not be included until HED standard schema version 8.2.0, but is listed here for completeness.
+The `Inset` tag will also not be included until HED standard schema version `8.2.0`, but is listed here for completeness.
 
 ### 5.3.1. Using `Onset` and `Offset`
 
@@ -354,7 +354,7 @@ Several events with temporal-scopes defined by `Duration` tag groups may appear 
 
 The `Duration` tag has the same effect on event context as the `Onset`/`Offset` mechanism explained in [5.5. Event contexts](./05_Advanced_annotation.md#55-event-contexts)
 
-The `Duration` tag is convenient because its use does not require a definition. However, the ending time point of events whose temporal scope is defined with `Duration` is not marked by an explicit event in the data recording. This has distinct disadvantages for analysis if the offset is expected to elicit a neural response, which is the case for many events involving visual or auditory presentations. The use of the `Duration` tag will not be fully supported by validators until HED standard schema version 8.2.0.
+The `Duration` tag is convenient because its use does not require a definition. However, the ending time point of events whose temporal scope is defined with `Duration` is not marked by an explicit event in the data recording. This has distinct disadvantages for analysis if the offset is expected to elicit a neural response, which is the case for many events involving visual or auditory presentations. The use of the `Duration` tag will not be fully supported by validators until HED standard schema version `8.2.0`.
 
 ### 5.3.4. Using `Delay`
 
@@ -410,7 +410,7 @@ In the following example, a trial consists of the presentation of a cross in the
 
 Notice that the `Agent-action` tag from the `Event` subtree is included in the `Delay` tag-group. This allows tools to identify this tag group as a distinct event. For BIDS datasets, such response delays would be recorded in a column of the `events.tsv` event files. The HED annotation for the JSON sidecar corresponding to these files would contain a `#`. At HED expansion time, tools replace the `#` with the column value (2.83) corresponding to each event.
 
-The `Delay` tag can also be used in the same top level tag group as the `Duration` tag to define an event with temporal extent. HED tools are being developed to support the expansion of delayed events to have their own event markers without the delay tag. However, use of the `Delay` tag will not be fully supported by validators until HED standard schema version 8.2.0.
+The `Delay` tag can also be used in the same top level tag group as the `Duration` tag to define an event with temporal extent. HED tools are being developed to support the expansion of delayed events to have their own event markers without the delay tag. However, use of the `Delay` tag will not be fully supported by validators until HED standard schema version `8.2.0`.
 
 ## 5.4. Event streams
 

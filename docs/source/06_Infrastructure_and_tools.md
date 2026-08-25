@@ -68,7 +68,7 @@ HED definitions should only appear in sidecars in dummy entries or in an accompa
 
 Dataset formats such as [BIDS](https://bids.neuroimaging.io/) (Brain Imaging Data Structure) allow users to provide HED tags in multiple places. For example, BIDS dataset event files often use local codes to identify event markers in tabular (`events.tsv`) files and then provide dictionaries called JSON sidecars to map local codes to annotations.
 
-The introduction of definitions and temporal scope for HED versions >= 8.0.0 has added additional complexity to validation and processing. Instead of being able to validate the HED string for each event individually, HED validators must now also check consistency across all events in the data-recording.
+The introduction of definitions and temporal scope for HED versions >= `8.0.0` has added additional complexity to validation and processing. Instead of being able to validate the HED string for each event individually, HED validators must now also check consistency across all events in the data-recording.
 
 Tools should make explicit whether they support temporal scope. Tools that support temporal scope should be able to add scoped event information to the `Event-context` tag group of the intermediate events upon request.
 
@@ -144,7 +144,7 @@ The process is to look up the appropriate row annotation for each column in the 
 
 The HED version is included as the value of the `"HEDVersion"` key in the `dataset_description.json` metadata file located at the top level in a BIDS dataset. HEDTools retrieve the appropriate HED schema directly from GitHub or from locally cached versions when needed.
 
-The following example `dataset_description.json` specifies that HED version 8.0.0 is used for a dataset called "A wonderful experiment".
+The following example `dataset_description.json` specifies that HED version `8.0.0` is used for a dataset called "A wonderful experiment".
 
 ````{admonition} **Example:** BIDS dataset description using HED version 8.0.0.
 

@@ -88,7 +88,7 @@ A contiguous portion of the data recording during which some aspect of the exper
 
 ## 2.2. Character sets and restrictions
 
-Starting with HED standard schema versions 8.3.0 and above, HED will allow UTF-8 characters in various settings. The types of characters referred to in this specification are:
+Starting with HED standard schema versions `8.3.0` and above, HED will allow UTF-8 characters in various settings. The types of characters referred to in this specification are:
 
 | Name            | Description                                                     |
 | --------------- | --------------------------------------------------------------- |

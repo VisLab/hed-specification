@@ -18,7 +18,7 @@ A HED library schema contains the specialized vocabulary terms needed for event 
 
 HED library schemas were originally assumed to be **unpartnered** vocabularies, complete with all the needed schema attributes and properties. These unpartnered library schemas were usually used in conjunction with the HED standard schema, and the tags from the two different vocabularies were distinguished by prefixing the tags from one of the vocabularies with `xx:`. Here `xx:` is called the **namespace** for that schema within the annotation and is chosen by the annotator.
 
-**Partnered library schemas** were introduced in HED specification version 3.2.0 and are supported by HED standard schema versions ≥ 8.2.0.
+**Partnered library schemas** were introduced in HED specification version `3.2.0` and are supported by HED standard schema versions >= `8.2.0`.
 
 A partnered library schema version is tied to a specific version of the HED standard schema as specified in its header. A given library schema version is either **partnered** or **unpartnered**.
 
@@ -26,7 +26,7 @@ A partnered library schema version is tied to a specific version of the HED stan
 
 The XML file corresponding to a partnered library schema is a single, unified schema containing the information from both the library and its standard schema partner and validated as an integrated whole.
 
-This XML merged schema file is downloaded and used by tools. Downstream tools see a single schema and can process it with no special handling. The following example shows the XML header for merged TESTLIB library version 2.0.0.
+This XML merged schema file is downloaded and used by tools. Downstream tools see a single schema and can process it with no special handling. The following example shows the XML header for merged TESTLIB library version `2.0.0`.
 
 ````{admonition} XML header for TESTLIB library 2.0.0 partnered with 8.4.0 (merged).
 ```xml
@@ -112,7 +112,7 @@ Library schema additions of units, unit classes, unit modifiers, value classes, 
 
 ### 7.3.4. Partnered attributes
 
-To support partnered library schema the following items were introduced in HED standard schema 8.2.0:
+To support partnered library schema the following items were introduced in HED standard schema `8.2.0`:
 
 | Name           | Type              | Role                                                                                                                                                                                                                                                                                                                                                                                     |
 | -------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -124,7 +124,7 @@ To support partnered library schema the following items were introduced in HED s
 
 ### 7.3.5. Motivation for partners
 
-Starting with HED specification version 3.2.0 and HED standard schema version 8.2.0, **partnered library schemas** have become the recommended form for library schemas. This section describes the motivation for this preference.
+Starting with HED specification version `3.2.0` and HED standard schema version `8.2.0`, **partnered library schemas** have become the recommended form for library schemas. This section describes the motivation for this preference.
 
 #### 7.3.5.1. Auxiliary consistency
 
@@ -158,9 +158,9 @@ Unpartnered library schemas cannot use the `suggestedTag` or `relatedTag` attrib
 
 ### 7.3.6. Lazy partnering
 
-HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have an associated prefix. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
+HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have distinct prefixes. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
 
-In the following example, all the library schemas are partnered with '8.4.0'. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.4.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
+In the following example, all the library schemas are partnered with standard schema `8.4.0`. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same, and listing `8.4.0` adds nothing, since it is already the partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
 
 ````{admonition} Example: Merging of multiple schemas.
 
@@ -177,13 +177,13 @@ If an incompatible list of schemas is given, a [SCHEMA_LOAD_FAILED](./Appendix_B
 ---
 class: warning
 ---
-**Note:** With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas
-will have empty auxiliary sections except for the `prologue` and `epilogue`.
-
 Auxiliary sections have information for HED tools, and new entries may require modification to
 schema validation and analysis tools.
 
-If a new entry is needed, contact the HED Working Group (hed.maintainers@gmail.com) to see if the
+With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas
+usually have empty auxiliary sections except for the `prologue` and `epilogue`.
+
+While new value class and schema attribute definitions are allowed in library schemas, this is strongly discouraged. If a new entry is needed, contact the HED Working Group (hed.maintainers@gmail.com) to see if the
 entry might be added to the standard schema instead.
 ```
 
@@ -194,11 +194,11 @@ The worked examples in the following subsections use three test-only library sch
 | Schema versions                                                  | Standard schema partner (`withStandard`) |
 | ---------------------------------------------------------------- | ---------------------------------------- |
 | `testconflict_1.0.0`, `testconflict_1.1.0`, `testconflict_1.1.2` | None (unpartnered)                       |
-| `testconflict_2.0.0`, `testconflict_2.1.0`, `testconflict_2.1.1` | 8.5.0                                    |
-| `testclash_1.0.0` through `testclash_12.0.0`                     | 8.5.0                                    |
+| `testconflict_2.0.0`, `testconflict_2.1.0`, `testconflict_2.1.1` | `8.5.0`                                  |
+| `testclash_1.0.0` through `testclash_12.0.0`                     | `8.5.0`                                  |
 | `testminimal_1.0.0`                                              | None (unpartnered)                       |
-| `testminimal_2.0.0`                                              | 8.4.0                                    |
-| `testminimal_2.1.0`                                              | 8.5.0                                    |
+| `testminimal_2.0.0`                                              | `8.4.0`                                  |
+| `testminimal_2.1.0`                                              | `8.5.0`                                  |
 
 The examples rely on the following facts about these libraries:
 
@@ -209,24 +209,24 @@ The examples rely on the following facts about these libraries:
 
 #### 7.3.6.2. Merge group examples
 
-| Version specification                                            | Loads | Explanation                                                                                                                                           |
-| ---------------------------------------------------------------- | ----- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `['testconflict_2.1.0', 'testclash_1.0.0', 'testminimal_2.1.0']` | Yes   | All three libraries are partnered with 8.5.0, and their elements are either disjoint or identical, so they merge into a single unprefixed vocabulary. |
-| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']`     | Yes   | Three merge groups (unprefixed, `sc:`, `ts:`) resolve independently; the standard schema partners of different groups do not have to agree.           |
-| `['8.5.0', 'sc:8.4.0']`                                          | Yes   | A standard schema under a namespace prefix forms its own merge group, so the two standard versions do not conflict.                                   |
-| `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | Yes   | Different versions of one library may share a merge group; these two share the 8.5.0 partner and every shared element is identical.                   |
-| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | No    | A merge group cannot have multiple copies of the same schema (the same name and version).                                                             |
-| `['8.5.0', 'sc:testconflict_2.0.0', 'sc:testminimal_2.0.0']`     | No    | The rules apply inside each prefixed group: the `sc:` group has conflicting partners (8.5.0 versus 8.4.0), even though the unprefixed group is fine.  |
+| Version specification                                            | Loads | Explanation                                                                                                                                              |
+| ---------------------------------------------------------------- | ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `['testconflict_2.1.0', 'testclash_1.0.0', 'testminimal_2.1.0']` | Yes   | All three libraries are partnered with `8.5.0`, and their elements are either disjoint or identical, so they merge into a single unprefixed vocabulary.  |
+| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']`     | Yes   | Three merge groups (unprefixed, `sc:`, `ts:`) resolve independently; the standard schema partners of different groups do not have to agree.              |
+| `['8.5.0', 'sc:8.4.0']`                                          | Yes   | A standard schema under a namespace prefix forms its own merge group, so the two standard versions do not conflict.                                      |
+| `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | Yes   | Different versions of one library may share a merge group; these two share the `8.5.0` partner and every shared element is identical.                    |
+| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | No    | A merge group cannot have multiple copies of the same schema (the same name and version).                                                                |
+| `['8.5.0', 'sc:testconflict_2.0.0', 'sc:testminimal_2.0.0']`     | No    | The rules apply inside each prefixed group: the `sc:` group has conflicting partners (`8.5.0` versus `8.4.0`), even though the unprefixed group is fine. |
 
 #### 7.3.6.3. Standard schema partner examples
 
-| Version specification                         | Loads | Explanation                                                                                                                                                                     |
-| --------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `['testconflict_2.0.0']`                      | Yes   | A partnered library schema automatically includes its standard schema partner (8.5.0), so standard schema tags such as `Red` validate without the standard schema being listed. |
-| `['8.5.0', 'testconflict_2.0.0']`             | Yes   | A standard schema matching the group partner is redundant and ignored.                                                                                                          |
-| `['8.4.0', 'testconflict_2.0.0']`             | No    | A standard schema in a merge group must match the group partner; `testconflict_2.0.0` is partnered with 8.5.0, not 8.4.0.                                                       |
-| `['testconflict_2.0.0', 'testminimal_2.0.0']` | No    | Partnered library schemas in a merge group must have the same partner; here the partners are 8.5.0 and 8.4.0.                                                                   |
-| `['8.4.0', '8.5.0']`                          | No    | Two bare standard schema versions give the unprefixed group two conflicting partners.                                                                                           |
+| Version specification                         | Loads | Explanation                                                                                                                                                                       |
+| --------------------------------------------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `['testconflict_2.0.0']`                      | Yes   | A partnered library schema automatically includes its standard schema partner (`8.5.0`), so standard schema tags such as `Red` validate without the standard schema being listed. |
+| `['8.5.0', 'testconflict_2.0.0']`             | Yes   | A standard schema matching the group partner is allowed and adds nothing to the merged result.                                                                                    |
+| `['8.4.0', 'testconflict_2.0.0']`             | No    | A standard schema in a merge group must match the group partner; `testconflict_2.0.0` is partnered with `8.5.0`, not `8.4.0`.                                                     |
+| `['testconflict_2.0.0', 'testminimal_2.0.0']` | No    | Partnered library schemas in a merge group must have the same partner; here the partners are `8.5.0` and `8.4.0`.                                                                 |
+| `['8.4.0', '8.5.0']`                          | No    | Two bare standard schema versions give the unprefixed group two conflicting partners.                                                                                             |
 
 #### 7.3.6.4. Unpartnered schema examples
 
@@ -402,7 +402,7 @@ The **official library schemas** are available at [https://github.com/hed-standa
 
 Standard schemas are referenced by their version number (e.g., `8.1.0`), while library schema are referenced by a combination of library name and version number (e.g., `score_1.0.0`).
 
-For BIDS datasets, the versions of the HED schema are specified by the `HEDVersion` field of the BIDS `dataset_description.json` file. The following example specifies that version 8.1.0 of the standard HED schema is to be used in addition to `score` library schema version `1.0.0`.
+For BIDS datasets, the versions of the HED schema are specified by the `HEDVersion` field of the BIDS `dataset_description.json` file. The following example specifies that version `8.1.0` of the standard HED schema is to be used in addition to `score` library schema version `1.0.0`.
 
 ````{admonition} Illustration of using the namespace prefix for tagging.
 ---
@@ -428,14 +428,14 @@ Based on the above description tools will download:
 
 1. The standard HED schema:\
    [https://raw.githubusercontent.com/hed-standard/hed-schemas/main/standard_schema/hedxml/HED8.1.0.xml](https://raw.githubusercontent.com/hed-standard/hed-schemas/main/standard_schema/hedxml/HED8.1.0.xml).
-2. The HED `score` library schema version 1.0.0:\
+2. The HED `score` library schema version `1.0.0`:\
    [https://raw.githubusercontent.com/hed-standard/hed-schemas/main/library_schemas/score/hedxml/HED_score_1.0.0.xml](https://raw.githubusercontent.com/hed-standard/hed-schemas/main/library_schemas/score/hedxml/HED_score_1.0.0.xml).
 
 In the dataset annotations for the above example, tags drawn from the score schema would be prefixed with `sc:`, where `sc` is a local name used to distinguish tags from the additional schema.
 
 The array specification of the schema versions in BIDS can have at most one version appearing without a colon prefix.
 
-SCORE version 1.0.0 is not partnered, so the HED version specification had to include both the library and standard schema versions. In contrast, SCORE version 1.1.0 is partnered with HED standard schema 8.2.0, so no namespace prefixes are needed as shown in the following example:
+SCORE version `1.0.0` is not partnered, so the HED version specification had to include both the library and standard schema versions. In contrast, SCORE version `1.1.0` is partnered with HED standard schema `8.2.0`, so no namespace prefixes are needed as shown in the following example:
 
 ````{admonition} **Example:** An example specification of HED version for a partnered schema.
 ---
