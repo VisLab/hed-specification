@@ -158,9 +158,9 @@ Unpartnered library schemas cannot use the `suggestedTag` or `relatedTag` attrib
 
 ### 7.3.6. Lazy partnering
 
-HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have an associated prefix. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
+HED allows multiple partnered schemas to be loaded and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one have distinct prefixes. A merge is attempted for all non-prefixed schemas and for each group of schemas with the same prefix.
 
-In the following example, all the library schemas are partnered with '8.4.0'. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.4.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
+In the following example, all the library schemas are partnered with standard schema `8.4.0`. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged with no prefix, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged with prefix `ac:`. The schema `sc:test_1.3.2` stays the same and schema `8.4.0` has no effect, since it is already included as a partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
 
 ````{admonition} Example: Merging of multiple schemas.
 
@@ -177,13 +177,13 @@ If an incompatible list of schemas is given, a [SCHEMA_LOAD_FAILED](./Appendix_B
 ---
 class: warning
 ---
-**Note:** With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas
-will have empty auxiliary sections except for the `prologue` and `epilogue`.
-
 Auxiliary sections have information for HED tools, and new entries may require modification to
 schema validation and analysis tools.
 
-If a new entry is needed, contact the HED Working Group (hed.maintainers@gmail.com) to see if the
+With the possible (and rare) exception of new `unitClasses` and `units`, partnered library schemas
+usually have empty auxiliary sections except for the `prologue` and `epilogue`.
+
+While new value class and schema attribute definitions are allowed in library schemas, this is strongly discouraged. If a new entry is needed, contact the HED Working Group (hed.maintainers@gmail.com) to see if the
 entry might be added to the standard schema instead.
 ```
 
