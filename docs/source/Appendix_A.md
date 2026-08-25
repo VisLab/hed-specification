@@ -471,7 +471,7 @@ header-rows: 1
 
 The `default` attribute was not implemented in existing tools. The attribute is not used in HED-3G. Only the `defaultUnits` for the unit class will be implemented going forward.
 
-The `position` attribute was used to assist annotation tools, which sought to display required and recommend tags before others. The position attribute value is an integer and the order can start at 0 or 1. Required or recommended tags without this attribute or with negative position were to be shown after the others in canonical ordering. The tagging strategy of HED versions >= `8.0.0` using decomposition and definitions does not permit this type of ordering. The `position` attribute is not used for HED versions >= `8.0.0`.
+The `position` attribute was used to assist annotation tools, which sought to display required and recommended tags before others. The position attribute value is an integer and the order can start at 0 or 1. Required or recommended tags without this attribute or with negative position were to be shown after the others in canonical ordering. The tagging strategy of HED versions >= `8.0.0` using decomposition and definitions does not permit this type of ordering. The `position` attribute is not used for HED versions >= `8.0.0`.
 
 The `predicateType` attribute was introduced in HED-2G to facilitate mapping to OWL or RDF. It was needed because the HED-2G schema had a mixture of children that were properties and subclasses. The possible values of `predicateType` were `propertyOf`, `subclassOf`, or `passThrough` to indicate which role each child node had with respect to its parent. In HED versions >= `8.0.0`, the parent-child relationship MUST be `subclassOf` to allow search generality. The attribute is ignored by tools.
 
@@ -520,7 +520,7 @@ header-rows: 1
 
 Property names ending in `Range` designate the type of value a schema attribute has. Starting with HED standard schema version `8.3.0` the `boolProperty`, which indicates that a schema attribute value can be true or false, was renamed `boolRange`. In addition, `numericRange` and `stringRange` were added, since the `conversionFactor` schema attribute has a numeric value.
 
-Property names ending in `Domain` indicate the type of schema element that a schema attribute applies to. String with HED standard schema version `8.3.0` the property names `elementProperty`, `nodeProperty`, `unitClassProperty`, `unitModifierProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty` were renamed as `elementDomain`, `tagDomain`, `unitClassDomain`, `unitModifierDomain`, `unitModifierDomain`, `unitDomain`, and `valueClassDomain` to better clarify their role and to facilitate mapping to the HED ontology.
+Property names ending in `Domain` indicate the type of schema element that a schema attribute applies to. Starting with HED standard schema version `8.3.0` the property names `elementProperty`, `nodeProperty`, `unitClassProperty`, `unitModifierProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty` were renamed as `elementDomain`, `tagDomain`, `unitClassDomain`, `unitModifierDomain`, `unitModifierDomain`, `unitDomain`, and `valueClassDomain` to better clarify their role and to facilitate mapping to the HED ontology.
 
 ```{admonition} Format for schema attributes with schema property values.
 ---

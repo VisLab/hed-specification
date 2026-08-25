@@ -37,7 +37,7 @@ CI runs the same checks on every push and PR to `main` (`.github/workflows/`): d
 - Tags are case-sensitive and use `/` for hierarchy (`Sensory-event/Visual/Color/Red`); groups use parentheses: `(Onset, Sensory-event, (Circle, Blue))`.
 - Use backticks for inline HED tags and fenced code blocks with the `hed` language tag for multi-line examples; show short form (`Red`) and long form together when helpful.
 - Use precise terminology as defined in `docs/source/02_Terminology.md`, and distinguish the specification version (owned by `pyproject.toml`) from the HED schema version (8.x.x).
-- Version identifiers in prose are code-font, unquoted: `8.4.0`, `lang_1.1.0`, `>= 8.0.0` written as `>=` followed by `` `8.0.0` ``. Quotes appear only inside literal syntax: version-specification lists (`['8.4.0', 'sc:lang_1.1.0']`) and file headers (`version="8.4.0"`). Section references (`[3.2.4. Tags that take values]`) stay bare.
+- Version identifiers in prose are unquoted code spans: `8.4.0`, `lang_1.1.0`. In comparisons only the number is in code font, the operator is plain text: versions >= `8.0.0`. Quotes appear only inside literal syntax: version-specification lists (`['8.4.0', 'sc:lang_1.1.0']`) and file headers (`version="8.4.0"`). Section references (`[3.2.4. Tags that take values]`) stay bare.
 - Always state which specification version introduces or modifies a feature.
 - Use standardized error codes (`CHARACTER_INVALID`, `COMMA_MISSING`, ...) as listed in `docs/source/Appendix_B.md`; add new codes there in the existing format.
 

@@ -1,6 +1,6 @@
 # 1. Introduction to HED
 
-This document contains the specification for third generation HED or HED-3G. It is meant for the implementers and users of HED tools. Other tutorials and tagging guides are available to researchers using HED to annotate their data. This specification applies to HED Schema versions > `8.0.0` and above.
+This document contains the specification for third generation HED or HED-3G. It is meant for the implementers and users of HED tools. Other tutorials and tagging guides are available to researchers using HED to annotate their data. This specification applies to HED schema versions `8.0.0` and above.
 
 The aspects of HED that are described in this document are supported or will soon be supported by validators and other tools and are available for immediate use by annotators. The schema vocabulary can be viewed using an expandable [schema viewer](https://www.hedtags.org/hed-schema-browser).
 

@@ -26,7 +26,7 @@ The following diagram shows the ontology view of HED. The nodes of the HED schem
 
 ![ontologist view](_static/images/OntologyView.png)
 
-The ontology represents a complex network of interrelationships among the terms in the HED hierarchy and terms in other ontologies. The HED ontology and its mapping has been made explicit starting with HED standard schema `8.3.0`. The goal is to include links to additional information including provenance and examples during annotation and to leverage AI tools during annotation and analysis.
+The ontology represents a complex network of interrelationships among the terms in the HED hierarchy and terms in other ontologies. The HED ontology and its mapping have been made explicit starting with HED standard schema `8.3.0`. The goal is to include links to additional information including provenance and examples during annotation and to leverage AI tools during annotation and analysis.
 
 ### 8.1.3. HED information space
 
