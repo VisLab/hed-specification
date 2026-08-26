@@ -102,9 +102,9 @@ Schemas can be specified in either `.mediawiki` or `.xml` format. The HED schema
 
 HED schema developers usually use `.mediawiki` format for more convenient editing, display, and viewing on GitHub. However, the stable links provided for tools to access and download the HED schema are to the XML versions. Both formats must be available and synchronized in the [hed/standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
-Regardless of the format, a valid HED schema must have the following sections in this order:
+Regardless of the format, the sections of a valid HED schema must appear in the following order. All sections are required except the three after the epilogue, whose status is described below the table.
 
-```{Admonition} Required sections of a HED schema (in the required order):
+```{Admonition} Sections of a HED schema (in the required order):
 | Section   | MediaWiki format | XML format  |
 |------- | --------- | ---------- |
 | Header line  | `HED version="8.0.0"` | `<HED version="8.0.0">` |
@@ -117,8 +117,13 @@ Regardless of the format, a valid HED schema must have the following sections in
 | Schema attributes | `'''Schema attributes'''`  | `<schemaAttributeDefinitions>` ... `</schemaAttributeDefinitions>`    |
 | Properties | `'''Properties'''`  | `<propertyDefinitions>` ... `</propertyDefinitions>`  |
 | Epilogue  | `'''Epilogue'''` | `<epilogue>` ... `</epilogue>` |
+| Sources | `'''Sources'''` | `<schemaSources>` ... `</schemaSources>` |
+| Prefixes | `'''Prefixes'''` | `<schemaPrefixes>` ... `</schemaPrefixes>` |
+| External annotations | `'''External annotations'''` | `<externalAnnotations>` ... `</externalAnnotations>` |
 | Ending line | `!# end hed` | `</HED>` |
 ```
+
+The three sections after the epilogue were introduced with HED schema `8.4.0`. They are required in standard schemas with versions >= `8.5.0` and optional in partnered library schemas; a tool loading a schema without them creates them as empty sections. When present they must appear in the order shown.
 
 The sections in the `.xml` version must always be terminated by closing `</  >` tokens, whereas the sections of the `.mediawiki` version, which is line-oriented, are terminated when the next section begins (`#!`) or a top tag (`'''`) is encountered.
 
@@ -222,6 +227,20 @@ See [A.1.4 Schema attributes](./Appendix_A.md#a14-schema-attributes) and [A.1.5.
 The epilogue should give license information, acknowledgments, and references.
 
 The epilogue may contain `text` characters or `newline`. If other characters appear, a [SCHEMA_CHARACTER_INVALID](./Appendix_B.md#schema_character_invalid) error occurs.
+
+#### 3.1.4.10. Optional extra sections
+
+The Sources, Prefixes, and External annotations sections were introduced in HED schema `8.4.0` and are specified in HED specification version `4.0.0`. These sections are required in standard schemas with versions >= `8.5.0`; if one is missing from such a schema, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. They are not required in standard schemas with versions < `8.5.0` or in partnered library schemas: such a schema that omits them is valid, and a tool loading it creates them as empty sections. These empty sections will always be included when a partnered library schema is converted to a different format and output. When the extra sections are present, the sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
+
+Each of these sections is a table of rows with fixed columns:
+
+- **Sources** records the external resources consulted in developing the schema. Columns: `source` (a short name), `link` (a URL), and `description`.
+- **Prefixes** defines the namespace prefixes used in `annotation` attribute values. Columns: `prefix` (including the trailing colon), `namespace` (the IRI of the namespace), and `description`.
+- **External annotations** lists the properties from external ontologies that may be attached to schema elements. Columns: `prefix` (which must be defined in the Prefixes section), `id` (the local identifier), `iri` (the full IRI of the property), and `description`.
+
+A section may have no rows at all. Each row that is present must give a non-empty value in each column; if a row has an empty value in any column, a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning is issued.
+
+See [A.1.6. Schema sources](./Appendix_A.md#a16-schema-sources), [A.1.7. Schema prefixes](./Appendix_A.md#a17-schema-prefixes), and [A.1.8. External annotations](./Appendix_A.md#a18-external-annotations) for further discussion, and the per-format sections of Appendix A for the representation of these sections in each file format.
 
 ### 3.1.5. Naming conventions
 

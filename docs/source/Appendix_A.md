@@ -548,13 +548,13 @@ The schema sources section provides references to external resources used during
 
 Schema sources serve as documentation and attribution for the intellectual sources that informed the schema design. For example, the HED standard schema typically includes Wikipedia as a source, since many term descriptions and conceptual definitions are informed by or adapted from Wikipedia definitions. Other sources might include published ontologies, scientific literature, or technical standards documents.
 
-While schema sources are informational and do not affect validation or tool processing, they provide important provenance information for schema maintainers and users who need to understand the basis for schema terminology and organization. Each source has three components:
+While schema sources are informational and do not affect validation or tool processing, they provide important provenance information for schema maintainers and users who need to understand the basis for schema terminology and organization. Each source has three required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
 - **Name**: A short identifier for the source (e.g., "Wikipedia", "NCIT")
 - **Link**: A URL pointing to the source resource
 - **Description**: A brief explanation of how the source was used or its relevance
 
-The schema sources were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward.
+The schema sources section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
 
 ### A.1.7. Schema prefixes
 
@@ -562,7 +562,7 @@ The schema prefixes section defines namespace prefixes used for linking HED sche
 
 Schema prefixes are essential for the `annotation` schema attribute, which uses prefix notation to create links between HED elements and external ontology terms. For example, the annotation `ncit:C25499` uses the `ncit:` prefix to reference term C25499 in the NCI Thesaurus. Without the prefix definition, tools cannot resolve these references to their full IRIs.
 
-Each prefix entry has three required components:
+Each prefix entry has three required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
 - **Name**: The prefix string including the colon separator (e.g., `dc:`, `foaf:`, `rdfs:`)
 - **Namespace**: The full IRI or URL for the ontology namespace
@@ -570,7 +570,7 @@ Each prefix entry has three required components:
 
 Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
 
-Schema prefixes were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
+The schema prefixes section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
 
 ### A.1.8. External annotations
 
@@ -578,7 +578,7 @@ The external annotations section defines specific annotation properties that can
 
 External annotations extend beyond the HED schema's internal structure to enable rich metadata using standard ontology properties. For example, Dublin Core properties like `dc:creator`, `dc:contributor`, and `dc:date` can be used to document authorship and provenance. Properties from the PROV ontology (`prov:`) support detailed provenance tracking. The Friend-of-a-Friend vocabulary (`foaf:`) enables linking to personal and organizational homepages.
 
-Each external annotation entry has four required components:
+Each external annotation entry has four required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
 - **Name**: The prefix identifying the ontology (must match a defined schema prefix)
 - **ID**: The local identifier for the property within its namespace
@@ -594,7 +594,7 @@ External annotations serve multiple purposes:
 
 The external annotations section works in conjunction with the schema prefixes section. Each annotation must use a prefix that is defined in the schema prefixes section. Tools can use external annotations to generate rich metadata, export schemas to RDF/OWL formats, and integrate HED with broader ontology frameworks.
 
-External annotations were added with the release of HED standard schema `8.4.0`, and are now required of all schemas going forward.
+The external annotations section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
 
 ## A.2. MediaWiki file format
 
