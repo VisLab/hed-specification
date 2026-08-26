@@ -22,7 +22,7 @@ Additional rules for HED annotations can be found in [4. Basic annotation](./04_
 
 A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
 
-A schema version may be preceded by an alphabetic **namespace** name followed by a colon(`:`). An example of a schema version specification using a namespace is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace can be any alphabetic string. If the schema version has a namespace, then all tags drawn from that schema must appear in any corresponding annotation with that namespace name prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
+A schema version may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace prefix is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace name can be any alphabetic string. If the schema version has a namespace prefix, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
 
 ### 3.1.2. Version combinations
 
@@ -42,12 +42,12 @@ Unpartnered schemas must be in their own namespace. The latest versions of all c
 
 HED has adopted a strategy that allows multiple small library schemas to be combined into a single build-your-own vocabulary that can reside in a single namespace. The rules for combining partnered library schemas were introduced in HED specification version `4.0.0`.
 
-Schemas are combined by **merge group**: the schemas listed without a namespace prefix form one merge group, and the schemas sharing a given namespace prefix form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
+Schemas are combined by **merge group**: the schemas listed in the default namespace (no prefix) form one merge group, and the schemas sharing a namespace form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
 
 | Topic                 | Rule                                                                                                                                                                                                                              |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Merge groups          | Schemas listed without a namespace prefix form a single merge group.                                                                                                                                                              |
-| Merge groups          | Schemas listed with the same namespace prefix form a single merge group.                                                                                                                                                          |
+| Merge groups          | Schemas listed in the default namespace form a single merge group.                                                                                                                                                                |
+| Merge groups          | Schemas listed in the same namespace form a single merge group.                                                                                                                                                                   |
 | Merge groups          | Each merge group is resolved independently; the standard schema partners of different merge groups do not have to agree.                                                                                                          |
 | Merge groups          | Schemas in a merge group can be combined in any order. Whether or not the load fails is independent of order, but what element first generates a conflict depends on the order.                                                   |
 | Merge groups          | A merge group cannot have multiple copies of the same schema (the same name and version). Different versions of the same library schema may appear in a merge group if they satisfy the other rules.                              |
@@ -553,9 +553,9 @@ See [TAG_EXTENSION_INVALID](./Appendix_B.md#tag_extension_invalid) for informati
 
 Users may select tags from multiple schemas, but additional schemas must be included in the HED version specification.
 
-Users are free to use any alphabetic prefix and associate it with a specific schema in the HED version specification. Tags from the associated schema must be prefixed with this namespace designator (including the colon) when used in annotation.
+Users are free to choose any alphabetic namespace name and associate it with a specific schema in the HED version specification. The namespace prefix is that name followed by a colon (e.g., `sc:`), and tags from the associated schema must carry this prefix when used in annotation. The namespace name and its prefix are chosen per dataset and are not part of any schema; they are an import mechanism, like `import pandas as pd` in Python, and the same schema may be given a different prefix in another dataset.
 
-Terms from only one schema can appear in the annotation without a namespace prefix followed by a colon.
+Terms from only one schema can appear in the annotation without a namespace prefix.
 
 See [TAG_NAMESPACE_PREFIX_INVALID](./Appendix_B.md#tag_namespace_prefix_invalid) for information on the specific validation errors associated with missing schemas.
 

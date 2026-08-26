@@ -338,7 +338,7 @@ For example, the `numericClass` value class includes `allowedCharacter` entries 
 
 #### A.1.4.2. annotation
 
-The `annotation` attribute provides a link from a HED schema element to a corresponding term in an external ontology or controlled vocabulary. This attribute, added in version `8.3.0`, enables semantic interoperability and allows HED to integrate with broader ontological frameworks. The attribute value uses a standard prefix notation format (e.g., `ncit:C25499` for an NCI Thesaurus term, where `ncit` is the ontology prefix and `C25499` is the term identifier). These cross-references support linked data applications, ontology mapping, and semantic reasoning tools. Multiple `annotation` attributes can be used to link a single HED element to terms in multiple external ontologies.
+The `annotation` attribute provides a link from a HED schema element to a corresponding term in an external ontology or controlled vocabulary. This attribute, added in version `8.3.0`, enables semantic interoperability and allows HED to integrate with broader ontological frameworks. The attribute value uses a standard prefix notation format (e.g., `ncit:C25499` for an NCI Thesaurus term, where `ncit` is the ontology designator and `C25499` is the term identifier). These cross-references support linked data applications, ontology mapping, and semantic reasoning tools. Multiple `annotation` attributes can be used to link a single HED element to terms in multiple external ontologies.
 
 #### A.1.4.3. conversionFactor
 
@@ -903,7 +903,7 @@ The external annotations section is marked by `'''External annotations'''` and d
 
 Each external annotation entry has four required components:
 
-- `prefix`: The ontology prefix (must be defined in the prefixes section)
+- `prefix`: The ontology designator prefix (must be defined in the prefixes section)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
@@ -1342,7 +1342,7 @@ The `<externalAnnotations>` element contains one or more `<externalAnnotation>` 
 
 Each `<externalAnnotation>` element has four required child elements:
 
-- `<name>`: The ontology prefix (must be defined in the prefixes section)
+- `<name>`: The ontology designator prefix (must be defined in the prefixes section)
 - `<id>`: The local identifier for the property
 - `<iri>`: The full IRI for the property
 - `<description>`: An explanation of the property's meaning
@@ -1647,7 +1647,7 @@ The `external_annotations` section (optional) defines annotation properties from
 
 Each external annotation object has four required properties:
 
-- `name`: The ontology prefix (must be defined in the prefixes section)
+- `name`: The ontology designator prefix (must be defined in the prefixes section)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
@@ -1874,7 +1874,7 @@ dc:	contributor	http://purl.org/dc/elements/1.1/contributor	An entity responsibl
 
 Each row has four required columns:
 
-- `prefix`: The ontology prefix (must be defined in the Prefixes file)
+- `prefix`: The ontology designator prefix (must be defined in the Prefixes file)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
