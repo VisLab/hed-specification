@@ -42,12 +42,12 @@ Unpartnered schemas must be in their own namespace. The latest versions of all c
 
 HED has adopted a strategy that allows multiple small library schemas to be combined into a single build-your-own vocabulary that can reside in a single namespace. The rules for combining partnered library schemas were introduced in HED specification version `4.0.0`.
 
-Schemas are combined by **merge group**: the schemas listed without a namespace prefix form one merge group, and the schemas sharing a given namespace prefix form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
+Schemas are combined by **merge group**: the schemas listed in the default namespace (no prefix) form one merge group, and the schemas sharing a namespace form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
 
 | Topic                 | Rule                                                                                                                                                                                                                              |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Merge groups          | Schemas listed without a namespace prefix form a single merge group.                                                                                                                                                              |
-| Merge groups          | Schemas listed with the same namespace prefix form a single merge group.                                                                                                                                                          |
+| Merge groups          | Schemas listed in the default namespace form a single merge group.                                                                                                                                                                |
+| Merge groups          | Schemas listed in the same namespace form a single merge group.                                                                                                                                                                   |
 | Merge groups          | Each merge group is resolved independently; the standard schema partners of different merge groups do not have to agree.                                                                                                          |
 | Merge groups          | Schemas in a merge group can be combined in any order. Whether or not the load fails is independent of order, but what element first generates a conflict depends on the order.                                                   |
 | Merge groups          | A merge group cannot have multiple copies of the same schema (the same name and version). Different versions of the same library schema may appear in a merge group if they satisfy the other rules.                              |
@@ -553,7 +553,7 @@ See [TAG_EXTENSION_INVALID](./Appendix_B.md#tag_extension_invalid) for informati
 
 Users may select tags from multiple schemas, but additional schemas must be included in the HED version specification.
 
-Users are free to use any alphabetic prefix and associate it with a specific schema in the HED version specification. Tags from the associated schema must be prefixed with this namespace designator (including the colon) when used in annotation.
+Users are free to use any alphabetic prefix and associate it with a specific schema in the HED version specification. Tags from the associated schema must be prefixed with the namespace prefix (the name followed by a colon) when used in annotation.
 
 Terms from only one schema can appear in the annotation without a namespace prefix followed by a colon.
 
