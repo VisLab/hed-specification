@@ -230,11 +230,11 @@ The examples rely on the following facts about these libraries:
 
 #### 7.3.6.4. Unpartnered schema examples
 
-| Version specification                                        | Loads | Explanation                                                                                                            |
-| ------------------------------------------------------------ | ----- | ---------------------------------------------------------------------------------------------------------------------- |
-| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']` | Yes   | The unpartnered `testminimal_1.0.0` is alone in its own `ts:` namespace, which is where an unpartnered schema must be. |
-| `['8.5.0', 'testconflict_1.1.0']`                            | No    | The unpartnered `testconflict_1.1.0` cannot share the unprefixed merge group with another schema.                      |
-| `['ts:testconflict_1.1.2', 'ts:testminimal_1.0.0']`          | No    | Two unpartnered library schemas cannot share a namespace; each needs its own.                                          |
+| Version specification                                        | Loads | Explanation                                                                                                           |
+| ------------------------------------------------------------ | ----- | --------------------------------------------------------------------------------------------------------------------- |
+| `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']` | Yes   | The unpartnered `testminimal_1.0.0` is alone in its own `ts` namespace, which is where an unpartnered schema must be. |
+| `['8.5.0', 'testconflict_1.1.0']`                            | No    | The unpartnered `testconflict_1.1.0` cannot share the unprefixed merge group with another schema.                     |
+| `['ts:testconflict_1.1.2', 'ts:testminimal_1.0.0']`          | No    | Two unpartnered library schemas cannot share a namespace; each needs its own.                                         |
 
 #### 7.3.6.5. Element compatibility examples
 
@@ -379,7 +379,7 @@ It is recognized that HED standard and library schemas will both evolve and that
 
 As part of the HED annotation process, users must associate one or more HED schemas with their datasets. Since it would be impossible to avoid naming conflicts across schema libraries built in parallel by different user communities, HED supports schema library namespaces to facilitate the use of multiple schemas in annotating a datasets.
 
-If multiple schemas are used, users must define a local namespace for each additional schema and prefix the tags from each of these additional schemas with their respective namespace prefixes in annotations. The local names should be strictly alphabetic with no blanks or punctuation. If a tag namespace prefix is invalid in the version specification, a schema loading error occurs.
+If multiple schemas are used, users must choose a namespace name for each additional schema and prefix the tags from each of these additional schemas with their respective namespace prefixes in annotations. The namespace names should be strictly alphabetic with no blanks or punctuation; the prefix is the name followed by a colon. The names and prefixes are chosen per dataset in the version specification and are not part of any schema. If a tag namespace prefix is invalid in the version specification, a schema loading error occurs.
 
 ````{admonition} **Example:** Driving library schema example tags.
 
@@ -390,7 +390,7 @@ dp:Change-lanes
 ```
 ````
 
-A colon (`:`) is used to separate the qualifying local name from the remainder of the tag.
+The prefix `dp:` consists of the namespace name `dp` and the colon (`:`) that separates it from the remainder of the tag.
 
 The introduction of partnered library schemas has greatly reduced the need for namespaces, since the most common use case is a library schema used with a standard schema.
 
@@ -431,7 +431,7 @@ Based on the above description tools will download:
 2. The HED `score` library schema version `1.0.0`:\
    [https://raw.githubusercontent.com/hed-standard/hed-schemas/main/library_schemas/score/hedxml/HED_score_1.0.0.xml](https://raw.githubusercontent.com/hed-standard/hed-schemas/main/library_schemas/score/hedxml/HED_score_1.0.0.xml).
 
-In the dataset annotations for the above example, tags drawn from the score schema would be prefixed with `sc:`, where `sc` is a local name used to distinguish tags from the additional schema.
+In the dataset annotations for the above example, tags drawn from the score schema would be prefixed with `sc:`, where `sc` is the namespace name chosen to distinguish tags from the additional schema.
 
 The array specification of the schema versions in BIDS can have at most one version appearing without a namespace prefix.
 

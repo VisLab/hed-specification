@@ -22,7 +22,7 @@ Additional rules for HED annotations can be found in [4. Basic annotation](./04_
 
 A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
 
-A schema version may be preceded by an alphabetic **namespace** name followed by a colon(`:`). An example of a schema version specification using a namespace is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace can be any alphabetic string. If the schema version has a namespace, then all tags drawn from that schema must appear in any corresponding annotation with that namespace name prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
+A schema version may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace can be any alphabetic string. If the schema version has a namespace, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
 
 ### 3.1.2. Version combinations
 
@@ -553,9 +553,9 @@ See [TAG_EXTENSION_INVALID](./Appendix_B.md#tag_extension_invalid) for informati
 
 Users may select tags from multiple schemas, but additional schemas must be included in the HED version specification.
 
-Users are free to use any alphabetic prefix and associate it with a specific schema in the HED version specification. Tags from the associated schema must be prefixed with the namespace prefix (the name followed by a colon) when used in annotation.
+Users are free to choose any alphabetic namespace name and associate it with a specific schema in the HED version specification. The namespace prefix is that name followed by a colon (e.g., `sc:`), and tags from the associated schema must carry this prefix when used in annotation. The namespace name and its prefix are chosen per dataset and are not part of any schema; they are an import mechanism, like `import pandas as pd` in Python, and the same schema may be given a different prefix in another dataset.
 
-Terms from only one schema can appear in the annotation without a namespace prefix followed by a colon.
+Terms from only one schema can appear in the annotation without a namespace prefix.
 
 See [TAG_NAMESPACE_PREFIX_INVALID](./Appendix_B.md#tag_namespace_prefix_invalid) for information on the specific validation errors associated with missing schemas.
 
