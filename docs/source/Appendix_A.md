@@ -903,7 +903,7 @@ The external annotations section is marked by `'''External annotations'''` and d
 
 Each external annotation entry has four required components:
 
-- `prefix`: The ontology prefix (must be defined in the prefixes section)
+- `prefix`: The ontology designator prefix (must be defined in the prefixes section)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
@@ -1342,7 +1342,7 @@ The `<externalAnnotations>` element contains one or more `<externalAnnotation>` 
 
 Each `<externalAnnotation>` element has four required child elements:
 
-- `<name>`: The ontology prefix (must be defined in the prefixes section)
+- `<name>`: The ontology designator prefix (must be defined in the prefixes section)
 - `<id>`: The local identifier for the property
 - `<iri>`: The full IRI for the property
 - `<description>`: An explanation of the property's meaning
@@ -1647,7 +1647,7 @@ The `external_annotations` section (optional) defines annotation properties from
 
 Each external annotation object has four required properties:
 
-- `name`: The ontology prefix (must be defined in the prefixes section)
+- `name`: The ontology designator prefix (must be defined in the prefixes section)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
@@ -1874,7 +1874,7 @@ dc:	contributor	http://purl.org/dc/elements/1.1/contributor	An entity responsibl
 
 Each row has four required columns:
 
-- `prefix`: The ontology prefix (must be defined in the Prefixes file)
+- `prefix`: The ontology designator prefix (must be defined in the Prefixes file)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning
