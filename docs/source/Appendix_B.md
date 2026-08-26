@@ -104,7 +104,8 @@ See [3.2.7.1. Parentheses and order](./03_HED_formats.md#3271-parenthesis-and-or
 **a.** A `#` appears in a place that it should not (such as in the `HED` column of an events file).\
 **b.** A JSON sidecar has a placeholder (`#`) in the HED dictionary for a categorical column.\
 **c.** A JSON sidecar does not have exactly one placeholder (`#`) in each HED string representing a value column.\
-**d.** A placeholder (`#`) is used in JSON sidecar or definition, but its parent in the schema does not have a placeholder child. **e.** Multiple placeholders (`#`) appear in a HED string (e.g., `"Label/#, Parameter-value/#"`).\
+**d.** A placeholder (`#`) is used in JSON sidecar or definition, but its parent in the schema does not have a placeholder child.\
+**e.** Multiple placeholders (`#`) appear in a HED string (e.g., `"Label/#, Parameter-value/#"`).\
 **f.** A placeholder (`#`) does not appear directly after a slash (e.g., `"Label/ #"`).
 
 See [3.2.4. Tags that take values](./03_HED_formats.md#324-tags-that-take-values) and [3.2.9.1. Sidecar entries](./03_HED_formats.md#3291-sidecar-entries) for information on the use of placeholders in HED.
@@ -196,14 +197,16 @@ See [3.2.5 Tag extensions](./03_HED_formats.md#325-tag-extensions) for additiona
 ### TAG_EXTENSION_INVALID
 
 **a.** A tag extension term is already in the schema.\
-**b.** A tag extension term does not comply with rules for schema nodes. **c.** A tag has extension, but an extension is not allowed.
+**b.** A tag extension term does not comply with rules for schema nodes.\
+**c.** A tag has extension, but an extension is not allowed.
 
 See [3.2.5 Tag extensions](./03_HED_formats.md#325-tag-extensions) for additional information on the tag extension rules.
 
 ### TAG_GROUP_ERROR
 
 **a.** A tag has `tagGroup` or `topLevelTagGroup` attribute, but is not enclosed in parentheses.\
-**b.** A tag with the `topLevelTagGroup` does not appear at a HED tag group at the top level in an assembled HED annotation. **c.** Multiple tags with the `topLevelTagGroup` attribute appear in the same top-level tag group. Note: a single `Duration` and a single `Delay` may be in the same group.
+**b.** A tag with the `topLevelTagGroup` does not appear at a HED tag group at the top level in an assembled HED annotation.\
+**c.** Multiple tags with the `topLevelTagGroup` attribute appear in the same top-level tag group. Note: a single `Duration` and a single `Delay` may be in the same group.
 
 See [3.2.7.2. Tag group attributes](./03_HED_formats.md#3272-tag-group-attributes) for additional information on the rules for group errors due to schema attributes.
 
@@ -273,7 +276,8 @@ See [3.2.4 Tags that take values](./03_HED_formats.md#324-tags-that-take-values)
 
 **a.** The value substituted for a placeholder (`#`) is not valid.\
 **b.** A tag value is incompatible with the specified value class.\
-**c.** A tag value with no value class is assumed to be a text and contains invalid characters. **d.** The units are not separated from the value by a single blank.
+**c.** A tag value with no value class is assumed to be a text and contains invalid characters.\
+**d.** The units are not separated from the value by a single blank.
 
 See [3.2.4 Tags that take values](./03_HED_formats.md) for more information.
 
@@ -326,8 +330,10 @@ This section is organized by the type of schema format that results in the error
 
 #### SCHEMA_CHARACTER_INVALID
 
-**a.** A non-placeholder schema node contains non-`name` characters. **b.** A unit class name contains non-`name` characters.\
-**c.** A value or unit class name contains non-`name` or blank characters. **d.** The prologue or epilogue contain characters other than `text` or newline.
+**a.** A non-placeholder schema node contains non-`name` characters.\
+**b.** A unit class name contains non-`name` characters.\
+**c.** A value or unit class name contains non-`name` or blank characters.\
+**d.** The prologue or epilogue contain characters other than `text` or newline.
 
 See [2.2 Character sets and restrictions](./02_Terminology.md#22-character-sets-and-restrictions) for definitions of the different types of characters.
 
@@ -338,7 +344,11 @@ Note: tag extensions may contain `nonascii` characters.
 **a.** The value of `deprecatedFrom` is not a previously released HED schema version.\
 **b.** A deprecated tag is used as a `suggestedTag` or a `relatedTag` in a non-deprecated tag.\
 **c.** A child tag of a deprecated tag does not have the `deprecatedFrom` attribute.\
-**d.** A deprecated attribute is used on a non-deprecated element. **e.** A deprecated property is used on a non-deprecated attribute. **f.** A deprecated unit class has non-deprecated units. **g.** A tag has deprecated unit or value classes. **h.** A deprecated unit class has non-deprecated units. **i.** A unit class has a deprecated default unit
+**d.** A deprecated attribute is used on a non-deprecated element.\
+**e.** A deprecated property is used on a non-deprecated attribute.\
+**f.** A deprecated unit class has non-deprecated units.\
+**g.** A tag has deprecated unit or value classes.\
+**h.** A unit class has a deprecated default unit.
 
 #### SCHEMA_DUPLICATE_NODE
 
