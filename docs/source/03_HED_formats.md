@@ -22,7 +22,7 @@ Additional rules for HED annotations can be found in [4. Basic annotation](./04_
 
 A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
 
-A schema version may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace can be any alphabetic string. If the schema version has a namespace, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
+A schema version may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace prefix is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace name can be any alphabetic string. If the schema version has a namespace prefix, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
 
 ### 3.1.2. Version combinations
 

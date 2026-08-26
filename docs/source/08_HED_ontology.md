@@ -155,7 +155,7 @@ The next section describes the ontology structure in more detail.
 
 Each element of a HED schema (i.e., tag, unit, unit class, unit modifier, value class, schema attribute, schema attribute property, schema header, epilogue, and prologue) is assigned a unique persistent globally unique identifier (GUID). This GUID appears as the entity identifier in the ontology and as the `hedId` attribute value in the HED schema. In addition to the HED elements the HED ontology also has some overall structural elements that are also assigned `hedId` values.
 
-The examples in this section and `hed:` to represent schema-specific elements.
+The examples in this section use the `hed:` prefix to represent schema-specific elements.
 
 ### 8.2.1. Overall ontology structure
 

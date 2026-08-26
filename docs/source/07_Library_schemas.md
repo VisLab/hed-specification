@@ -158,7 +158,7 @@ Unpartnered library schemas cannot use the `suggestedTag` or `relatedTag` attrib
 
 ### 7.3.6. Lazy partnering
 
-HED allows multiple partnered schemas to be loaded into the default namespace and used without prefixes provided that there are no conflicts. We refer to this process as **lazy merging**. Conflicting schemas can always be used together if all but one are in distinct namespaces. A merge is attempted within each namespace, including the default namespace.
+HED allows multiple partnered schemas to be loaded into the default namespace and used without prefixes provided that there are no conflicts. We refer to this process as **lazy partnering**. Conflicting schemas can always be used together if all but one are in distinct namespaces. A merge is attempted within each namespace, including the default namespace.
 
 In the following example, all the library schemas are partnered with standard schema `8.4.0`. Library schemas `liba_1.0.0` and `libc_4.3.2` are merged in the default namespace, and library schemas `ac:libb_2.8.1` and `ac:exam_2.3.2` are merged in the `ac` namespace. The schema `sc:test_1.3.2` stays the same, and listing `8.4.0` adds nothing, since it is already the partner of `liba_1.0.0` and `libc_4.3.2`. If there are any conflicts during the merging process, an error is raised.
 

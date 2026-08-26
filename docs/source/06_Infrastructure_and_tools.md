@@ -186,7 +186,7 @@ The prefix notation (such as the `sc:` prefix for the `score` library in the pre
 ```
 ````
 
-For this specification tags from the standard schema must be prefixed by `st:`, while tags from the `score` library are unprefixed. The namespace names `sc` and `st` are arbitrary (usually short) alphabetic strings chosen by the annotator and are specific to each dataset based on its version specification; the prefix is the name followed by a colon.
+For this specification tags from the standard schema must be prefixed by `st:`, while tags from the `score` library are unprefixed. The namespace names (`sc` in the previous example and `st` in this one) are arbitrary (usually short) alphabetic strings chosen by the annotator and are specific to each dataset based on its version specification; the prefix is the name followed by a colon.
 
 ```{warning}
 HED-compliant tools must be able to handle multiple schemas and prefixed
