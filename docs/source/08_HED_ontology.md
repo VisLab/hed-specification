@@ -155,7 +155,7 @@ The next section describes the ontology structure in more detail.
 
 Each element of a HED schema (i.e., tag, unit, unit class, unit modifier, value class, schema attribute, schema attribute property, schema header, epilogue, and prologue) is assigned a unique persistent globally unique identifier (GUID). This GUID appears as the entity identifier in the ontology and as the `hedId` attribute value in the HED schema. In addition to the HED elements the HED ontology also has some overall structural elements that are also assigned `hedId` values.
 
-The examples in this section and `hed:` to represent schema-specific elements. Both namespaces map to the same PURL (Persistent Uniform Resource Locator).
+The examples in this section and `hed:` to represent schema-specific elements.
 
 ### 8.2.1. Overall ontology structure
 
@@ -491,13 +491,17 @@ For example the value classes that are defined in the standard schema should inh
 
 ## 8.3. HED global identifiers
 
-### 8.3.1. Schema identifiers
+### 8.3.1. Schema namespaces versus the ontology namespace
 
-The HED tags in each HED schema are unique, so a HED tag is uniquely identified by its name (label) and schema version. If the tag is from a library schema, the library name is part of the version. The rules for updating HED version numbers are specified in [HED semantic versioning](https://github.com/hed-standard/hed-schemas/blob/main/README.md#hed-semantic-versioning).
+HED uses the word namespace in two different senses, and the two must not be confused.
 
-Starting with HED schema version `8.2.0` (released April 28, 2023), HED library schemas are strongly recommended to be [partnered with a standard schema](./07_Library_schemas.md#73-partnered-schemas). Partnered schemas are joined with a specific version of the standard schema and are treated as a single integrated vocabulary for annotation and analysis. Partnered schemas MUST not have name conflicts with their standard schema partner.
+A **schema namespace** (see [Namespace](./02_Terminology.md#namespace) and [3.1.2. Version combinations](./03_HED_formats.md#312-version-combinations)) is a mechanism for combining several schemas into a unified vocabulary for a particular application. The annotator chooses a namespace name for each additional schema in the dataset's HED version specification and writes the corresponding namespace prefix (e.g., `sc:`) in front of the tags drawn from that schema. Schema namespaces are dynamic: they are chosen per dataset, are not part of any schema, and say nothing about the identity of the tags they qualify. The same tag may appear with different prefixes in different datasets, much as the same Python module may be imported under different names with `import ... as`.
 
-[Lazy partnering](./07_Library_schemas.md#736-lazy-partnering), introduced with HED schema version `8.3.0`, allows any number of library schemas to be loaded into a single integrated vocabulary provided they are partnered with the same version of the standard schema and there are no name conflicts. If there are conflicts, user-selected namespace prefixes must be used in the version specification and in annotations to resolve the conflicts.
+The **ontology namespace** is the set of global identifiers of the form `HED_xxxxxxx`, where `xxxxxxx` is a 7-digit integer. Every element of a HED schema (tag, unit class, unit, unit modifier, value class, schema attribute, and property) is assigned an identifier of this form when the schema is released, and the identifier is recorded in the element's [`hedId`](./Appendix_A.md#a147-hedid) schema attribute. The identifiers are allocated by schema, not by schema version: common schema structural elements occupy `HED_0000001` to `HED_0009999`, the standard schema occupies `HED_0010000` to `HED_0039999`, and each library schema is assigned its own range when it is first created, as recorded in [library_data.json](https://github.com/hed-standard/hed-schemas/blob/main/library_data.json) in the [hed-standard/hed-schemas](https://github.com/hed-standard/hed-schemas) repository. Within each schema's range, every type of element has a fixed subrange, so the `hedId` alone reveals both the schema an element came from and what type of element it is. The subranges are listed in [8.3.2. Ontology namespace](#832-ontology-namespace).
+
+A `hedId` assignment is permanent. Once an element has been given an identifier, that identifier represents the element in the ontology through all later schema versions, even if the element is renamed, moved, or deprecated, and the identifier is never reassigned to another element. The `hedId` values are used to construct a valid ontology in OWL format from the schema, as described in [8.3.3. HED IRIs](#833-hed-iris).
+
+In short, the ontology namespace fixes what an element *is*, independent of any schema version or dataset, while a schema namespace fixes how an annotator *refers to* an element's tag in one dataset's version specification. Tools resolve a prefixed tag through the version specification to a schema element, and from there through `hedId` to its ontology identifier and its [IRI](#833-hed-iris).
 
 ### 8.3.2. Ontology namespace
 
