@@ -362,12 +362,18 @@ Library schema errors are specific to library schema. Library schema may also ra
 **h.** A library schema with the `unmerged="true"` duplicates special section items found in its partnered standard schema.\
 **i.** A library schema with the `unmerged="true"` header attribute has a tag with the same name as a tag in its standard schema partner.
 
+#### SCHEMA_MISSING_EXTRA\*
+
+**a.** A row of the Sources, Prefixes, or External annotations section has an empty value in a required column.
+
+See [3.1.4.10. Optional extra sections](./03_HED_formats.md#31410-optional-extra-sections) for the columns of each section.
+
 #### SCHEMA_SECTION_MISSING
 
 **a.** A required schema section is missing.\
-**b.** The required sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties and epilogue) are not in the correct order and hence not detected.
+**b.** The schema sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties, epilogue, sources, prefixes, and external annotations) are not in the correct order and hence not detected.
 
-**Note:** Required schema sections may be empty, but still be given.
+**Note:** Required schema sections may be empty, but still be given. The sources, prefixes, and external annotations sections are required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas. When present they must appear in the order listed.
 
 #### SCHEMA_VERSION_INVALID
 
