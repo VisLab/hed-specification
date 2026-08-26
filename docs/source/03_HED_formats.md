@@ -102,9 +102,9 @@ Schemas can be specified in either `.mediawiki` or `.xml` format. The HED schema
 
 HED schema developers usually use `.mediawiki` format for more convenient editing, display, and viewing on GitHub. However, the stable links provided for tools to access and download the HED schema are to the XML versions. Both formats must be available and synchronized in the [hed/standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
-Regardless of the format, a valid HED schema must have the following sections in this order:
+Regardless of the format, the sections of a valid HED schema must appear in the following order. All sections are required except the three after the epilogue, whose status is described below the table.
 
-```{Admonition} Required sections of a HED schema (in the required order):
+```{Admonition} Sections of a HED schema (in the required order):
 | Section   | MediaWiki format | XML format  |
 |------- | --------- | ---------- |
 | Header line  | `HED version="8.0.0"` | `<HED version="8.0.0">` |
@@ -230,7 +230,7 @@ The epilogue may contain `text` characters or `newline`. If other characters app
 
 #### 3.1.4.10. Optional extra sections
 
-The Sources, Prefixes, and External annotations sections were introduced in HED schema `8.4.0` and are specified in HED specification version `4.0.0`. These sections are required in standard schemas with versions >= `8.5.0`; if one is missing from such a schema, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. They are not required in standard schemas with versions < `8.5.0` or in partnered library schemas: such a schema that omits them is valid, and a tool loading it creates them as empty sections. These empty sections will always be included when a partnered library schema is converted to a different format and output. When the extra sections are present, the sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue. These sections will
+The Sources, Prefixes, and External annotations sections were introduced in HED schema `8.4.0` and are specified in HED specification version `4.0.0`. These sections are required in standard schemas with versions >= `8.5.0`; if one is missing from such a schema, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. They are not required in standard schemas with versions < `8.5.0` or in partnered library schemas: such a schema that omits them is valid, and a tool loading it creates them as empty sections. These empty sections will always be included when a partnered library schema is converted to a different format and output. When the extra sections are present, the sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
 
 Each of these sections is a table of rows with fixed columns:
 

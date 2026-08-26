@@ -554,7 +554,7 @@ While schema sources are informational and do not affect validation or tool proc
 - **Link**: A URL pointing to the source resource
 - **Description**: A brief explanation of how the source was used or its relevance
 
-The schema sources section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in partnered library schemas; when it is absent, tools create it as an empty section on load.
+The schema sources section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
 
 ### A.1.7. Schema prefixes
 
@@ -570,7 +570,7 @@ Each prefix entry has three required components (an empty component is a [SCHEMA
 
 Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
 
-The schema prefixes section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in partnered library schemas; when it is absent, tools create it as an empty section on load. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
+The schema prefixes section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
 
 ### A.1.8. External annotations
 
@@ -594,7 +594,7 @@ External annotations serve multiple purposes:
 
 The external annotations section works in conjunction with the schema prefixes section. Each annotation must use a prefix that is defined in the schema prefixes section. Tools can use external annotations to generate rich metadata, export schemas to RDF/OWL formats, and integrate HED with broader ontology frameworks.
 
-The external annotations section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in partnered library schemas; when it is absent, tools create it as an empty section on load.
+The external annotations section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
 
 ## A.2. MediaWiki file format
 

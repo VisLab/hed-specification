@@ -381,7 +381,7 @@ See [3.1.4.10. Optional extra sections](./03_HED_formats.md#31410-optional-extra
 #### SCHEMA_SECTION_MISSING
 
 **a.** A required schema section is missing.\
-**b.** The schema sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties, epilogue, sources, prefixes, and external annotations) are not in the correct order and hence not detected.
+**b.** The schema sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties, epilogue, and, when present, sources, prefixes, and external annotations) are not in the correct order and hence not detected.
 
 **Note:** Required schema sections may be empty, but still be given. The sources, prefixes, and external annotations sections are required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas. When present they must appear in the order listed.
 
