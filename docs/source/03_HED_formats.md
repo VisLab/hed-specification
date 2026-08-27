@@ -20,29 +20,47 @@ Additional rules for HED annotations can be found in [4. Basic annotation](./04_
 
 ### 3.1.1. Schema versions
 
-A HED standard schema version is a string representing a valid semantic version (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
+A HED standard schema version is a string representing a valid [semantic version](https://semver.org/) (e.g., `"8.4.0"` specifies standard schema version `8.4.0`). HED library schemas have their semantic version appended to `"XXX_"`. Here `"XXX"` is the name of the library (e.g., `"lang_1.2.0"` represents version `1.2.0` of the `lang` HED library schema).
 
-A schema version may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace prefix is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace name can be any alphabetic string. If the schema version has a namespace prefix, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`).
+A schema version specification may be preceded by a **namespace prefix**: an alphabetic namespace name followed by a colon (`:`). An example of a schema version specification using a namespace prefix is `"ts:8.4.0"` or `"mystuff:lang_1.2.0"`. The namespace name can be any alphabetic string. If the schema version specification has a namespace prefix, then all tags drawn from that schema must appear in any corresponding annotation with that namespace prefix prepended (e.g., `"ts:Sensory-event"` for the `"Sensory-event"` tag in schema `"ts:8.4.0"`). Namespace designations allow annotators to use tags from incompatible HED schemas to annotate a dataset.
 
 ### 3.1.2. Version combinations
 
 #### 3.1.2.1. Partnered versus unpartnered
 
-Library schemas are of two types: **partnered** and **unpartnered**. A partnered library schema is designed to be used with a specific version of the HED standard schema and has a `withStandard` attribute in its header. For example, the score library schema version `2.1.0` is partnered with standard schema version `8.4.0` and has the header (in XML format):
+HED library schemas are of two types: **partnered** and **unpartnered**. A partnered library schema, which has a `withStandard` attribute in its header, is designed to be used with a specific version of the HED standard schema to form a single unified vocabulary. For example, the score library schema version `2.1.0` is partnered with standard schema version `8.4.0` and has the header (in XML format):
 
 ```xml
 <HED version="2.1.0" library="score" withStandard="8.4.0">
 ```
 
-Partnered schemas only have to define tags that aren't already in the standard schema partner. They are designed to be used in the same namespace as other library schemas, so annotations do not require the namespace prefix.
+Without the `withStandard` attribute in the header, a schema is considered unpartnered and must be completely self-contained. All current versions of the supported HED schemas are partnered. The only time a new unpartnered schema would be developed is to support a new type of application where the standard HED schema tags are not relevant.
 
-Unpartnered schemas must be in their own namespace. The latest versions of all current library schemas are partnered, and use of unpartnered schema designs is discouraged except in special circumstances.
+#### 3.1.2.2 Merged versus unmerged
 
-#### 3.1.2.2. Rules for partnered combination
+A partnered library schema can be saved in two equivalent forms: *merged* or *unmerged*. The above example designates that this schema has been stored in merged form as a single vocabulary with all of its standard schema partner elements included in the schema file. Because these merged schema files are very large, an alternative, equivalent unmerged file format is also allowed. When stored in unmerged form the schema header includes the *unmerged* attribute as shown here for the XML format:
 
-HED has adopted a strategy that allows multiple small library schemas to be combined into a single build-your-own vocabulary that can reside in a single namespace. The rules for combining partnered library schemas were introduced in HED specification version `4.0.0`.
+```xml
+<HED version="2.1.0" library="score" withStandard="8.4.0" unmerged="True">
+```
 
-Schemas are combined by **merge group**: the schemas listed in the default namespace (no prefix) form one merge group, and the schemas sharing a namespace form another. Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
+HED schema loaders are **required** to automatically load the HED standard schema partner when loading an unmerged partnered library schema. Elements from a merged library schema always have the "inLibrary" schema attribute to distinguish these elements from standard schema elements. These "inLibrary" attributes are removed when a library schema is saved in unmerged form.
+
+#### 3.1.2.3. Namespaces form merge groups
+
+HED has adopted a strategy that allows multiple compatible library schemas to be combined into a single build-your-own unified vocabulary. The rules for combining compatible partnered library schemas were introduced in HED specification version `4.0.0`. If the library schemas are incompatible, they can still be used together by placing them in different namespaces. We refer to library schemas in the same namespace as a **merge group**.
+
+Merge groups (i.e., namespaces) are defined in the schema version specification not in the schema itself. A given schema can be combinedThe schemas listed in the default namespace (no prefix) form one merge group, and each unique prefix in the version specification designates a distinct merge group. For example the following [BIDS](https://bids.neuroimaging.io/index.html) version specification:
+
+```json
+"HEDVersion": ["lang_1.1.0", "score_2.1.0", "bc:testlib_4.0.0"]
+```
+
+indicates for this particular BIDS dataset HED tags from the lang and score HED library schemas can be used without prefix, but tags from testlib must have the "bc:" prefix prepended. The user-selected prefix "bc:" is a namespace designator. This dataset uses two namespaces (default and "bc:").
+
+#### 3.1.2.4. Rules for partnered combination
+
+Combination of different schemas into a single vocabulary can proceed provided there are no conflicts as governed by the following rules. A specification that violates any of these rules generates a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error.
 
 | Topic                 | Rule                                                                                                                                                                                                                              |
 | --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -55,8 +73,8 @@ Schemas are combined by **merge group**: the schemas listed in the default names
 | Standard partner      | A standard schema in a merge group is allowed if its version is the same as the group partner; it adds nothing to the merged result.                                                                                              |
 | Standard partner      | A standard schema in a merge group raises an error if its version differs from the group partner.                                                                                                                                 |
 | Unpartnered schemas   | An unpartnered library schema must be alone in its own namespace.                                                                                                                                                                 |
-| Element compatibility | An element (tag, unit class, unit, or schema attribute) appearing in more than one schema of a merge group must have the same attribute values, the same description, and the same ancestor path in each schema.                  |
-| Element compatibility | An element appearing in more than one schema of a merge group must either have a `#` child in all of them, or in none of them.                                                                                                    |
+| Element compatibility | An element (tag, unit class, unit, value class, or schema attribute) appearing in more than one schema of a merge group must have the same attribute values, the same description, and the same ancestor path in each schema.     |
+| Element compatibility | An element appearing in more than one schema of a merge group must either have a `#` child in all of appearances, or in none of them. Whne the `#` is present, it must have the same attributes in all schemas.                   |
 | Element compatibility | A shared element can have different non-`#` children, but the compatibility rules apply to shared children in the same way.                                                                                                       |
 | Element compatibility | The `inLibrary` bookkeeping attribute is excluded from the comparison of attribute values: an element contributed by different library schemas necessarily carries a different `inLibrary` value in each library's merged schema. |
 | Element compatibility | An element contributed by more than one library schema of a merge group carries one `inLibrary` value for each contributing library in the merged result.                                                                         |
