@@ -44,7 +44,7 @@ A partnered library schema can be saved in two equivalent forms: *merged* or *un
 <HED version="2.1.0" library="score" withStandard="8.4.0" unmerged="True">
 ```
 
-HED schema loaders are **required** to automatically load the HED standard schema partner when loading an unmerged partnered library schema. Elements from a merged library schema always have the "inLibrary" schema attribute to distinguish these elements from standard schema elements. These "inLibrary" attributes are removed when a library schema is saved in unmerged form.
+HED schema loaders are **required** to automatically load the HED standard schema partner when loading an unmerged partnered library schema. Elements from a merged library schema always have the `inLibrary` schema attribute to distinguish these elements from standard schema elements. These `inLibrary` attributes are removed when a library schema is saved in unmerged form.
 
 #### 3.1.2.3. Namespaces form merge groups
 
@@ -56,7 +56,7 @@ Merge groups (i.e., namespaces) are defined in the schema version specification 
 "HEDVersion": ["lang_1.1.0", "score_2.1.0", "bc:testlib_4.0.0"]
 ```
 
-indicates for this particular BIDS dataset HED tags from the lang and score HED library schemas can be used without prefix, but tags from testlib must have the "bc:" prefix prepended. The user-selected prefix "bc:" is a namespace designator. This dataset uses two namespaces (default and "bc:").
+indicates for this particular BIDS dataset HED tags from the lang and score HED library schemas can be used without prefix, but tags from testlib must have the `bc:` prefix prepended. The user-selected prefix `bc:` is a namespace designator. This dataset uses two namespaces (default and `bc:`).
 
 #### 3.1.2.4. Rules for partnered combination
 
