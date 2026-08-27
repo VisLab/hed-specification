@@ -169,7 +169,7 @@ In the following example, all the library schemas are partnered with standard sc
 ```
 ````
 
-The full set of rules governing merge groups and partnered combination is given in the rule table of [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). The subsections below give worked examples of version specifications that load and version specifications that fail, organized by the row groups of that table.
+The full set of rules governing merge groups and partnered combination is given in the rule table of [3.1.2.4. Rules for partnered combination](./03_HED_formats.md#3124-rules-for-partnered-combination). The subsections below give worked examples of version specifications that load and version specifications that fail, organized by the row groups of that table.
 
 If an incompatible list of schemas is given, a [SCHEMA_LOAD_FAILED](./Appendix_B.md#schema_load_failed) error is generated.
 
@@ -189,7 +189,7 @@ entry might be added to the standard schema instead.
 
 #### 7.3.6.1. Schemas used in the examples
 
-The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.2. Rules for partnered combination](./03_HED_formats.md#3122-rules-for-partnered-combination). Each example mirrors a test case in that repository's `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
+The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.4. Rules for partnered combination](./03_HED_formats.md#3124-rules-for-partnered-combination). Each example mirrors a test case in that repository's `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
 
 | Schema versions                                                  | Standard schema partner (`withStandard`) |
 | ---------------------------------------------------------------- | ---------------------------------------- |
@@ -215,7 +215,7 @@ The examples rely on the following facts about these libraries:
 | `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']`     | Yes   | Three merge groups (unprefixed, `sc:`, `ts:`) resolve independently; the standard schema partners of different groups do not have to agree.             |
 | `['8.5.0', 'sc:8.4.0']`                                          | Yes   | A standard schema in its own namespace forms its own merge group, so the two standard versions do not conflict.                                         |
 | `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | Yes   | Different versions of one library may share a merge group; these two share the `8.5.0` partner and every shared element is identical.                   |
-| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | No    | A merge group cannot have multiple copies of the same schema (the same name and version).                                                               |
+| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | Yes   | Multiple copies of the same schema (the same name and version) in a merge group are ignored on loading.                                                 |
 | `['8.5.0', 'sc:testconflict_2.0.0', 'sc:testminimal_2.0.0']`     | No    | The rules apply inside each namespace: the `sc` namespace has conflicting partners (`8.5.0` versus `8.4.0`), even though the default namespace is fine. |
 
 #### 7.3.6.3. Standard schema partner examples
