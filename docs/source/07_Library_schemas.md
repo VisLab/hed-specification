@@ -202,7 +202,7 @@ The worked examples in the following subsections use three test-only library sch
 
 The examples rely on the following facts about these libraries:
 
-- `testconflict_2.1.0` is `testconflict_2.0.0` plus one added tag, so every element the two versions share is identical. `testconflict_2.1.1` differs from `testconflict_2.1.0` only in one revised tag description (a patch-level change).
+- `testconflict_2.1.0` is `testconflict_2.0.0` plus one added tag. `testconflict_2.1.1` differs from `testconflict_2.1.0` only in one revised tag description (a patch-level change).
 - `testconflict_2.0.0` declares the top-level tags `Shared-item`, `Attribute-item` (with `suggestedTag=Object-one`), `Description-item`, `Anchor-item` (with child `Nested-item`), `Placeholder-item` (with a `#` child), and `Rooted-tag` (with `rooted=Event`), whose children are `Rooted-one` (with child `Deep-one`) and `Rooted-two`.
 - Each `testclash` version declares its own `Clash-tag` subtree plus at most one probe element also declared by `testconflict_2.0.0`, identical except for at most one controlled difference. The probe differences are tabulated in [7.3.6.5. Element compatibility examples](#7365-element-compatibility-examples).
 - `testminimal` declares only its own `Mini-tag` subtree, which is disjoint from the vocabularies of the other two libraries.
@@ -214,8 +214,8 @@ The examples rely on the following facts about these libraries:
 | `['testconflict_2.1.0', 'testclash_1.0.0', 'testminimal_2.1.0']` | Yes   | All three libraries are partnered with `8.5.0`, and their elements are either disjoint or identical, so they merge into a single unprefixed vocabulary. |
 | `['8.4.0', 'sc:testconflict_2.1.0', 'ts:testminimal_1.0.0']`     | Yes   | Three merge groups (unprefixed, `sc:`, `ts:`) resolve independently; the standard schema partners of different groups do not have to agree.             |
 | `['8.5.0', 'sc:8.4.0']`                                          | Yes   | A standard schema in its own namespace forms its own merge group, so the two standard versions do not conflict.                                         |
-| `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | Yes   | Different versions of one library may share a merge group; these two share the `8.5.0` partner and every shared element is identical.                   |
-| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | Yes   | Multiple copies of the same schema (the same name and version) in a merge group are ignored on loading.                                                 |
+| `['testconflict_2.0.0', 'testconflict_2.0.0']`                   | Yes   | Duplicate schemas (the same name and version) in a merge group are ignored on loading; the result is the same as listing `testconflict_2.0.0` once.      |
+| `['testconflict_2.0.0', 'testconflict_2.1.0']`                   | No    | Different versions of the same schema cannot appear in the same merge group, even though these two share the `8.5.0` partner and have no conflicts.     |
 | `['8.5.0', 'sc:testconflict_2.0.0', 'sc:testminimal_2.0.0']`     | No    | The rules apply inside each namespace: the `sc` namespace has conflicting partners (`8.5.0` versus `8.4.0`), even though the default namespace is fine. |
 
 #### 7.3.6.3. Standard schema partner examples
@@ -255,7 +255,7 @@ Each example in this subsection loads `testconflict_2.0.0` together with one ver
 | `['testconflict_2.0.0', 'testclash_11.0.0']` | `Rooted-tag` subtree | The chain `Rooted-tag`/`Rooted-one` is identical; below it `testclash` declares `Deep-two` where `testconflict` declares `Deep-one`. The differing grandchildren are not shared, so the merged `Rooted-one` carries both.                                             | Yes   |
 | `['testconflict_2.0.0', 'testclash_12.0.0']` | `Rooted-tag` subtree | The shared grandchild `Deep-one` carries a different description. Compatibility applies at every depth of a shared hierarchy.                                                                                                                                         | No    |
 
-The same rules govern two versions of one library. The specification `['testconflict_2.1.0', 'testconflict_2.1.1']` fails to load even though the versions differ only in one description (a patch-level change): versions of one library merge only when their shared elements are identical, exactly like different libraries.
+Two versions of one library are never compared element by element, because different versions of the same schema cannot appear in the same merge group: `['testconflict_2.1.0', 'testconflict_2.1.1']` fails to load on that rule alone. To use two versions together, give one its own namespace, for example `['testconflict_2.1.0', 'v2:testconflict_2.1.1']`.
 
 Any failing pair in this subsection can still be used together by giving one schema its own namespace. For example, `['testconflict_2.0.0', 'cl:testclash_2.0.0']` loads because the two `Attribute-item` declarations are in different merge groups and are never compared.
 
