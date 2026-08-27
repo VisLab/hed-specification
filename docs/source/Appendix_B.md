@@ -123,7 +123,8 @@ See [3.2.10.2. Event-level processing](./03_HED_formats.md#32103-event-level-pro
 **a.** Different standard schema partner versions in a merge group.\
 **b.** A partnered library schema has an element (e.g., tag, unit class, unit, value class or schema attribute) that is already in its standard schema partner.\
 **c.** Elements of two library schemas in the same merge group have the same name but have conflicting attributes, description, parents, or placeholder (`#`) children.\
-**d.** Different versions of the same schema appear in the same merge group.\n**e.** A schema with a specified name and version cannot be found. Note: depending on the validator, this issue may be reported through a file error exception (e.g., a `HedFileError` exception in the Python tools) rather than as `SCHEMA_LOAD_FAILED`.
+**d.** Different versions of the same schema appear in the same merge group.\
+**e.** A schema with a specified name and version cannot be found. Note: depending on the validator, this issue may be reported through a file error exception (e.g., a `HedFileError` exception in the Python tools) rather than as `SCHEMA_LOAD_FAILED`.
 
 See [3.1.2.4. Rules for partnered combination](./03_HED_formats.md#3124-rules-for-partnered-combination) for the rule table and [7.3.6. Lazy partnering](./07_Library_schemas.md#736-lazy-partnering) for a description of the merging process.
 
