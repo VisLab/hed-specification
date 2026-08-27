@@ -550,9 +550,11 @@ Schema sources serve as documentation and attribution for the intellectual sourc
 
 While schema sources are informational and do not affect validation or tool processing, they provide important provenance information for schema maintainers and users who need to understand the basis for schema terminology and organization. Each source has three required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
-- **Name**: A short identifier for the source (e.g., "Wikipedia", "NCIT")
-- **Link**: A URL pointing to the source resource
-- **Description**: A brief explanation of how the source was used or its relevance
+- **`source`**: A short identifier for the source (e.g., "Wikipedia", "NCIT")
+- **`link`**: A URL pointing to the source resource
+- **`description`**: A brief explanation of how the source was used or its relevance
+
+These are the column names used by the MediaWiki and TSV formats. The XML and JSON formats serialize the first column of this section and of the Prefixes and External annotations sections (`source` or `prefix`) as `name`; the other column names are identical in every format.
 
 The schema sources section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
 
@@ -564,9 +566,9 @@ Schema prefixes are essential for the `annotation` schema attribute, which uses 
 
 Each prefix entry has three required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
-- **Name**: The prefix string including the colon separator (e.g., `dc:`, `foaf:`, `rdfs:`)
-- **Namespace**: The full IRI or URL for the ontology namespace
-- **Description**: A brief description of the ontology or vocabulary, often including standard references
+- **`prefix`**: The prefix string including the colon separator (e.g., `dc:`, `foaf:`, `rdfs:`)
+- **`namespace`**: The full IRI or URL for the ontology namespace
+- **`description`**: A brief description of the ontology or vocabulary, often including standard references
 
 Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
 
@@ -580,10 +582,10 @@ External annotations extend beyond the HED schema's internal structure to enable
 
 Each external annotation entry has four required components (an empty component is a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning):
 
-- **Name**: The prefix identifying the ontology (must match a defined schema prefix)
-- **ID**: The local identifier for the property within its namespace
-- **IRI**: The full internationalized resource identifier for the property
-- **Description**: A clear explanation of the property's meaning and intended use
+- **`prefix`**: The prefix identifying the ontology (must match a defined schema prefix)
+- **`id`**: The local identifier for the property within its namespace
+- **`iri`**: The full internationalized resource identifier for the property
+- **`description`**: A clear explanation of the property's meaning and intended use
 
 External annotations serve multiple purposes:
 
@@ -1286,7 +1288,7 @@ The `<schemaSources>` element contains one or more `<schemaSource>` child elemen
 
 Each `<schemaSource>` element has three required child elements:
 
-- `<name>`: A short identifier for the source
+- `<name>`: A short identifier for the source (the `source` column of the MediaWiki and TSV formats)
 - `<link>`: A URL pointing to the source resource
 - `<description>`: A brief explanation of the source's relevance
 
@@ -1313,7 +1315,7 @@ The `<schemaPrefixes>` element contains one or more `<schemaPrefix>` child eleme
 
 Each `<schemaPrefix>` element has three required child elements:
 
-- `<name>`: The prefix string including the colon (e.g., `dc:`)
+- `<name>`: The prefix string including the colon (e.g., `dc:`) (the `prefix` column of the MediaWiki and TSV formats)
 - `<namespace>`: The full IRI for the ontology namespace
 - `<description>`: A description of the ontology or vocabulary
 
@@ -1342,7 +1344,7 @@ The `<externalAnnotations>` element contains one or more `<externalAnnotation>` 
 
 Each `<externalAnnotation>` element has four required child elements:
 
-- `<name>`: The ontology designator prefix (must be defined in the prefixes section)
+- `<name>`: The ontology designator prefix (must be defined in the prefixes section) (the `prefix` column of the MediaWiki and TSV formats)
 - `<id>`: The local identifier for the property
 - `<iri>`: The full IRI for the property
 - `<description>`: An explanation of the property's meaning
@@ -1591,7 +1593,7 @@ The `sources` section (optional) defines external resources used during schema d
 
 Each source object has three required properties:
 
-- `name`: A short identifier for the source
+- `name`: A short identifier for the source (the `source` column of the MediaWiki and TSV formats)
 - `link`: A URL pointing to the source resource
 - `description`: A brief explanation of the source's relevance
 
@@ -1618,7 +1620,7 @@ The `prefixes` section (optional) defines namespace prefixes for ontology integr
 
 Each prefix object has three required properties:
 
-- `name`: The prefix string including the colon (e.g., `dc:`)
+- `name`: The prefix string including the colon (e.g., `dc:`) (the `prefix` column of the MediaWiki and TSV formats)
 - `namespace`: The full IRI for the ontology namespace
 - `description`: A description of the ontology or vocabulary
 
@@ -1647,7 +1649,7 @@ The `external_annotations` section (optional) defines annotation properties from
 
 Each external annotation object has four required properties:
 
-- `name`: The ontology designator prefix (must be defined in the prefixes section)
+- `name`: The ontology designator prefix (must be defined in the prefixes section) (the `prefix` column of the MediaWiki and TSV formats)
 - `id`: The local identifier for the property
 - `iri`: The full IRI for the property
 - `description`: An explanation of the property's meaning

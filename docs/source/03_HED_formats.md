@@ -256,6 +256,8 @@ Each of these sections is a table of rows with fixed columns:
 - **Prefixes** defines the namespace prefixes used in `annotation` attribute values. Columns: `prefix` (including the trailing colon), `namespace` (the IRI of the namespace), and `description`.
 - **External annotations** lists the properties from external ontologies that may be attached to schema elements. Columns: `prefix` (which must be defined in the Prefixes section), `id` (the local identifier), `iri` (the full IRI of the property), and `description`.
 
+These are the column names used by the MediaWiki and TSV formats. The XML and JSON formats serialize the first column of each section (`source` or `prefix`) as `name`; the other column names are identical in every format.
+
 A section may have no rows at all. Each row that is present must give a non-empty value in each column; if a row has an empty value in any column, a [SCHEMA_MISSING_EXTRA](./Appendix_B.md#schema_missing_extra) warning is issued.
 
 See [A.1.6. Schema sources](./Appendix_A.md#a16-schema-sources), [A.1.7. Schema prefixes](./Appendix_A.md#a17-schema-prefixes), and [A.1.8. External annotations](./Appendix_A.md#a18-external-annotations) for further discussion, and the per-format sections of Appendix A for the representation of these sections in each file format.
