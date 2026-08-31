@@ -370,7 +370,7 @@ A `hedId` value is the prefix `HED_` followed by a 7 digit integer. The standard
 
 #### A.1.4.8. inLibrary
 
-The `inLibrary` attribute indicates that a schema element originates from a named library schema rather than the standard schema. The attribute value is the library name in lowercase (e.g., `inLibrary=testlib`). This attribute is automatically added by tools during the schema merging process when a partnered library schema is merged with a standard schema. In unmerged library schemas, nodes cannot have the `inLibrary` attribute. The attribute helps tools and validators track the provenance of schema elements when multiple schemas are combined and ensures proper validation against the original library schema definitions. Users should not manually add this attribute to the schema as it is managed automatically by tools. Because `inLibrary` is bookkeeping, it is excluded from the element compatibility comparisons of [3.1.2.4](./03_HED_formats.md#3124-rules-for-partnered-combination): an element contributed by more than one library schema of a merge group carries a different `inLibrary` value in each library's merged schema, and the merged result retains one `inLibrary` value for each contributing library.
+The `inLibrary` attribute indicates that a schema element originates from a named library schema rather than the standard schema. The attribute value is the library name in lowercase (e.g., `inLibrary=testlib`). This attribute is automatically added by tools during the schema merging process when a partnered library schema is merged with a standard schema. In unmerged library schemas, nodes cannot have the `inLibrary` attribute. The attribute helps tools and validators track the provenance of schema elements when multiple schemas are combined and ensures proper validation against the original library schema definitions. Users should not manually add this attribute to the schema as it is managed automatically by tools. Because `inLibrary` is bookkeeping, it is excluded from the element compatibility comparisons of [3.1.2.4](./03_HED_formats.md#3124-partnered-combinations): an element contributed by more than one library schema of a merge group carries a different `inLibrary` value in each library's merged schema, and the merged result retains one `inLibrary` value for each contributing library.
 
 #### A.1.4.9. isPartOf
 
@@ -641,7 +641,7 @@ The first line of the `.mediawiki` file should be a _header_ that starts with th
    * - library
      - optional
      - |
-       | Name of library used in XML file names.
+       | Name of library used in XML filenames.
        | The value should only have lowercase alphabetic characters.
    * - version
      - required
@@ -686,7 +686,7 @@ HED library="testlib" version="1.0.2"
 ```
 ````
 
-The `library` and `version` values are used to form the official file name `HED_testlib_1.0.2.mediawiki`. The file is found in [library_schemas/testlib/hedwiki](https://github.com/hed-standard/hed-schemas/tree/main/library_schemas/testlib/hedwiki) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
+The `library` and `version` values are used to form the official filename `HED_testlib_1.0.2.mediawiki`. The file is found in [library_schemas/testlib/hedwiki](https://github.com/hed-standard/hed-schemas/tree/main/library_schemas/testlib/hedwiki) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
 A warning is generated when unknown header attributes are translated as attributes of the `HED` line during `.mediawiki` file validation.
 
@@ -989,7 +989,7 @@ The `HED` node is the root node of the XML schema.
 ```
 ````
 
-The file name corresponding to this example is `HED8.0.0.xml`. The file is found in the [standard_schema/hedxml](https://github.com/hed-standard/hed-schemas/tree/main/standard_schema/hedxml) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
+The filename corresponding to this example is `HED8.0.0.xml`. The file is found in the [standard_schema/hedxml](https://github.com/hed-standard/hed-schemas/tree/main/standard_schema/hedxml) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
 Library schemas must include the `library` attribute with the library name in their header line as shown in the following example.
 
@@ -999,7 +999,7 @@ Library schemas must include the `library` attribute with the library name in th
 ```
 ````
 
-The `library` and `version` values are used to form the official xml file name `HED_testlib_1.0.2.xml`. The file is found in [library_schemas/testlib/hedxml](https://github.com/hed-standard/hed-schemas/tree/main/library_schemas/testlib/hedxml) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
+The `library` and `version` values are used to form the official xml filename `HED_testlib_1.0.2.xml`. The file is found in [library_schemas/testlib/hedxml](https://github.com/hed-standard/hed-schemas/tree/main/library_schemas/testlib/hedxml) directory of the [hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
 Unknown header attributes are translated as attributes of the `HED` root node of the `.xml` version, but a warning is issued when the `.mediawiki` file is validated.
 

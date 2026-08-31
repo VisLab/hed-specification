@@ -59,7 +59,7 @@ The MediaWiki format is line-oriented with each non-blank line corresponding to 
 
 The spreadsheet format consists of 10 tab-separated value (tsv) files each containing the information for one type of HED entity as summarized in the following table.
 
-| tsv file name            | Contents                                                                                                                 |
+| tsv filename             | Contents                                                                                                                 |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
 | `xxx_AnnotationProperty` | These correspond to schema attributes that are not inherited.                                                            |
 | `xxx_AttributeProperty`  | Definitions of the schema attribute properties corresponding<br/><br/>to the `Properties` section in the MediaWiki File. |
@@ -80,7 +80,7 @@ Most schema developers will only edit the `xxx_Tag.tsv` file or the `xxx_Structu
 
 Each HED spreadsheet must start with a 1-line header containing the column names of the file. The first two column names are always `hedId` and `rdfs:label`.
 
-| tsv file name            | Required column names                                                                                       |
+| tsv filename             | Required column names                                                                                       |
 | ------------------------ | ----------------------------------------------------------------------------------------------------------- |
 | `xxx_AnnotationProperty` | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `dc:description`                                  |
 | `xxx_AttributeProperty`  | `hedId`, `rdfs:label`, `Type`, `dc:description`                                                             |
