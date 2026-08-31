@@ -36,7 +36,7 @@ HED schema files (including library schema files) can be represented in one of 4
 
 **MediaWiki** format has one line per tag, is relatively easy to read, and clearly displays the hierarchy structure for human readers. Many developers work in this format after the tag vocabulary has been established.
 
-**TSV** is a multi-file format (13 TSV files) that represents each type of element in a spreadsheet. Developers often use TSV format in the initial development of a library vocabulary, because they only need to focus on the `_Tags.tsv` spreadsheet which contains the library tags. Most of the other TSV files will be empty or fixed after the initial setup.
+**TSV** is a multi-file format (13 TSV files for schema versions >= `8.4.0`) that represents each type of element in a spreadsheet. Developers often use TSV format in the initial development of a library vocabulary, because they only need to focus on the `_Tags.tsv` spreadsheet which contains the library tags. Most of the other TSV files will be empty or fixed after the initial setup.
 
 **XML** is hard to read, so humans almost never use this format directly, but instead, convert XML to MediaWiki or TSV. XML is easily parsed by tools and is the standard format for tools in the HED ecosystem.
 

@@ -115,9 +115,9 @@ Here is a summary of the types of changes that correspond to different levels of
 
 ### 3.1.4. Schema layout overview
 
-Schemas can be specified in any of four equivalent formats: MediaWiki, TSV. XML, or JSON. The examples in this section primarily use MediaWiki or XML formats for illustration, but appendix [A. Schema format details](Appendix_A.md) provides details about all four formats. The HED schema [online tools](https://hedtools.org/hed/schemas) provide an easy way for users to validate schema and convert between formats.
+Schemas can be specified in any of four equivalent formats: MediaWiki, TSV, XML, or JSON. The examples in this section primarily use MediaWiki or XML formats for illustration, but appendix [A. Schema format details](./Appendix_A.md) provides details about all four formats. The HED schema [online tools](https://hedtools.org/hed/schemas) provide an easy way for users to validate schema and convert between formats.
 
-HED schema developers usually use `.mediawiki` format for more convenient editing, display, and viewing on GitHub. However, the stable links provided for tools to access and download the HED schema are to the XML versions. TSV format is sometimes used early in schema development and JSON format is used primarily by AIs. All formats must be available and synchronized in the [hed/standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository. The examples in this chapter mainly use MediaWiki ([])
+HED schema developers usually use `.mediawiki` format for more convenient editing, display, and viewing on GitHub. However, the stable links provided for tools to access and download the HED schema are to the XML versions. TSV format is sometimes used early in schema development and JSON format is used primarily by AIs. All formats must be available and synchronized in the [hed-standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository.
 
 Regardless of the format, the sections of a valid HED schema must appear in the following order. All sections are required except the three after the epilogue, whose status is described below the table.
 
