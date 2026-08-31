@@ -121,12 +121,15 @@ See [3.2.10.2. Event-level processing](./03_HED_formats.md#32103-event-level-pro
 ### SCHEMA_LOAD_FAILED
 
 **a.** Different standard schema partner versions in a merge group.\
-**b.** A partnered library schema has an element (e.g., tag, unit class, unit, value class or schema attribute) that is already in its standard schema partner.\
-**c.** Elements of two library schemas in the same merge group have the same name but have conflicting attributes, description, parents, or placeholder (`#`) children.\
-**d.** Different versions of the same schema appear in the same merge group.\
-**e.** A schema with a specified name and version cannot be found. Note: depending on the validator, this issue may be reported through a file error exception (e.g., a `HedFileError` exception in the Python tools) rather than as `SCHEMA_LOAD_FAILED`.
+**b.** Elements (tag, unit class, unit, unit modifier, value class, or schema attribute) of two library schemas in the same merge group have the same name but have conflicting attributes, description, parents, or placeholder (`#`) children.\
+**c.** Different versions of the same schema appear in the same merge group.\
+**d.** A schema with a specified name and version cannot be found.
 
-See [3.1.2.4. Rules for partnered combination](./03_HED_formats.md#3124-rules-for-partnered-combination) for the rule table and [7.3.6. Lazy partnering](./07_Library_schemas.md#736-lazy-partnering) for a description of the merging process.
+**Note:** Depending on the validator, a missing file may be reported through a file error exception (e.g., a `HedFileError` exception in the Python tools) rather than as `SCHEMA_LOAD_FAILED`.
+
+**Note:** Partnered library schemas never define schema properties: the `Properties` section of an unmerged partnered library schema is empty and that of a merged partnered library schema is the `Properties` section of its standard schema partner, so conflicts with the standard partner are detected when the schema itself is validated. See reason **j** and **k** of [SCHEMA_LIBRARY_INVALID](#schema_library_invalid).
+
+See [3.1.2.4. Partnered combinations](./03_HED_formats.md#3124-partnered-combinations) for the rule table and [7.3.6. Lazy partnering](./07_Library_schemas.md#736-lazy-partnering) for a description of the merging process.
 
 ### SIDECAR_BRACES_INVALID
 
@@ -365,12 +368,15 @@ Library schema errors are specific to library schema. Library schema may also ra
 **a.** The specified library name is not alphabetic or lowercase.\
 **b.** The `withStandard` attribute is used in a header that does not also have the `library` attribute.\
 **c.** The `withStandard` attribute value does not correspond to a valid standard schema version.\
-**d.** The `rooted` attribute appears in a schema whose header does not have `unmerged="true"` as well as appropriate `library` and `withStandard` header values.\
-**e.** A node with the `rooted` attribute is not at the top level.\
+**d.** The `rooted` attribute appears in a schema whose header does not have both the `library` and `withStandard` attributes.\
+**e.** In an unmerged schema, a node with the `rooted` attribute is not at the top level; in a merged schema, a node with `rooted=XXX` is not a direct child of `XXX`.\
 **f.** A node with the `rooted` attribute does not correspond to a node in its partnered standard schema.\
-**g.** A library schema with the `unmerged="true"` header attribute has an `inLibrary` attribute in some element.\
-**h.** A library schema with the `unmerged="true"` duplicates special section items found in its partnered standard schema.\
-**i.** A library schema with the `unmerged="true"` header attribute has a tag with the same name as a tag in its standard schema partner.
+**g.** A partnered library schema with the `unmerged="true"` header attribute has an `inLibrary` attribute in some element.\
+**h.** A partnered library schema with the `unmerged="true"` header attribute duplicates a row of the extra sections (`Sources`, `Prefixes`, or `External annotations`) of its standard schema partner. Extra-section rows are not schema elements and are not merged when the schema is loaded.\
+**i.** A partnered library schema with the `unmerged="true"` header attribute has a schema element (tag, unit, unit class, unit modifier, value class, or schema attribute) with the same name as an element of its standard schema partner. Naming an existing unit class solely to add new units under it is not a duplication.\
+**j.** A partnered library schema with the `unmerged="true"` header attribute has a non-empty `Properties` section.\
+**k.** A merged partnered library schema has a `Properties` section that differs from that of its standard schema partner.\
+**l.** A partnered library schema with the `unmerged="true"` header attribute uses the `reserved` attribute.
 
 #### SCHEMA_MISSING_EXTRA\*
 

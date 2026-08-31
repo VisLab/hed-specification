@@ -57,20 +57,23 @@ The MediaWiki format is line-oriented with each non-blank line corresponding to 
 
 #### 8.1.4.2. Spreadsheet files
 
-The spreadsheet format consists of 10 tab-separated value (tsv) files each containing the information for one type of HED entity as summarized in the following table.
+The spreadsheet format consists of 13 tab-separated value (tsv) files (10 for schema versions < `8.4.0`, which lack the three extras files) each containing the information for one type of HED entity as summarized in the following table.
 
-| tsv file name            | Contents                                                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| `xxx_AnnotationProperty` | These correspond to schema attributes that are not inherited.                                                            |
-| `xxx_AttributeProperty`  | Definitions of the schema attribute properties corresponding<br/><br/>to the `Properties` section in the MediaWiki File. |
-| `xxx_DataProperty`       | Schema attributes whose value is a literal such as boolean, string or numeric.                                           |
-| `xxx_ObjectProperty`     | Schema attributes whose value is another schema entity such as a HED tag.                                                |
-| `xxx_Structure`          | Structural entities including the header, prologue, and epilogue.                                                        |
-| `xxx_Tag`                | Definitions of the HED tags (vocabulary) in the schema.                                                                  |
-| `xxx_Unit`               | Definitions of the HED unit entities.                                                                                    |
-| `xxx_UnitClass`          | Definitions of the HED unit classes.                                                                                     |
-| `xxx_UnitModifier`       | Definitions of the HED unit modifiers.                                                                                   |
-| `xxx_ValueClass`         | Definitions of the HED value classes.                                                                                    |
+| tsv filename                     | Contents                                                                                                                 |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `xxx_AnnotationProperty`         | These correspond to schema attributes that are not inherited.                                                            |
+| `xxx_AnnotationPropertyExternal` | Rows of the `External annotations` extra section (schema versions >= `8.4.0`).                                           |
+| `xxx_AttributeProperty`          | Definitions of the schema attribute properties corresponding<br/><br/>to the `Properties` section in the MediaWiki File. |
+| `xxx_DataProperty`               | Schema attributes whose value is a literal such as boolean, string or numeric.                                           |
+| `xxx_ObjectProperty`             | Schema attributes whose value is another schema entity such as a HED tag.                                                |
+| `xxx_Prefixes`                   | Rows of the `Prefixes` extra section (schema versions >= `8.4.0`).                                                       |
+| `xxx_Sources`                    | Rows of the `Sources` extra section (schema versions >= `8.4.0`).                                                        |
+| `xxx_Structure`                  | Structural entities including the header, prologue, and epilogue.                                                        |
+| `xxx_Tag`                        | Definitions of the HED tags (vocabulary) in the schema.                                                                  |
+| `xxx_Unit`                       | Definitions of the HED unit entities.                                                                                    |
+| `xxx_UnitClass`                  | Definitions of the HED unit classes.                                                                                     |
+| `xxx_UnitModifier`               | Definitions of the HED unit modifiers.                                                                                   |
+| `xxx_ValueClass`                 | Definitions of the HED value classes.                                                                                    |
 
 The `xxx_` prefix identifies the schema version. For example, the prefix for standard schema version `8.3.0` is `HED8.3.0_` and the prefix for SCORE library schema `2.0.0` is `HED_score_2.0.0_`.
 
@@ -78,20 +81,23 @@ Most schema developers will only edit the `xxx_Tag.tsv` file or the `xxx_Structu
 
 #### 8.1.4.3. Spreadsheet format
 
-Each HED spreadsheet must start with a 1-line header containing the column names of the file. The first two column names are always `hedId` and `rdfs:label`.
+Each HED spreadsheet must start with a 1-line header containing the column names of the file. The first two column names are always `hedId` and `rdfs:label`, except in the three extras files (`xxx_Sources`, `xxx_Prefixes`, and `xxx_AnnotationPropertyExternal`), whose rows are not schema elements and have no `hedId`.
 
-| tsv file name            | Required column names                                                                                       |
-| ------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| `xxx_AnnotationProperty` | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `dc:description`                                  |
-| `xxx_AttributeProperty`  | `hedId`, `rdfs:label`, `Type`, `dc:description`                                                             |
-| `xxx_DataProperty`       | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `Properties`, `dc:description`                    |
-| `xxx_ObjectProperty`     | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `Properties`, `dc:description`                    |
-| `xxx_Structure`          | `hedId`, `rdfs:label`, `Attributes`, `dc:description`                                                       |
-| `xxx_Tag`                | `hedId`, `rdfs:label`, `Level`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`        |
-| `xxx_Unit`               | `hedId`, `rdfs:label`, `omn:SubClassOf`, `hadUnitClass`, `Attributes`, `dc:description`, `omn:EquivalentTo` |
-| `xxx_UnitClass`          | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
-| `xxx_UnitModifier`       | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
-| `xxx_ValueClass`         | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
+| tsv filename                     | Required column names                                                                                       |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `xxx_AnnotationProperty`         | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `dc:description`                                  |
+| `xxx_AnnotationPropertyExternal` | `prefix`, `id`, `iri`, `description`                                                                        |
+| `xxx_AttributeProperty`          | `hedId`, `rdfs:label`, `Type`, `dc:description`                                                             |
+| `xxx_DataProperty`               | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `Properties`, `dc:description`                    |
+| `xxx_ObjectProperty`             | `hedId`, `rdfs:label`, `Type`, `omn:Domain`, `omn:Range`, `Properties`, `dc:description`                    |
+| `xxx_Prefixes`                   | `prefix`, `namespace`, `description`                                                                        |
+| `xxx_Sources`                    | `source`, `link`, `description`                                                                             |
+| `xxx_Structure`                  | `hedId`, `rdfs:label`, `Attributes`, `dc:description`                                                       |
+| `xxx_Tag`                        | `hedId`, `rdfs:label`, `Level`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`        |
+| `xxx_Unit`                       | `hedId`, `rdfs:label`, `omn:SubClassOf`, `hadUnitClass`, `Attributes`, `dc:description`, `omn:EquivalentTo` |
+| `xxx_UnitClass`                  | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
+| `xxx_UnitModifier`               | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
+| `xxx_ValueClass`                 | `hedId`, `rdfs:label`, `omn:SubClassOf`, `Attributes`, `dc:description`, `omn:EquivalentTo`                 |
 
 The prefixes on column names have the following meanings:
 

@@ -78,6 +78,14 @@ An experiment-specific item, often a specific behavioral or computer measure, th
 
 A continuous recording of data from an instrument in a single session without repositioning the recording sensors.
 
+### Schema element
+
+A named item of a HED schema that is assigned a `hedId` in the HED ontology: a tag, unit, unit class, unit modifier, value class, schema attribute, or schema attribute property, together with the structural elements (header, prologue, and epilogue). All schema elements except the structural elements participate in merging and are subject to the element compatibility rules of [3.1.2.4. Partnered combinations](./03_HED_formats.md#3124-partnered-combinations); differences in prologues and epilogues are not merge conflicts.
+
+### Schema section
+
+One of the ordered blocks of a HED schema file (see [3.1.4. Schema layout overview](./03_HED_formats.md#314-schema-layout-overview)). The *schema section* holds the tags. The *auxiliary sections* (unit classes, unit modifiers, value classes, schema attributes, and properties) hold the other schema elements. The *extra sections* (Sources, Prefixes, and External annotations) hold rows that are not schema elements: they have no `hedId` and are not merged when the schema is loaded.
+
 ### Tag-group
 
 One or more valid, comma-separated HED tags enclosed in parentheses to indicate that these tags belong together. Tag-groups may contain arbitrary nestings of other tags and tag-groups.
