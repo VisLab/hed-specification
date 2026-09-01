@@ -231,11 +231,11 @@ See appendices [A.1.4. Schema attributes](./Appendix_A.md#a14-schema-attributes)
 
 The schema properties section lists the allowed properties of the schema attributes. These properties help tools validate certain requirements directly based on the HED schema rather than on a hard-coded implementation.
 
-There are two types of properties: **form type** and **section type** properties. The `boolProperty` is a form type property indicating that a schema attribute does not take a value. Rather, its presence indicates true and absence indicate false.
+There are two main types of properties: **domain** properties and **range** properties. Property names ending in `Domain` indicate the types of schema element a schema attribute may apply to. The domain properties are `elementDomain`, `tagDomain`, `unitClassDomain`, `unitModifierDomain`, `unitDomain`, and `valueClassDomain`. Schema attributes without any domain property are assumed to apply to node (tag-term) elements.
 
-The *section* type properties indicate the sections in which a schema attribute may appear. The section properties include `unitClassProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty`. Schema attributes without any section properties are assumed to apply to node elements.
+Property names ending in `Range` indicate the type of value a schema attribute may have. The range properties are `boolRange`, `numericRange`, `stringRange`, `tagRange`, `unitClassRange`, `unitRange`, and `valueClassRange`. A schema attribute with the `boolRange` property does not take a value: its presence indicates true, and its absence indicates false. The remaining property, `annotationProperty`, marks a schema attribute whose value is not inherited by child nodes.
 
-A schema attribute may have multiple section properties, indicating that the attribute may appear as an attribute in multiple sections of the schema.
+A schema attribute may have multiple domain properties, indicating that the attribute may appear in multiple sections of the schema, and multiple range properties, indicating that its values may be of several types. Before HED standard schema version `8.3.0` these properties had other names (`boolProperty`, `elementProperty`, `nodeProperty`, `unitClassProperty`, `unitModifierProperty`, `unitProperty`, and `valueClassProperty`); see [A.1.5. Schema properties](./Appendix_A.md#a15-schema-properties) for the mapping.
 
 See [A.1.4 Schema attributes](./Appendix_A.md#a14-schema-attributes) and [A.1.5. Schema properties](./Appendix_A.md#a15-schema-properties) for information and a listing of schema attributes and their respective properties.
 
@@ -310,18 +310,18 @@ Attributes are enclosed with curly braces (`{ }`). These attributes provide addi
 
 If an attribute or property is referenced in the schema, it must be defined in the appropriate definition section of the schema, or schema processing tools will generate a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error.
 
-Allowed HED node attributes include unit class and value class values as well as HED schema attributes that do not have one of the following modifiers: `unitClassProperty`, `unitModifierProperty`, `unitProperty`, or `valueClassProperty`. Note: schema attributes having the `elementProperty` may apply anywhere in the schema, including the schema header, schema attributes having the `nodeProperty` may only apply to node elements.
+Allowed HED node attributes include unit class and value class values as well as HED schema attributes that do not have one of the following domain properties: `unitClassDomain`, `unitModifierDomain`, `unitDomain`, or `valueClassDomain`. Note: schema attributes having the `elementDomain` property may apply anywhere in the schema, including the schema header; schema attributes having the `tagDomain` property may only apply to node elements.
 
-HED schema attributes that have the `boolProperty` appear with just their name in the schema element they are modifying. The presence of such an attribute indicates that it is true or present.
+HED schema attributes that have the `boolRange` property appear with just their name in the schema element they are modifying. The presence of such an attribute indicates that it is true or present.
 
-HED schema attributes that do not have the `boolProperty` are specified in the form of a `name=value` pair. If multiple values of a particular attribute are applicable, they should be specified as name-value pairs separated by commas within the curly braces.
+HED schema attributes that do not have the `boolRange` property are specified in the form of a `name=value` pair. If multiple values of a particular attribute are applicable, they should be specified as name-value pairs separated by commas within the curly braces.
 
 The following example shows a simple HED schema in `.mediawiki` format.
 
 ````{admonition} **Example:** Example HED schema in .mediawiki format.
 
 ```tid
-HED version="8.0.0"
+HED version="8.4.0"
 
 '''Prologue'''
 This prologue introduces the schema.
@@ -343,12 +343,12 @@ This prologue introduces the schema.
 '''Value classes''' <nowiki>[Rules for the values provided by users.]</nowiki>
                        . . .
 '''Schema attributes''' <nowiki>[Allowed node attributes.]</nowiki>
-* extensionAllowed <nowiki>{boolProperty}[Attribute indicating that users can add child nodes.]</nowiki>
+* extensionAllowed <nowiki>{boolRange}[Attribute indicating that users can add child nodes.]</nowiki>
 * suggestedTag <nowiki>[Attribute indicating another tag that is often associated with this tag.]</nowiki>
-* takesValue <nowiki>{boolProperty}[Attribute indicating a placeholder to be replaced by a user-defined value.] </nowiki>
+* takesValue <nowiki>{boolRange}[Attribute indicating a placeholder to be replaced by a user-defined value.] </nowiki>
                         . . .
 '''Properties''' <nowiki>[Properties of the schema attributes.]</nowiki>
-* boolProperty <nowiki>[Indicates a schema attribute represents a boolean.]</nowiki>
+* boolRange <nowiki>[Indicates that a schema attribute's value can be true or false.]</nowiki>
                         . . .
 '''Epilogue'''
 An optional section that is the place for notes and is ignored in HED processing.
@@ -362,7 +362,7 @@ In the above example, `Property` in the `schema` section is a top node because i
 
 `Sensory-event` in the `schema` section has a `suggestedTag` attribute (shown in curly braces). Similarly, `Property` has an `extensionAllowed` attribute, and the `#` placeholder has a `takesValue` attribute. The `schema attributes` section must include definitions of `suggestedTag,` `extensionAllowed` and `takesValue` or the schema will not validate.
 
-The definition of the `takesValue` attribute has `boolProperty`, so a definition of `boolProperty` must be included in the `Properties` section or the schema will not validate.
+The definition of the `takesValue` attribute has `boolRange`, so a definition of `boolRange` must be included in the `Properties` section or the schema will not validate.
 
 Everything after each HED node (tag term) must be enclosed by `<nowiki></nowiki>` markup elements. The contents within these markup elements include the description and attributes.
 
@@ -380,7 +380,7 @@ Each `<node>` element must have a `<name>` child element corresponding to the HE
 
 A `<node>` element should also have a `<description>` child element whose content corresponds to the text that appears in square brackets (`[ ]`) in the `.mediawiki` version.
 
-The schema attributes, which appear as `name` values or `name-value` pairs enclosed in curly braces (`{ }`) in the `.mediawiki` file, are translated into `<attribute>` child elements of `<node>` in the `.xml`. These `<attribute>` elements always have a `<name>` element child and also have a `<value>` element if the corresponding schema attribute does not have `boolProperty`.
+The schema attributes, which appear as `name` values or `name-value` pairs enclosed in curly braces (`{ }`) in the `.mediawiki` file, are translated into `<attribute>` child elements of `<node>` in the `.xml`. These `<attribute>` elements always have a `<name>` element child and also have a `<value>` element if the corresponding schema attribute does not have the `boolRange` property.
 
 The following is a translation of the `.mediawiki` example from the previous section in the HEDXML format.
 
@@ -388,7 +388,7 @@ The following is a translation of the `.mediawiki` example from the previous sec
 
 ```xml
 <?xml version="1.0" ?>
-<HED version="8.0.0">
+<HED version="8.4.0">
     <prologue>This prologue introduces the schema.</prologue>
     <schema>
         <node>
@@ -434,7 +434,7 @@ The following is a translation of the `.mediawiki` example from the previous sec
             <name>extensionAllowed</name>
             <description>Attribute indicating that users can add child nodes.</description>
             <property>
-                <name>boolProperty</name>
+                <name>boolRange</name>
             </property>
         </schemaAttributeDefinition>
         <schemaAttributeDefinition>
@@ -445,14 +445,14 @@ The following is a translation of the `.mediawiki` example from the previous sec
             <name>takesValue</name>
             <description>Attribute indicating a placeholder to be replaced by a user-defined value.</description>
             <property>
-                <name>boolProperty</name>
+                <name>boolRange</name>
             </property>
         </schemaAttributeDefinition>
     </schemaAttributeDefinitions>
     <propertyDefinitions>
         <propertyDefinition>
-             <name>boolProperty</name>
-             <description>Attribute indicating a placeholder to be replaced by a user-defined value.</description>
+             <name>boolRange</name>
+             <description>Indicates that a schema attribute's value can be true or false.</description>
         </propertyDefinition>
     </propertyDefinitions>
     <epilogue>This epilogue is a place for notes and is ignored in HED processing.</epilogue>
