@@ -191,23 +191,25 @@ entry might be added to the standard schema instead.
 
 #### 7.3.6.1. Test schema examples
 
-The worked examples in the following subsections use three test-only library schemas: **testconflict**, **testclash**, and **testminimal**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.4. Partnered combinations](./03_HED_formats.md#3124-partnered-combinations). Each example mirrors a test case in that repository's `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
+The worked examples in the following subsections use four test-only library schemas: **testconflict**, **testclash**, **testminimal**, and **testaux**. These schemas are maintained in the [hed-tests](https://github.com/hed-standard/hed-tests) repository (under `json_test_data/test_schemas/`) and are not released HED schemas. Their contents are fully controlled, so each example exercises exactly one rule of the rule table in [3.1.2.4. Partnered combinations](./03_HED_formats.md#3124-partnered-combinations). Each example mirrors a test case in that repository's `json_test_data/validation_test_data/SCHEMA_LOAD_FAILED.json`, keeping the specification and the validator test suites in sync.
 
 | Schema versions                                                  | Standard schema partner (`withStandard`) |
 | ---------------------------------------------------------------- | ---------------------------------------- |
 | `testconflict_1.0.0`, `testconflict_1.1.0`, `testconflict_1.1.2` | None (unpartnered)                       |
 | `testconflict_2.0.0`, `testconflict_2.1.0`, `testconflict_2.1.1` | `8.5.0`                                  |
-| `testclash_1.0.0` through `testclash_12.0.0`                     | `8.5.0`                                  |
+| `testclash_1.0.0` through `testclash_19.0.0`                     | `8.5.0`                                  |
 | `testminimal_1.0.0`                                              | None (unpartnered)                       |
 | `testminimal_2.0.0`                                              | `8.4.0`                                  |
 | `testminimal_2.1.0`                                              | `8.5.0`                                  |
+| `testaux_1.0.0`                                                  | `8.5.0`                                  |
 
 The examples rely on the following facts about these libraries:
 
 - `testconflict_2.1.0` is `testconflict_2.0.0` plus one added tag. `testconflict_2.1.1` differs from `testconflict_2.1.0` only in one revised tag description (a patch-level change).
 - `testconflict_2.0.0` declares the top-level tags `Shared-item`, `Attribute-item` (with `suggestedTag=Object-one`), `Description-item`, `Anchor-item` (with child `Nested-item`), `Placeholder-item` (with a `#` child), and `Rooted-tag` (with `rooted=Event`), whose children are `Rooted-one` (with child `Deep-one`) and `Rooted-two`.
-- Each `testclash` version declares its own `Clash-tag` subtree plus at most one probe element also declared by `testconflict_2.0.0`, identical except for at most one controlled difference. The probe differences are tabulated in [7.3.6.5. Element compatibility examples](#7365-element-compatibility-examples).
-- `testminimal` declares only its own `Mini-tag` subtree, which is disjoint from the vocabularies of the other two libraries.
+- Each `testclash` version declares its own `Clash-tag` subtree plus at most one probe element also declared by another test library, identical except for at most one controlled difference. Versions `1.0.0` through `12.0.0` probe tag elements declared by `testconflict_2.0.0`; the differences are tabulated in [7.3.6.5. Element compatibility examples](#7365-element-compatibility-examples). Versions `13.0.0` through `19.0.0` probe auxiliary elements declared by `testaux_1.0.0`; the differences are tabulated in [7.3.6.6. Auxiliary element examples](#7366-auxiliary-element-examples).
+- `testminimal` declares only its own `Mini-tag` subtree, which is disjoint from the vocabularies of the other libraries.
+- `testaux_1.0.0` declares one auxiliary element of each type - the unit class `auxUnits` (with units `auxunit` and `bigauxunit`), the unit modifier `auxMod`, the value class `auxClass`, and the schema attribute `auxAttribute` - plus the tags `Aux-measure` (which takes a value with `auxUnits` units) and `Aux-value` (which takes a value of the `auxClass` value class). Its vocabulary is disjoint from the other libraries and from the standard schema.
 
 #### 7.3.6.2. Merge group examples
 
@@ -240,7 +242,7 @@ The examples rely on the following facts about these libraries:
 
 #### 7.3.6.5. Element compatibility examples
 
-Each example in this subsection loads `testconflict_2.0.0` together with one version of `testclash`. Every `testclash` version carries at most one probe element shared with `testconflict_2.0.0`, so each pair isolates a single element compatibility rule:
+Each example in this subsection loads `testconflict_2.0.0` together with one of the `testclash` versions `1.0.0` through `12.0.0`, each of which carries at most one probe element shared with `testconflict_2.0.0`, so each pair isolates a single element compatibility rule:
 
 | Version specification                        | Probe element        | Difference from `testconflict_2.0.0`                                                                                                                                                                                                                                  | Loads |
 | -------------------------------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
@@ -257,9 +259,24 @@ Each example in this subsection loads `testconflict_2.0.0` together with one ver
 | `['testconflict_2.0.0', 'testclash_11.0.0']` | `Rooted-tag` subtree | The chain `Rooted-tag`/`Rooted-one` is identical; below it `testclash` declares `Deep-two` where `testconflict` declares `Deep-one`. The differing grandchildren are not shared, so the merged `Rooted-one` carries both.                                             | Yes   |
 | `['testconflict_2.0.0', 'testclash_12.0.0']` | `Rooted-tag` subtree | The shared grandchild `Deep-one` carries a different description. Compatibility applies at every depth of a shared hierarchy.                                                                                                                                         | No    |
 
-Two versions of one library are never compared element by element, because different versions of the same schema cannot appear in the same merge group: `['testconflict_2.1.0', 'testconflict_2.1.1']` fails to load on that rule alone. To use two versions together, give one its own namespace, for example `['testconflict_2.1.0', 'v2:testconflict_2.1.1']`.
+Two versions of one library are never compared element by element, because different versions of the same schema cannot appear in the same merge group: `['testconflict_2.1.0', 'testconflict_2.1.1']` fails to load on that rule alone. To use two versions together, give one its own namespace, for example `['testconflict_2.1.0', 'alt:testconflict_2.1.1']` (namespace names must be alphabetic, so a name such as `v2` is not allowed).
 
 Any failing pair in this subsection can still be used together by giving one schema its own namespace. For example, `['testconflict_2.0.0', 'cl:testclash_2.0.0']` loads because the two `Attribute-item` declarations are in different merge groups and are never compared.
+
+#### 7.3.6.6. Auxiliary element examples
+
+The element compatibility rules apply to auxiliary elements (unit classes, units, unit modifiers, value classes, and schema attributes) exactly as they do to tags. The first example pairs `testconflict_2.0.0`, which declares no auxiliary elements, with `testaux_1.0.0` to show direct merging; each remaining example loads `testaux_1.0.0` together with one of the `testclash` versions `13.0.0` through `19.0.0`, so each pair isolates a single rule:
+
+| Version specification                     | Probe element                   | Difference from `testaux_1.0.0`                                                                                                                                                        | Loads |
+| ----------------------------------------- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----- |
+| `['testconflict_2.0.0', 'testaux_1.0.0']` | all auxiliary elements          | None shared: every `testaux` auxiliary element is new to the merge group. New unit classes with their units, unit modifiers, value classes, and schema attributes are merged directly. | Yes   |
+| `['testaux_1.0.0', 'testclash_13.0.0']`   | all auxiliary elements          | None: identical copies. Identical shared auxiliary elements are compatible, and the merged vocabulary keeps a single copy of each.                                                     | Yes   |
+| `['testaux_1.0.0', 'testclash_14.0.0']`   | unit `auxunit`                  | The `conversionFactor` value differs: the attribute values of a shared unit differ.                                                                                                    | No    |
+| `['testaux_1.0.0', 'testclash_15.0.0']`   | unit class `auxUnits`           | The shared units are identical; `testclash` adds its own unit `smallauxunit`. New units under an existing unit class are merged if there are no conflicts.                             | Yes   |
+| `['testaux_1.0.0', 'testclash_16.0.0']`   | value class `auxClass`          | The `allowedCharacter` value is `digits` instead of `letters`: the attribute values of a shared value class differ.                                                                    | No    |
+| `['testaux_1.0.0', 'testclash_17.0.0']`   | schema attribute `auxAttribute` | Declared without `boolProperty`: for schema attribute elements the properties are the attribute values that are compared.                                                              | No    |
+| `['testaux_1.0.0', 'testclash_18.0.0']`   | schema attribute `auxAttribute` | The description text differs.                                                                                                                                                          | No    |
+| `['testaux_1.0.0', 'testclash_19.0.0']`   | unit modifier `auxMod`          | The `conversionFactor` value differs: the attribute values of a shared unit modifier differ.                                                                                           | No    |
 
 ## 7.4. Library schema design
 
