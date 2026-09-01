@@ -1050,7 +1050,7 @@ The `<name>` element text must conform to the rules for naming HED schema nodes.
 
 The `<description>` element has the text contained in the square brackets `[ ]` in the `.mediawiki` node specification. If the `.mediawiki` description is missing or has an empty `[ ]`, the `<description>` element is omitted.
 
-The optional `<attribute>` elements are derived from the attribute list contained in curly braces `{ }` of the `.mediawiki` specification. An `<attribute>` element has a single non-empty `<name></name>` child element whose text value corresponds to the node-name of attribute in the corresponding `.mediawiki` file. If the attribute does not have the `boolProperty`, then the `<attribute>` element should also have one or more child `<value></value>` elements giving the value(s) of the attribute.
+The optional `<attribute>` elements are derived from the attribute list contained in curly braces `{ }` of the `.mediawiki` specification. An `<attribute>` element has a single non-empty `<name></name>` child element whose text value corresponds to the node-name of attribute in the corresponding `.mediawiki` file. If the attribute does not have the `boolRange` property, then the `<attribute>` element should also have one or more child `<value></value>` elements giving the value(s) of the attribute.
 
 **Example:** The `requireChild` attribute represents a boolean value. In the `.mediawiki` representation this attribute appears as `{requireChild}` if present and is omitted if absent.
 

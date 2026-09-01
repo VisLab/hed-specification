@@ -308,11 +308,11 @@ This section is organized by the type of schema format that results in the error
 
 **Notes:**
 
-- A `tag` (referred to as a node element in the schema) can have schema attributes that have the `nodeClassProperty` or the `elementProperty` or have no type property designator.
-- A `unitClass` element can only have schema attributes that have the `unitClassProperty` or the `elementProperty`.
-- A `unitModifier` element can only have schema attributes that have the `unitModifierProperty` or the `elementProperty`.
-- A `unit` element can only have schema attributes that have the `unitProperty` or the `elementProperty`.
-- A `valueClass` element can only have schema attributes that have the `valueClassProperty` or the `elementProperty`.
+- A `tag` (referred to as a node element in the schema) can have schema attributes that have the `tagDomain` or the `elementDomain` property or have no domain property.
+- A `unitClass` element can only have schema attributes that have the `unitClassDomain` or the `elementDomain` property.
+- A `unitModifier` element can only have schema attributes that have the `unitModifierDomain` or the `elementDomain` property.
+- A `unit` element can only have schema attributes that have the `unitDomain` or the `elementDomain` property.
+- A `valueClass` element can only have schema attributes that have the `valueClassDomain` or the `elementDomain` property.
 
 #### SCHEMA_ATTRIBUTE_VALUE_INVALID
 
