@@ -310,7 +310,7 @@ Attributes are enclosed with curly braces (`{ }`). These attributes provide addi
 
 If an attribute or property is referenced in the schema, it must be defined in the appropriate definition section of the schema, or schema processing tools will generate a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error.
 
-Allowed HED node attributes include unit class and value class values as well as HED schema attributes that do not have one of the following domain properties: `unitClassDomain`, `unitModifierDomain`, `unitDomain`, or `valueClassDomain`. Note: schema attributes having the `elementDomain` property may apply anywhere in the schema, including the schema header; schema attributes having the `tagDomain` property may only apply to node elements.
+Allowed HED node attributes include unit class and value class values as well as HED schema attributes that have the `tagDomain` or the `elementDomain` property or no domain property. Note: schema attributes having the `elementDomain` property may apply anywhere in the schema, including the schema header.
 
 HED schema attributes that have the `boolRange` property appear with just their name in the schema element they are modifying. The presence of such an attribute indicates that it is true or present.
 
