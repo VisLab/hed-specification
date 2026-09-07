@@ -389,7 +389,7 @@ See [3.1.4.10. Sources, prefixes, and external annotations](./03_HED_formats.md#
 **a.** A required schema section is missing.\
 **b.** The schema sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties, epilogue, and, when present, sources, prefixes, and external annotations) are not in the correct order and hence not detected.
 
-**Note:** Every schema section is written even when it is empty. The sources, prefixes, and external annotations sections are required in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`). In standard schemas with versions < `8.5.0` and in unpartnered library schemas these three sections may be absent, and a tool loading such a schema treats an absent section as empty. When present they must appear in the order listed.
+**Note:** A tool that writes a schema file includes every section, even when it is empty. A tool that reads a schema file requires the sources, prefixes, and external annotations sections in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`). For compatibility with older files, it accepts their omission from standard schemas with versions < `8.5.0` and from unpartnered library schemas and treats an omitted section as empty. When present they must appear in the order listed.
 
 #### SCHEMA_VERSION_INVALID
 

@@ -140,7 +140,7 @@ Regardless of the format, the sections of a valid HED schema must appear in the 
 | Ending line | `!# end hed` | `</HED>` |
 ```
 
-The three extra sections after the epilogue were introduced with HED schema `8.4.0`. Like the other sections, they are always written, even when empty. The conditions under which a reader accepts a file that omits them are given in [3.1.4.10. Sources, prefixes, and external annotations](#31410-sources-prefixes-and-external-annotations). The sections must appear in the order shown.
+The three extra sections after the epilogue were introduced with HED schema `8.4.0`. A tool that writes a schema file includes them, like the other sections, even when they are empty. A tool that reads a schema file accepts their omission only under the compatibility conditions given in [3.1.4.10. Sources, prefixes, and external annotations](#31410-sources-prefixes-and-external-annotations). The sections must appear in the order shown.
 
 The sections in the `.xml` version must always be terminated by closing `</  >` tokens, whereas the sections of the `.mediawiki` version, which is line-oriented, are terminated when the next section begins (`#!`) or a top tag (`'''`) is encountered.
 
@@ -249,9 +249,9 @@ The epilogue may contain `text` characters or `newline`. If other characters app
 
 The Sources, Prefixes, and External annotations sections (the *extra sections* of [Chapter 2: Terminology](./02_Terminology.md#schema-section)) were introduced in HED schema `8.4.0`. The rules in this section were codified in HED specification `4.0.0`; they apply to standard schemas with versions >= `8.5.0` and to library schemas partnered with those standard schemas.
 
-All three extra sections are written in every schema file, in every format, whether the schema is a standard schema or a library schema and whether a library schema is in merged or unmerged form. A section for which the schema has no entries is present and empty: the section header alone in MediaWiki, an element with no children in XML, an empty array in JSON, and a header-only file in TSV. In an unmerged partnered library schema the extra sections are empty unless the library adds rows of its own. A tool that writes a schema in any format writes all three sections. The sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
+A tool that writes a schema file, in any format, includes all three extra sections, whether the schema is a standard schema or a library schema and whether a library schema is in merged or unmerged form. A section for which the schema has no entries is written empty: the section header alone in MediaWiki, an element with no children in XML, an empty array in JSON, and a header-only file in TSV. In an unmerged partnered library schema the extra sections are empty unless the library adds rows of its own. The sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
 
-A standard schema with version >= `8.5.0`, or a library schema partnered with such a standard schema, must contain all three sections; if one is missing, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. A schema that this rule does not cover (a standard schema with version < `8.5.0` or an unpartnered library schema) may omit any of the three sections; a tool loading such a schema treats each omitted section as an empty section.
+A tool that reads a schema file requires all three sections in a standard schema with version >= `8.5.0` and in a library schema partnered with such a standard schema; if one is missing, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. For compatibility with files written before this rule, a reader accepts the omission of any of the three sections from a standard schema with version < `8.5.0` or from an unpartnered library schema and treats each omitted section as an empty section.
 
 Each of these sections is a table of rows with fixed columns:
 
