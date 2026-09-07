@@ -7,6 +7,7 @@ This is a breaking change:
 - The PDF versions of the schema (formerly stored in `hedspec`) has been removed. HED specifications will just undergo the GITHUB releases.
 - The versions of the standard HED schema that were stored in `hedxml` for backwards compatibility has been removed.
 - The `tests` directory containing the JSON tests that HED validators must pass has been moved to the GitHub `hed-standard/hed-tests` repository.
+- Tools that write schema files include the Sources, Prefixes, and External annotations sections in every format, empty when the schema has no entries. Tools that read schema files require these sections in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas; for compatibility they accept their omission from older standard schemas and from unpartnered library schemas and treat an omitted section as empty.
 
 ## Changes for HED specification 3.2.0
 

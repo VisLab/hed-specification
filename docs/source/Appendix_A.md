@@ -29,53 +29,53 @@ header-rows: 1
   - Default units
   - Units
 * - accelerationUnits
-  - m-per-s^2 
+  - m-per-s^2
   - m-per-s^2*
 * - angleUnits
-  - radian 
+  - radian
   - radian, rad*, degree
 * - areaUnits
-  - m^2 
+  - m^2
   - m^2*
 * - currencyUnits
-  - $ 
+  - $
   - dollar, $, euro, point
 * - electricPotentialUnits
-  - uV 
+  - uV
   - V*, uV, volt
 * - frequencyUnits
-  - Hz 
+  - Hz
   - hertz, Hz*
 * - intensityUnits
-  - dB 
+  - dB
   - dB, candela, cd*
 * - jerkUnits
-  - m-per-s^3 
+  - m-per-s^3
   - m-per-s^3*
 * - magneticFieldUnits
-  - T 
+  - T
   - tesla, T*
 * - memorySizeUnits
-  - B 
+  - B
   - byte, B*
 * - physicalLengthUnits
-  - m 
-  - foot, inch, meter, metre, m*, mile   
+  - m
+  - foot, inch, meter, metre, m*, mile
 * - speedUnits
-  - m-per-s 
-  - m-per-s*, mph, kph   
+  - m-per-s
+  - m-per-s*, mph, kph
 * - temperatureUnits
   - degree-Celsius
-  - degree-Celsius, oC*    
+  - degree-Celsius, oC*
 * - timeUnits
-  - s 
+  - s
   - second, s*, day, month, minute, hour, year
 * - volumeUnits
-  - m^3 
-  - m^3*  
+  - m^3
+  - m^3*
 * - weightUnits
-  - g 
-  - gram, g*, pound, lb   
+  - g
+  - gram, g*, pound, lb
 ```
 
 ### A.1.2. Unit modifiers
@@ -112,7 +112,7 @@ header-rows: 1
   - P
   - Multiple representing 10 to power 15
 * - exa
-  - E	
+  - E
   - Multiple representing 10 to power 18
 * - zetta
   - Z
@@ -178,7 +178,7 @@ header-rows: 1
 * - dateTimeClass
   - `digits`, `T`, `hyphen`, `colon`
 * - nameClass
-  - `letters`, `digits`, `hyphen`, `underscore` 
+  - `letters`, `digits`, `hyphen`, `underscore`
 * - numericClass
   - `digits`, `E`, `e`, `plus`, `hyphen`, `period`
 * - posixPath
@@ -222,39 +222,39 @@ header-rows: 1
 * - Attribute
   - Domain
   - Range
-  - Description  
-* - [`allowedCharacter`](#a141-allowedcharacter)  
-  - unit<br/>unit modifier<br/>value class  
+  - Description
+* - [`allowedCharacter`](#a141-allowedcharacter)
+  - unit<br/>unit modifier<br/>value class
   - string
-  - Specifies a character used in values of this class.  
+  - Specifies a character used in values of this class.
 * - [`annotation`](#a142-annotation)
   - element
   - string
   - Annotation link to an item in another ontology. (Added in version `8.3.0`.)
 * - [`conversionFactor`](#a143-conversionfactor)
-  - unit<br/>unit modifier  
-  - numeric  
-  - Multiplicative factor to multiply by to convert to default units. (Added in version `8.1.0`.)    
+  - unit<br/>unit modifier
+  - numeric
+  - Multiplicative factor to multiply by to convert to default units. (Added in version `8.1.0`.)
 * - [`defaultUnits`](#a144-defaultunits)
-  - unit class  
+  - unit class
   - unit
-  - Specifies units to use if placeholder value has no units.    
+  - Specifies units to use if placeholder value has no units.
 * - [`deprecatedFrom`](#a145-deprecatedfrom)
   - element
   - string
-  - The latest schema version in which the element was not deprecated.  
-* - [`extensionAllowed`](#a146-extensionallowed)  
+  - The latest schema version in which the element was not deprecated.
+* - [`extensionAllowed`](#a146-extensionallowed)
   - node
   - boolean
-  - Users can add unlimited levels of child nodes under this tag. This tag is propagated to child nodes with the exception of the hashtag placeholders.  
+  - Users can add unlimited levels of child nodes under this tag. This tag is propagated to child nodes with the exception of the hashtag placeholders.
 * - [`hedId`](#a147-hedid)
   - element
   - string
-  - The unique identifier of this element in the HED namespace.  
+  - The unique identifier of this element in the HED namespace.
 * - [`inLibrary`](#a148-inlibrary)
   - element
   - string
-  - This schema element is from the named library schema, not the standard schema. (Added/removed by tools.)  
+  - This schema element is from the named library schema, not the standard schema. (Added/removed by tools.)
 * - [`isPartOf`](#a149-ispartof)
   - node
   - node
@@ -262,67 +262,67 @@ header-rows: 1
 * - [`relatedTag`](#a1410-relatedtag)
   - node
   - node
-  - A HED tag closely related to this HED tag.  
+  - A HED tag closely related to this HED tag.
 * - [`requireChild`](#a1411-requirechild)
   - node
-  - boolean  
-  - A child of this node must be included in the HED tag.  
+  - boolean
+  - A child of this node must be included in the HED tag.
 * - [`reserved`](#a1412-reserved)
   - node
   - boolean
-  - This tag has special meaning and requires special handling by tools.  
+  - This tag has special meaning and requires special handling by tools.
 * - [`rooted`](#a1413-rooted)
   - node
-  - node  
-  - A top-level library schema node should appear under this standard schema node when merged.  
+  - node
+  - A top-level library schema node should appear under this standard schema node when merged.
 * - [`SIUnit`](#a1414-siunit)
   - unit
   - boolean
-  - This unit represents an SI unit and can be modified.  
+  - This unit represents an SI unit and can be modified.
 * - [`SIUnitModifier`](#a1415-siunitmodifier)
   - unitModifier
   - boolean
-  - Modifier applies to base units.  
+  - Modifier applies to base units.
 * - [`SIUnitSymbolModifier`](#a1416-siunitsymbolmodifier)
-  - unitModifier 
-  - boolean   
-  - Modifier applies to unit symbols.  
+  - unitModifier
+  - boolean
+  - Modifier applies to unit symbols.
 * - [`suggestedTag`](#a1417-suggestedtag)
   - node
-  - node  
-  - Tag could be included with this HED tag.  
+  - node
+  - Tag could be included with this HED tag.
 * - [`tagGroup`](#a1418-taggroup)
   - node
-  - boolean  
-  - Tag can only appear inside a tag group.  
+  - boolean
+  - Tag can only appear inside a tag group.
 * - [`takesValue`](#a1419-takesvalue)
   - node
-  - boolean 
-  - Placeholder (#) should be replaced by a value.  
+  - boolean
+  - Placeholder (#) should be replaced by a value.
 * - [`topLevelTagGroup`](#a1420-topleveltaggroup)
   - node
-  - boolean     
-  - Tag (or its descendants) can be in a top-level tag group.  
+  - boolean
+  - Tag (or its descendants) can be in a top-level tag group.
 * - [`unique`](#a1421-unique)
   - node
-  - boolean    
-  - Tag or its descendants can only occur once in an event-level HED string.  
+  - boolean
+  - Tag or its descendants can only occur once in an event-level HED string.
 * - [`unitClass`](#a1422-unitclass)
   - node
-  - unit class     
-  - The unit class that the value of a placeholder node can belong to.  
+  - unit class
+  - The unit class that the value of a placeholder node can belong to.
 * - [`unitPrefix`](#a1423-unitprefix)
   - unit
-  - boolean       
-  - Unit is a prefix (e.g., $ in the currency units).  
+  - boolean
+  - Unit is a prefix (e.g., $ in the currency units).
 * - [`unitSymbol`](#a1424-unitsymbol)
   - unit
-  - boolean    
-  - An abbreviation representing a unit.  
+  - boolean
+  - An abbreviation representing a unit.
 * - [`valueClass`](#a1425-valueclass)
   - node
-  - value class 
-  - Type of value taken on by the value of a placeholder node.       
+  - value class
+  - Type of value taken on by the value of a placeholder node.
 ```
 
 #### A.1.4.1. allowedCharacter
@@ -342,7 +342,7 @@ The `annotation` attribute provides a link from a HED schema element to a corres
 
 #### A.1.4.3. conversionFactor
 
-The `conversionFactor` attribute specifies the multiplicative factor needed to convert a unit or unit modifier to the default units of its unit class. This attribute was added in version `8.1.0` to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
+The `conversionFactor` attribute specifies the multiplicative factor needed to convert that unit or unit modifier to the default units of its unit class. This attribute was added in version `8.1.0` to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
 
 #### A.1.4.4. defaultUnits
 
@@ -454,19 +454,19 @@ header-rows: 1
   - Description
 * - `default`
   - node
-  - A default value used if no value is provided. Removed in standard schema version `8.0.0`. 
+  - A default value used if no value is provided. Removed in standard schema version `8.0.0`.
 * - `position`
-  - node    
-  - Indicates where this tag should appear during display. Removed in standard schema version `8.0.0`.  
+  - node
+  - Indicates where this tag should appear during display. Removed in standard schema version `8.0.0`.
 * - `predicateType`
-  - node   
-  - Indicates the relationship of the node to its parent.  Removed standard schema version `8.0.0`.  
+  - node
+  - Indicates the relationship of the node to its parent.  Removed standard schema version `8.0.0`.
 * - `recommended`
   - node
-  - Event-level HED strings should include this tag.  Removed in standard schema version `8.3.0`.  
+  - Event-level HED strings should include this tag.  Removed in standard schema version `8.3.0`.
 * - `required`
-  - node      
-  - Event-level HED string must include this tag. Removed in standard schema version `8.3.0`.  
+  - node
+  - Event-level HED string must include this tag. Removed in standard schema version `8.3.0`.
 ```
 
 The `default` attribute was not implemented in existing tools. The attribute is not used in HED-3G. Only the `defaultUnits` for the unit class will be implemented going forward.
@@ -489,31 +489,31 @@ header-rows: 1
 * - `annotationProperty`
   - This schema attribute is NOT inherited.<br/>Replaces `isInheritedProperty`.
 * - `boolRange`
-  - This schema attribute's value can be true or false.<br/>This property was formerly named `boolProperty`.  
+  - This schema attribute's value can be true or false.<br/>This property was formerly named `boolProperty`.
 * - `elementDomain`
-  - This schema attribute can apply to any type<br/>of element (tag term, unit class, etc).<br/>This property was formerly named `elementProperty`. 
+  - This schema attribute can apply to any type<br/>of element (tag term, unit class, etc).<br/>This property was formerly named `elementProperty`.
 * - `isInheritedProperty`
-  - **Deprecated from `8.2.0`** in favor of `annotationProperty`.<br/>This schema attribute is inherited by child nodes.<br/>This property only applies to schema attributes for nodes.   
+  - **Deprecated from `8.2.0`** in favor of `annotationProperty`.<br/>This schema attribute is inherited by child nodes.<br/>This property only applies to schema attributes for nodes.
 * - `tagDomain`
-  - This schema attribute can apply to node (tag-term) elements.<br/>This was added so attributes could apply to multiple types of elements.<br/>This property was formerly named `nodeProperty`.   
+  - This schema attribute can apply to node (tag-term) elements.<br/>This was added so attributes could apply to multiple types of elements.<br/>This property was formerly named `nodeProperty`.
 * - `tagRange`
-  - This schema attribute's value can be a node.<br/>This property was formerly named `nodeProperty`. 
+  - This schema attribute's value can be a node.<br/>This property was formerly named `nodeProperty`.
 * - `numericRange`
-  - This schema attribute's value can be numeric.  
+  - This schema attribute's value can be numeric.
 * - `stringRange`
-  - This schema attribute's value can be a string.  
+  - This schema attribute's value can be a string.
 * - `unitClassDomain`
-  - This schema attribute can apply to unit classes.<br/>This property was formerly named `unitClassProperty`. 
+  - This schema attribute can apply to unit classes.<br/>This property was formerly named `unitClassProperty`.
 * - `unitClassRange`
-  - This schema attribute's value can be a unit class.    
+  - This schema attribute's value can be a unit class.
 * - `unitModifierDomain`
-  - This schema attribute can apply to unit modifiers.<br/>This property was formerly named `unitModifierProperty`. 
+  - This schema attribute can apply to unit modifiers.<br/>This property was formerly named `unitModifierProperty`.
 * - `unitDomain`
-  - This schema attribute can apply to units.<br/>This property was formerly named `unitProperty`.   
+  - This schema attribute can apply to units.<br/>This property was formerly named `unitProperty`.
 * - `unitRange`
-  - This schema attribute's value can be units.  
+  - This schema attribute's value can be units.
 * - `valueClassDomain`
-  - This schema attribute can apply to value classes.<br/>This property was formerly named `valueClassProperty`. 
+  - This schema attribute can apply to value classes.<br/>This property was formerly named `valueClassProperty`.
 * - `valueClassRange`
   - This schema attribute's value can be a value class.
 ```
@@ -527,11 +527,11 @@ Property names ending in `Domain` indicate the type of schema element that a sch
 class: tip
 ---
 **Attributes with boolean range** (`boolRange`):
-  - In `.xml` the attribute appears as a `<name>` element with the property's name but no 
+  - In `.xml` the attribute appears as a `<name>` element with the property's name but no
 `<value>` in an `<attribute>` section of the schema element.
   - In `.mediawiki`, the attribute name appears in curly braces in the element's specification line.
   - In either case presence of the property indicates true, and absence indicates false.
-<p></p>  
+<p></p>
 
 **Schema without a boolean range**:
   - In `.xml`, the attribute appears with both `<name>` and `<value>` in an `<attribute>` section of the schema element.
@@ -556,7 +556,7 @@ While schema sources are informational and do not affect validation or tool proc
 
 These are the column names used by the MediaWiki and TSV formats. The XML and JSON formats serialize the first column of this section and of the Prefixes and External annotations sections (`source` or `prefix`) as `name`; the other column names are identical in every format.
 
-The schema sources section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
+The schema sources section was added with the release of HED standard schema `8.4.0`. A tool that writes a schema file includes the section, empty when the schema has no entries for it. A tool that reads a schema file requires the section in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`); for compatibility with older files, it accepts the omission of the section from other schemas and treats an omitted section as empty.
 
 ### A.1.7. Schema prefixes
 
@@ -572,7 +572,7 @@ Each prefix entry has three required components (an empty component is a [SCHEMA
 
 Common prefixes in HED schemas include Dublin Core (`dc:`), RDF Schema (`rdfs:`), OWL (`owl:`), Friend-of-a-Friend (`foaf:`), and domain-specific ontologies like NCI Thesaurus (`ncit:`) and the Gene Ontology (`obogo:`). The schema prefixes enable HED to participate in the broader linked data ecosystem and support semantic web applications.
 
-The schema prefixes section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
+The schema prefixes section was added with the release of HED standard schema `8.4.0`. A tool that writes a schema file includes the section, empty when the schema has no entries for it. A tool that reads a schema file requires the section in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`); for compatibility with older files, it accepts the omission of the section from other schemas and treats an omitted section as empty. The prefixes are used in `annotation` attribute values. Library schemas may add additional values to this section and they are merged with those of the standard schema.
 
 ### A.1.8. External annotations
 
@@ -596,7 +596,7 @@ External annotations serve multiple purposes:
 
 The external annotations section works in conjunction with the schema prefixes section. Each annotation must use a prefix that is defined in the schema prefixes section. Tools can use external annotations to generate rich metadata, export schemas to RDF/OWL formats, and integrate HED with broader ontology frameworks.
 
-The external annotations section was added with the release of HED standard schema `8.4.0`. The section is required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas; when it is absent, tools create it as an empty section on load.
+The external annotations section was added with the release of HED standard schema `8.4.0`. A tool that writes a schema file includes the section, empty when the schema has no entries for it. A tool that reads a schema file requires the section in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`); for compatibility with older files, it accepts the omission of the section from other schemas and treats an omitted section as empty.
 
 ## A.2. MediaWiki file format
 
@@ -626,6 +626,20 @@ external-annotations
 ```
 ````
 
+Every section in this layout is present in every file. A section with no entries consists of its section header alone. For example, the end of an unmerged library schema that adds no sources, prefixes, or external annotations of its own is:
+
+````{admonition} Empty extra sections at the end of a MEDIAWIKI schema file.
+
+```moin
+'''Epilogue'''
+             . . .
+'''Sources'''
+'''Prefixes'''
+'''External annotations'''
+!# end hed
+```
+````
+
 ### A.2.2. MediaWiki header
 
 The first line of the `.mediawiki` file should be a _header_ that starts with the keyword `HED` followed by a blank-separated list of name-value pairs.
@@ -645,7 +659,7 @@ The first line of the `.mediawiki` file should be a _header_ that starts with th
        | The value should only have lowercase alphabetic characters.
    * - version
      - required
-     - A valid semantic version number of the schema.  
+     - A valid semantic version number of the schema.
    * - xmlns
      - optional
      - xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance".
@@ -654,14 +668,14 @@ The first line of the `.mediawiki` file should be a _header_ that starts with th
      - xsi:noNamespaceSchemaLocation points to an XSD file.
    * - withStandard
      - optional
-     - |  
-       | The version of the standard schema partner 
+     - |
+       | The version of the standard schema partner
        | if this is a partnered library schema.
    * - unmerged
      - optional
-     - | 
+     - |
        | If true, this is an unmerged partnered library schema.
-       | If omitted, assumed false.      
+       | If omitted, assumed false.
 ```
 
 The following example gives a sample *header* for standard schema version `8.0.0` in `.mediawiki` format.
@@ -774,10 +788,10 @@ The unit class specification section starts with `'''Unit classes'''` and lists 
 ````{admonition} **Example:** Part of the HED unit class for time in .mediawiki format.
 
 ```moin
-'''Unit classes''' 
-* time <nowiki>{defaultUnits=s}</nowiki> 
-** second <nowiki>{SIUnit}</nowiki> 
-** s <nowiki>{SIUnit, unitSymbol}</nowiki> 
+'''Unit classes'''
+* time <nowiki>{defaultUnits=s}</nowiki>
+** second <nowiki>{SIUnit}</nowiki>
+** s <nowiki>{SIUnit, unitSymbol}</nowiki>
 ```
 ````
 
@@ -788,8 +802,8 @@ The SI units can be modified by SI (International System Units) sub-multiples an
 ````{admonition} **Example:** Part of the HED unit modifier in .mediawiki format.
 
 ```moin
-'''Unit modifiers''' 
-* deca <nowiki>{SIUnitModifier} [SI unit multiple for 10 raised to power 1]</nowiki> 
+'''Unit modifiers'''
+* deca <nowiki>{SIUnitModifier} [SI unit multiple for 10 raised to power 1]</nowiki>
 * da <nowiki>{SIUnitSymbolModifier} [SI unit multiple for 10 raised to power 1]</nowiki>
 ```
 ````
@@ -808,7 +822,7 @@ Value classes give rules about what kind of value is allowed to be substituted f
 
 ```moin
 '''Value classes'''
-* dateTimeClass <nowiki>{allowedCharacter=digits,allowedCharacter=T,allowedCharacter=-,allowedCharacter=:}[Should conform to ISO8601 date-time format YYYY-MM-DDThh:mm:ss.]</nowiki> 
+* dateTimeClass <nowiki>{allowedCharacter=digits,allowedCharacter=T,allowedCharacter=-,allowedCharacter=:}[Should conform to ISO8601 date-time format YYYY-MM-DDThh:mm:ss.]</nowiki>
 ```
 ````
 
@@ -821,7 +835,7 @@ The schema attributes specify other characteristics about how particular tags ma
 ```moin
 '''Schema attributes'''
 * allowedCharacter <nowiki>{valueClassDomain, stringRange}[A character that is allowed in the value of a placeholder that has this value class.]</nowiki>
-* extensionAllowed <nowiki>{tagDomain, boolRange}[This tag may be extended by user-defined terms.]</nowiki> 
+* extensionAllowed <nowiki>{tagDomain, boolRange}[This tag may be extended by user-defined terms.]</nowiki>
 ```
 ````
 
@@ -834,8 +848,8 @@ Properties apply only to schema attributes. The following example defines the `v
 ````{admonition} **Example:** HED schema property valueClassDomain in .mediawiki format.
 
 ```moin
-'''Properties''' 
-* valueClassDomain <nowiki>{hedId=HED_0010713} [This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki> 
+'''Properties'''
+* valueClassDomain <nowiki>{hedId=HED_0010713} [This schema attribute can apply to value classes. This property was formerly named valueClassProperty.]</nowiki>
 ```
 ````
 
@@ -855,7 +869,7 @@ This schema is released under the Creative Commons Attribution 4.0 International
 
 #### A.2.5.7. Schema sources
 
-The schema sources section is marked by `'''Sources'''` and lists external resources used during schema development. Each source is specified on a single line at level 1 (one asterisk) with comma-separated name-value pairs in `<nowiki>` tags.
+The schema sources section is marked by `'''Sources'''` and lists external resources used during schema development. Each source is specified on a single line at level 1 (one asterisk) with comma-separated name-value pairs in `<nowiki>` tags. The section is present in every MediaWiki file; when the schema has no sources, it consists of the `'''Sources'''` header alone.
 
 ````{admonition} **Example:** HED schema source in .mediawiki format.
 
@@ -873,7 +887,7 @@ Each source entry has three required components:
 
 #### A.2.5.8. Schema prefixes
 
-The schema prefixes section is marked by `'''Prefixes'''` and defines namespace prefixes for ontology integration. Each prefix is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags.
+The schema prefixes section is marked by `'''Prefixes'''` and defines namespace prefixes for ontology integration. Each prefix is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags. The section is present in every MediaWiki file; when the schema has no prefixes, it consists of the `'''Prefixes'''` header alone.
 
 ````{admonition} **Example:** HED schema prefixes in .mediawiki format.
 
@@ -892,7 +906,7 @@ Each prefix entry has three required components:
 
 #### A.2.5.9. External annotations
 
-The external annotations section is marked by `'''External annotations'''` and defines annotation properties from external ontologies. Each annotation is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags.
+The external annotations section is marked by `'''External annotations'''` and defines annotation properties from external ontologies. Each annotation is specified on a single line at level 1 with comma-separated name-value pairs in `<nowiki>` tags. The section is present in every MediaWiki file; when the schema has no external annotations, it consists of the `'''External annotations'''` header alone.
 
 ````{admonition} **Example:** HED external annotations in .mediawiki format.
 
@@ -924,7 +938,7 @@ The XML schema file format has a header, prologue, main schema, definitions, and
 <HED library="test" version="0.0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://github.com/hed-standard/hed-specification/raw/master/hedxml/HED8.0.0-beta.3.xsd">
 <prologue>unique optional text blob</prologue>
 <schema>
-         ...  schema specification  ... 
+         ...  schema specification  ...
 </schema>
 <unitClassDefinitions>
    <unitClassDefinition> ... </unitClassDefinition>
@@ -936,22 +950,22 @@ The XML schema file format has a header, prologue, main schema, definitions, and
                                 ...
    <unitModifierDefinition> ... </unitModifierDefinition>
 </unitModifierDefinitions>
-    
+
 <valueClassDefinitions>
     <valueClassDefinition> ... </valueClassDefinition>
-                           ... 
+                           ...
     <valueClassDefinition> ... </valueClassDefinition>
 </valueClassDefinitions>
 
-<schemaAttributeDefinitions> 
+<schemaAttributeDefinitions>
    <schemaAttributeDefinition> ... </schemaAttributeDefinition>
-                               ... 
+                               ...
    <schemaAttributeDefinition> ... </schemaAttributeDefinition>
 </schemaAttributeDefinitions>
 
 <propertyDefinitions>
     <propertyDefinition> ... </propertyDefinition>
-                             ... 
+                             ...
     <propertyDefinition> ... </propertyDefinition>
 </propertyDefinitions>
 
@@ -974,6 +988,18 @@ The XML schema file format has a header, prologue, main schema, definitions, and
                         ...
    <externalAnnotation> ... </externalAnnotation>
 </externalAnnotations>
+</HED>
+```
+````
+
+Every element in this layout is present in every file. A section with no entries is an element with no children, written either as a self-closing element or as an empty start-end pair; the two forms are equivalent in XML and tools accept both. For example, the end of an unmerged library schema that adds no sources, prefixes, or external annotations of its own is:
+
+````{admonition} Empty extra sections at the end of an XML schema file.
+```xml
+<epilogue>unique optional text blob</epilogue>
+<schemaSources/>
+<schemaPrefixes/>
+<externalAnnotations/>
 </HED>
 ```
 ````
@@ -1040,7 +1066,7 @@ A `<node>` element contains a required `<name>` child element, an optional `<des
     <description>yyy</description>
     <attribute> ... </attribute>
     <attribute> ... </attribute>
-    <attribute> ... </attribute>   
+    <attribute> ... </attribute>
     <node> ... <node>
 </node>
 ```
@@ -1058,7 +1084,7 @@ The format of the XML attributes was changed with HED versions >= `8.0.0`. Earli
 
 ````{admonition} The requireChild attribute represents a boolean value.
 
-**Old xml if true:**     
+**Old xml if true:**
 
 ```xml
 <node requireChild="true"><name>xxx</name></node>
@@ -1137,7 +1163,7 @@ The `<unitClassDefinition>` elements have a required `<name>`, an optional `<des
        <attribute>
           <name>unitSymbol</name>
        </attribute>
-    </unit>  
+    </unit>
 </unitClassDefinition>
 ```
 ````
@@ -1162,7 +1188,7 @@ Unit modifiers are defined in the `<unitModifierDefinitions>` section of the XML
         </attribute>
     </unitModifierDefinition>
                 . . .
-</unitModifierDefinitions>  
+</unitModifierDefinitions>
 ```
 ````
 
@@ -1233,7 +1259,7 @@ The `<schemaAttributeDefinitions>` section specifies the allowed attributes of t
         </property>
     </schemaAttributeDefinition>
     . . .
-</schemaAttributeDefinitions>    
+</schemaAttributeDefinitions>
 ```
 ````
 
@@ -1272,7 +1298,7 @@ The `<epilogue>` element contains optional text providing information about the 
 
 #### A.3.5.7. Schema sources
 
-The `<schemaSources>` element contains one or more `<schemaSource>` child elements, each documenting an external resource used during schema development.
+The `<schemaSources>` element contains zero or more `<schemaSource>` child elements, each documenting an external resource used during schema development. The element is present in every XML file and has no children when the schema has no sources.
 
 ````{admonition} **Example:** XML layout of the schema sources section.
 ```xml
@@ -1294,7 +1320,7 @@ Each `<schemaSource>` element has three required child elements:
 
 #### A.3.5.8. Schema prefixes
 
-The `<schemaPrefixes>` element contains one or more `<schemaPrefix>` child elements, each defining a namespace prefix for ontology integration.
+The `<schemaPrefixes>` element contains zero or more `<schemaPrefix>` child elements, each defining a namespace prefix for ontology integration. The element is present in every XML file and has no children when the schema has no prefixes.
 
 ````{admonition} **Example:** XML layout of the schema prefixes section.
 ```xml
@@ -1321,7 +1347,7 @@ Each `<schemaPrefix>` element has three required child elements:
 
 #### A.3.5.9. External annotations
 
-The `<externalAnnotations>` element contains one or more `<externalAnnotation>` child elements, each defining an annotation property from an external ontology.
+The `<externalAnnotations>` element contains zero or more `<externalAnnotation>` child elements, each defining an annotation property from an external ontology. The element is present in every XML file and has no children when the schema has no external annotations.
 
 ````{admonition} **Example:** XML layout of the external annotations section.
 ```xml
@@ -1386,6 +1412,16 @@ The JSON schema file format is a nested structure representing the schema in Jav
   "prefixes": [...],
   "external_annotations": [...]
 }
+```
+````
+
+Every key in this layout is present in every file. A section with no entries is an empty object (`{}`) for `unit_classes`, `unit_modifiers`, `value_classes`, `schema_attributes`, and `properties`, and an empty array (`[]`) for `sources`, `prefixes`, and `external_annotations`. For example, an unmerged library schema that adds no sources, prefixes, or external annotations of its own ends with:
+
+````{admonition} Empty extra sections at the end of a JSON schema file.
+```json
+  "sources": [],
+  "prefixes": [],
+  "external_annotations": []
 ```
 ````
 
@@ -1577,7 +1613,7 @@ See [Schema properties](#a15-schema-properties) for a list of available schema p
 
 #### A.4.5.6. Schema sources
 
-The `sources` section (optional) defines external resources used during schema development as an array of objects:
+The `sources` section defines external resources used during schema development as an array of objects. The array is present in every JSON file and is empty when the schema has no sources:
 
 ````{admonition} Example JSON layout of schema sources.
 ```json
@@ -1599,7 +1635,7 @@ Each source object has three required properties:
 
 #### A.4.5.7. Schema prefixes
 
-The `prefixes` section (optional) defines namespace prefixes for ontology integration as an array of objects:
+The `prefixes` section defines namespace prefixes for ontology integration as an array of objects. The array is present in every JSON file and is empty when the schema has no prefixes:
 
 ````{admonition} Example JSON layout of schema prefixes.
 ```json
@@ -1626,7 +1662,7 @@ Each prefix object has three required properties:
 
 #### A.4.5.8. External annotations
 
-The `external_annotations` section (optional) defines annotation properties from external ontologies as an array of objects:
+The `external_annotations` section defines annotation properties from external ontologies as an array of objects. The array is present in every JSON file and is empty when the schema has no external annotations:
 
 ````{admonition} Example JSON layout of external annotations.
 ```json
@@ -1681,6 +1717,8 @@ HED8.5.0/
 ```
 ````
 
+Every file in this layout is written for every schema. The file for a section with no entries contains only its header row. For example, the Sources file of an unmerged library schema that adds no sources of its own is the single line `source	link	description`.
+
 ### A.5.2. TSV header formats
 
 Each TSV file begins with a header row defining the column names. The specific columns vary by file type but commonly include:
@@ -1699,7 +1737,7 @@ The Structure file contains metadata about the schema including header, prologue
 ````{admonition} Example TSV Structure file layout.
 ```text
 hedId	rdfs:label	Attributes	omn:SubClassOf	dc:description
-HED_0010010	StandardHeader	version="8.5.0", xmlns:xsi="..."	HedHeader	
+HED_0010010	StandardHeader	version="8.5.0", xmlns:xsi="..."	HedHeader
 HED_0010011	StandardPrologue		HedPrologue	The HED standard schema is...
 HED_0010012	StandardEpilogue		HedEpilogue	This schema is released under...
 ```
@@ -1726,8 +1764,8 @@ The UnitClass file defines all unit classes:
 ````{admonition} Example TSV UnitClass file layout.
 ```text
 hedId	rdfs:label	omn:SubClassOf	Attributes	dc:description
-HED_0011513	timeUnits	StandardUnitClass	defaultUnits=s	
-HED_0011510	physicalLengthUnits	StandardUnitClass	defaultUnits=m	
+HED_0011513	timeUnits	StandardUnitClass	defaultUnits=s
+HED_0011510	physicalLengthUnits	StandardUnitClass	defaultUnits=m
 ```
 ````
 
@@ -1829,7 +1867,7 @@ The TSV format includes separate files for schema sources, namespace prefixes, a
 
 #### A.5.11.1. Sources file
 
-Defines external resources used during schema development:
+Defines external resources used during schema development. The file is present in every TSV schema directory and contains only the header row when the schema has no sources:
 
 ````{admonition} Example TSV Sources file layout.
 ```text
@@ -1846,7 +1884,7 @@ Each row has three required columns:
 
 #### A.5.11.2. Prefixes file
 
-Defines namespace prefixes used for external ontology references:
+Defines namespace prefixes used for external ontology references. The file is present in every TSV schema directory and contains only the header row when the schema has no prefixes:
 
 ````{admonition} Example TSV Prefixes file layout.
 ```text
@@ -1864,7 +1902,7 @@ Each row has three required columns:
 
 #### A.5.11.3. External annotations file
 
-Defines external annotation properties that can be used:
+Defines external annotation properties that can be used. The file is present in every TSV schema directory and contains only the header row when the schema has no external annotations:
 
 ````{admonition} Example TSV AnnotationPropertyExternal file layout.
 ```text

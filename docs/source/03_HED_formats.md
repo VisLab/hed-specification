@@ -140,7 +140,7 @@ Regardless of the format, the sections of a valid HED schema must appear in the 
 | Ending line | `!# end hed` | `</HED>` |
 ```
 
-The three sections after the epilogue were introduced with HED schema `8.4.0`. They are required in standard schemas with versions >= `8.5.0` and optional in partnered library schemas; a tool loading a schema without them creates them as empty sections. When present they must appear in the order shown.
+The three extra sections after the epilogue were introduced with HED schema `8.4.0`. A tool that writes a schema file includes them, like the other sections, even when they are empty. A tool that reads a schema file accepts their omission only under the compatibility conditions given in [3.1.4.10. Sources, prefixes, and external annotations](#31410-sources-prefixes-and-external-annotations). The sections must appear in the order shown.
 
 The sections in the `.xml` version must always be terminated by closing `</  >` tokens, whereas the sections of the `.mediawiki` version, which is line-oriented, are terminated when the next section begins (`#!`) or a top tag (`'''`) is encountered.
 
@@ -245,9 +245,13 @@ The epilogue should give license information, acknowledgments, and references.
 
 The epilogue may contain `text` characters or `newline`. If other characters appear, a [SCHEMA_CHARACTER_INVALID](./Appendix_B.md#schema_character_invalid) error occurs.
 
-#### 3.1.4.10. Optional extra sections
+#### 3.1.4.10. Sources, prefixes, and external annotations
 
-The Sources, Prefixes, and External annotations sections were introduced in HED schema `8.4.0` and are specified in HED specification version `4.0.0`. These sections are required in standard schemas with versions >= `8.5.0`; if one is missing from such a schema, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. They are not required in standard schemas with versions < `8.5.0` or in partnered library schemas: such a schema that omits them is valid, and a tool loading it creates them as empty sections. These empty sections will always be included when a partnered library schema is converted to a different format and output. When the extra sections are present, the sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
+The Sources, Prefixes, and External annotations sections (the *extra sections* of [Chapter 2: Terminology](./02_Terminology.md#schema-section)) were introduced in HED schema `8.4.0`. The rules in this section were codified in HED specification `4.0.0`; they apply to standard schemas with versions >= `8.5.0` and to library schemas partnered with those standard schemas.
+
+A tool that writes a schema file, in any format, includes all three extra sections, whether the schema is a standard schema or a library schema and whether a library schema is in merged or unmerged form. A section for which the schema has no entries is written empty: the section header alone in MediaWiki, an element with no children in XML, an empty array in JSON, and a header-only file in TSV. In an unmerged partnered library schema the extra sections are empty unless the library adds rows of its own. The sections must appear in the order Sources, Prefixes, External annotations, immediately after the epilogue.
+
+A tool that reads a schema file requires all three sections in a standard schema with version >= `8.5.0` and in a library schema partnered with such a standard schema; if one is missing, a [SCHEMA_SECTION_MISSING](./Appendix_B.md#schema_section_missing) error occurs. For compatibility with files written before this rule, a reader accepts the omission of any of the three sections from a standard schema with version < `8.5.0` or from an unpartnered library schema and treats each omitted section as an empty section.
 
 Each of these sections is a table of rows with fixed columns:
 
