@@ -382,14 +382,14 @@ Library schema errors are specific to library schema. Library schema may also ra
 
 **a.** A row of the Sources, Prefixes, or External annotations section has an empty value in a required column.
 
-See [3.1.4.10. Optional extra sections](./03_HED_formats.md#31410-optional-extra-sections) for the columns of each section.
+See [3.1.4.10. Sources, prefixes, and external annotations](./03_HED_formats.md#31410-sources-prefixes-and-external-annotations) for the columns of each section.
 
 #### SCHEMA_SECTION_MISSING
 
 **a.** A required schema section is missing.\
 **b.** The schema sections (corresponding to the prologue, schema, unit classes, unit modifiers, value classes, schema attributes, properties, epilogue, and, when present, sources, prefixes, and external annotations) are not in the correct order and hence not detected.
 
-**Note:** Required schema sections may be empty, but still be given. The sources, prefixes, and external annotations sections are required in standard schemas with versions >= `8.5.0` and optional in standard schemas with versions < `8.5.0` and in partnered library schemas. When present they must appear in the order listed.
+**Note:** Every schema section is written even when it is empty. The sources, prefixes, and external annotations sections are required in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas (HED specification `4.0.0`). In standard schemas with versions < `8.5.0` and in unpartnered library schemas these three sections may be absent, and a tool loading such a schema treats an absent section as empty. When present they must appear in the order listed.
 
 #### SCHEMA_VERSION_INVALID
 
