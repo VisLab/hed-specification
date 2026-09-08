@@ -197,7 +197,7 @@ Most units appear after the value in annotations. However, certain units such as
 
 If a unit class, `SIUnit`, or `unitPrefix` attribute appears in a section other than the unit class definition section of the schema, a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error occurs. See appendix [A.1.1. Unit classes and units](./Appendix_A.md#a11-unit-classes-and-units) for additional details and a listing.
 
-**Units names are case-insensitive and should not contain blanks. Unit symbols MUST maintain their case.** Unit class names are case-insensitive, but MUST contain only valid `name` characters. If other characters appear, a [SCHEMA_CHARACTER_INVALID](./Appendix_B.md#schema_character_invalid) error occurs.
+**Unit names and unit symbols are case-sensitive and MUST NOT contain blanks. A unit in an annotation MUST be a unit listed in the schema, optionally with an SI unit modifier prepended if the unit has the `SIUnit` attribute, with the case of the unit and of the modifier exactly as listed. Unit names may additionally appear in plural form (`feet`, `milliseconds`); unit symbols never may. `Feet`, `Milliseconds`, and `MS` are invalid.** Before specification version `4.0.0`, unit names were case-insensitive. Unit class names are case-insensitive, but MUST contain only valid `name` characters. If other characters appear, a [SCHEMA_CHARACTER_INVALID](./Appendix_B.md#schema_character_invalid) error occurs.
 
 #### 3.1.4.5. Unit modifiers
 
@@ -519,7 +519,7 @@ See [TAG_INVALID](./Appendix_B.md#tag_invalid) for errors involving forward slas
 
 Although by convention tag terms start with a capital letter with the remainder being lower case, tag processing is case-insensitive. This convention makes annotation strings more readable and is recommended for tag extensions. Validators and other tools must treat tags containing the same characters, but different variations in capitalization as equivalent.
 
-The only exception to the case-insensitive processing rule is that the correct case of unit symbols or unit modifiers should be preserved, both during schema processing and during annotation processing. This rule is required because SI distinguishes symbols and unit modifiers that differ in case.
+The only exception to the case-insensitive processing rule is that units (unit names as well as unit symbols) and unit modifiers MUST be matched with their case preserved, both during schema processing and during annotation processing. SI distinguishes symbols and unit modifiers that differ in case (`m` and `M`), and a unit name, with or without a modifier, must have the case listed in the schema, optionally pluralized. See [3.1.4.4. Unit classes and units](#3144-unit-classes-and-units).
 
 ### 3.2.4. Tags that take values
 
