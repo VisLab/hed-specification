@@ -258,7 +258,8 @@ Note: For the purpose of `Onset`/`Offset` matching, `Def` or `Def-expand` tags w
 **j.** An `Inset` tag is not grouped with a `Def` tag or a `Def-expand` group corresponding to an ongoing `Onset`.\
 **k.** An `Onset`, `Inset`, or `Offset` tag appears in an annotation for a non-time tabular file.\
 **l.** A `Duration` or `Delay` tag group contains extra tags or groups, or is missing the required group.\
-**m.** An `Offset`, `Onset`, `Inset`, `Duration`, or `Delay` tag appears with other top level tags, except `Delay` and `Duration` which can be paired.
+**m.** An `Offset`, `Onset`, `Inset`, `Duration`, or `Delay` tag appears with other top level tags, except `Delay` and `Duration` which can be paired.\
+**n.** A `Duration` or `Delay` tag has a value that cannot be converted to the default units of its unit class (non-numeric value, invalid units, or units with no `conversionFactor`), so its time cannot be computed.
 
 **See also:** [TAG_GROUP_ERROR](#tag_group_error).
 
