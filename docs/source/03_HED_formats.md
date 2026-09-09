@@ -1106,7 +1106,7 @@ The `Duration` tag indicates an event's temporal extent:
 - Its group represents an event with the indicated duration.
 - MUST NOT appear with `Onset`, `Offset`, `Inset`, or `Event-context` in the same group.
 - MAY appear with `Delay` in the same top-level group.
-- In a timeline file, MUST use a unit with a `conversionFactor`, so the end time can be placed on the timeline. In a non-timeline file, MAY use any valid unit of its unit class.
+- In a timeline file, `Duration` MUST use a unit with a `conversionFactor`, so the end time can be placed on the timeline. In a non-timeline file, `Duration` MAY use any valid unit of its unit class.
 
 The `Delay` tag indicates an event's onset delay:
 

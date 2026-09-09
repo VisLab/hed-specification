@@ -354,7 +354,7 @@ Several events with temporal-scopes defined by `Duration` tag groups may appear 
 
 The `Duration` tag has the same effect on event context as the `Onset`/`Offset` mechanism explained in [5.5. Event contexts](./05_Advanced_annotation.md#55-event-contexts)
 
-In a timeline file such as `events.tsv`, the `Duration` value is added to the row's onset, so it MUST use a unit with a `conversionFactor` (`s`, `ms`, `minute`, `hour`, `day`); `month` and `year` have none and are errors there. In a non-timeline file such as `participants.tsv`, where nothing is placed on a timeline, `Duration/3 years` is valid. See [TEMPORAL_TAG_ERROR](./Appendix_B.md#temporal_tag_error), cause n.
+In a timeline file such as `events.tsv`, the `Duration` value is added to the time in the row's `onset` column, so it MUST use a unit with a `conversionFactor` (`s`, `ms`, `minute`, `hour`, `day`); `month` and `year` have none and are errors there. In a non-timeline file such as `participants.tsv`, where nothing is placed on a timeline, `Duration/3 years` is valid. See [TEMPORAL_TAG_ERROR](./Appendix_B.md#temporal_tag_error), cause n.
 
 The `Duration` tag is convenient because its use does not require a definition. However, the ending time point of events whose temporal scope is defined with `Duration` is not marked by an explicit event in the data recording. This has distinct disadvantages for analysis if the offset is expected to elicit a neural response, which is the case for many events involving visual or auditory presentations. The use of the `Duration` tag will not be fully supported by validators until HED standard schema version `8.2.0`.
 
