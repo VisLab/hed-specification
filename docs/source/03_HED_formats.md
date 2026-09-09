@@ -681,6 +681,8 @@ The `Delay` tag MUST appear in a top-level tag group and MUST take a numerical v
 
 The `Duration` tag MUST appear in a top-level tag group and MUST take a numerical value indicating the duration of the event represented by the other tags in its group. The `Duration` top-level tag group may contain a `Delay`, but no other tags with the `topLevelTagGroup attribute` (e.g., `Onset`, `Offset`, `Inset`, `Event-context`, `Definition`).
 
+In a timeline file (a tabular file with an `onset` column, see [3.3.4.1. Timeline files](#3341-timeline-files)), the values of `Delay` and `Duration` are mapped onto the file's timeline, so they MUST use units that have a `conversionFactor` in the schema (units such as `month` and `year` have none). `Delay` MUST NOT appear in a non-timeline file. `Duration` MAY appear in a non-timeline file, such as `participants.tsv`, with any valid unit of its unit class, because there is no timeline to map it onto.
+
 Note that the starting or the ending time of the event group with `Delay` or `Duration`, respectively, may not correspond to an actual event-marker appearing in the events file. Instead, tools calculate when the scope at analysis time and may insert additional markers if required. As with all HED tags and groups, order does not matter.
 
 See [Chapter 5.3.3. Using Duration](./05_Advanced_annotation.md#533-using-duration) and [Chapter 5.3.4. Using Delay](./05_Advanced_annotation.md#534-using-delay) for more information.
@@ -1064,7 +1066,7 @@ Requirements:
 
 - MUST NOT include Event-type tags.
 - MUST NOT use `Onset`, `Offset`, `Inset`, or `Delay` tags.
-- The `Duration` tag MAY be allowed in some contexts.
+- MAY use the `Duration` tag, with any valid unit of its unit class, since there is no timeline to map it onto.
 - Describe characteristics of the entity.
 
 See [TEMPORAL_TAG_ERROR](./Appendix_B.md#temporal_tag_error) for validation errors when temporal tags appear in descriptor files.
@@ -1104,12 +1106,14 @@ The `Duration` tag indicates an event's temporal extent:
 - Its group represents an event with the indicated duration.
 - MUST NOT appear with `Onset`, `Offset`, `Inset`, or `Event-context` in the same group.
 - MAY appear with `Delay` in the same top-level group.
+- In a timeline file, `Duration` MUST use a unit with a `conversionFactor`, so the end time can be placed on the timeline. In a non-timeline file, `Duration` MAY use any valid unit of its unit class.
 
 The `Delay` tag indicates an event's onset delay:
 
 - MUST appear in a top-level tag group and MUST take a numerical value (or `#` placeholder).
 - Its group MUST contain an inner tag group representing the delayed event.
 - If the group also contains `Duration`, the event has that duration; otherwise it is a point event.
+- MUST appear only in timeline files and MUST use a unit with a `conversionFactor`, so the delayed onset can be placed on the timeline.
 
 See [TEMPORAL_TAG_ERROR](./Appendix_B.md#temporal_tag_error) for temporal tag validation errors.
 

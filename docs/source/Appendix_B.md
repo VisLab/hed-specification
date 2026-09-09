@@ -256,10 +256,10 @@ Note: For the purpose of `Onset`/`Offset` matching, `Def` or `Def-expand` tags w
 **h.** An `Onset` or an `Inset` tag group with has tags besides the anchor `Def` tag or `Def-expand` group that are not in a tag group.\
 **i.** An `Onset` or `Offset` with a given `Def` tag or `Def-expand` group anchor appears in an event marker with the same time as with another `Onset`, `Inset`, or `Offset` that uses the same anchor.\
 **j.** An `Inset` tag is not grouped with a `Def` tag or a `Def-expand` group corresponding to an ongoing `Onset`.\
-**k.** An `Onset`, `Inset`, or `Offset` tag appears in an annotation for a non-time tabular file.\
+**k.** An `Onset`, `Inset`, `Offset`, or `Delay` tag appears in an annotation for a non-timeline tabular file (a tabular file without an `onset` column).\
 **l.** A `Duration` or `Delay` tag group contains extra tags or groups, or is missing the required group.\
 **m.** An `Offset`, `Onset`, `Inset`, `Duration`, or `Delay` tag appears with other top-level tags, except `Delay` and `Duration` which can be paired.\
-**n.** A `Duration` or `Delay` tag has a value that cannot be converted to the default units of its unit class (non-numeric value, invalid units, or units with no `conversionFactor`), so the delayed onset (`Delay`) or the end time (`Duration`) cannot be computed.
+**n.** In a timeline file (a tabular file with an `onset` column), a `Duration` or `Delay` tag has a value that cannot be converted to the default units of its unit class (non-numeric value, invalid units, or units with no `conversionFactor`, such as `month` or `year`), so the delayed onset (`Delay`) or the end time (`Duration`) cannot be placed on the file's timeline. A `Duration` tag in a non-timeline file MAY use any valid unit of its unit class.
 
 **See also:** [TAG_GROUP_ERROR](#tag_group_error).
 
