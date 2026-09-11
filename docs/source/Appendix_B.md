@@ -334,6 +334,8 @@ This section is organized by the type of schema format that results in the error
 | `unitClass`        | Not an existing unit class, more than one, or `valueClass` not `numericClass`.     |
 | `valueClass`       | Not an existing value class.                                                       |
 
+The `valueClass` condition in the `unitClass` row applies to standard schemas with versions >= `8.5.0` and to library schemas partnered with them; earlier standard schemas keep placeholders such as `Sampling-rate/#` that have a unit class and no value class (see [3.1.4.4. Unit classes and units](./03_HED_formats.md#3144-unit-classes-and-units)).
+
 #### SCHEMA_CHARACTER_INVALID
 
 **a.** A non-placeholder schema node contains non-`name` characters.\
