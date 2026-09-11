@@ -96,6 +96,7 @@ Here is a summary of the types of changes that correspond to different levels of
 | Major addition to HED functionality             | Major          |
 | Tag deleted from schema.                        | Major          |
 | Unit or unit class removed from node.           | Major          |
+| Listed unit removed but still derivable (uV).   | Patch          |
 | Node attribute value changed                    | Minor          |
 | Inherited attribute change                      | Minor          |
 | New property added to or removed from schema    | Minor          |
@@ -180,9 +181,9 @@ Each schema node element must be unique or a [SCHEMA_DUPLICATE_NODE](./Appendix_
 
 #### 3.1.4.4. Unit classes and units
 
-The unit classes are attributes that modify the `#` schema placeholder nodes. The unit class definition section specifies the allowed unit classes for the schema as well as the associated units that can be used with tags that take values.
+A unit class is an attribute of a `#` schema placeholder node. A placeholder MUST NOT have more than one unit class (specification `4.0.0`); a `unitClass` attribute listing several unit classes is a [SCHEMA_ATTRIBUTE_VALUE_INVALID](./Appendix_B.md#schema_attribute_value_invalid) error. A placeholder with a unit class MUST also have `valueClass=numericClass`, because a value with units is a number to be converted; in standard schemas with versions >= `8.5.0` and library schemas partnered with them, a unit class on a placeholder with any other value class, or with none, is likewise a SCHEMA_ATTRIBUTE_VALUE_INVALID error (`8.3.0` and earlier have `Sampling-rate/#` with a unit class and no value class). A schema MAY define the pseudo unit class `anyUnits`, which lists no units and has no `defaultUnits`; a placeholder with `unitClass=anyUnits` accepts a unit from any unit class of the schema, listed or derived, and its value converts to the default units of the class that unit belongs to (HED `8.5.0` introduces `anyUnits` and the tag `Quantity` that uses it). When a unit string resolves in more than one unit class, the class that lists it outright wins over a class that only derives it (`dB` is the decibel of `intensityUnits`, not `d` + `B` of `memorySizeUnits`); a string that two classes derive and none lists is a [SCHEMA_DUPLICATE_NODE](./Appendix_B.md#schema_duplicate_node) error, and `anyUnits` with units or `defaultUnits` is a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error. The unit class definition section specifies the allowed unit classes for the schema as well as the associated units that can be used with tags that take values.
 
-Only the singular version of each unit is explicitly specified, but the corresponding plurals of the explicitly mentioned singular version are also allowed (e.g., `feet` is allowed in addition to `foot`). HED uses a `pluralize` function available in both Python and Javascript to check validity.
+Only the singular version of each unit name is explicitly specified, but the corresponding plurals are also allowed (e.g., `feet` in addition to `foot`, `inches` in addition to `inch`; `hertz` is its own plural). Only unit names may be pluralized; unit symbols never are (`mss` and `Hzs` are invalid). HED uses a `pluralize` function available in both Python and Javascript to check validity.
 
 Units may be in one of four forms as designated by their unit type attributes:
 
@@ -193,17 +194,28 @@ Units may be in one of four forms as designated by their unit type attributes:
 | unit that is not an SI unit   | no unit type attribute         |
 | unit symbol is not an SI unit | only `unitSymbol`              |
 
-Most units appear after the value in annotations. However, certain units such as `$` appear before their corresponding values. These units have the `unitPrefix` attribute.
+Units appear after the value in annotations. A unit with the `unitPrefix` attribute appears before its value instead; the only such unit, `$`, and the `unitPrefix` attribute itself are deprecated as of HED `8.5.0` (`$` carries `deprecatedFrom=8.4.0`) and will be removed in a future major version. Currency values are written with the unit name, as in `5 dollars`.
 
 If a unit class, `SIUnit`, or `unitPrefix` attribute appears in a section other than the unit class definition section of the schema, a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error occurs. See appendix [A.1.1. Unit classes and units](./Appendix_A.md#a11-unit-classes-and-units) for additional details and a listing.
 
 **Unit names and unit symbols are case-sensitive and MUST NOT contain blanks. A unit in an annotation MUST be a unit listed in the schema, optionally with an SI unit modifier prepended if the unit has the `SIUnit` attribute, with the case of the unit and of the modifier exactly as listed. Unit names may additionally appear in plural form (`feet`, `milliseconds`); unit symbols never may. `Feet`, `Milliseconds`, and `MS` are invalid.** Before specification version `4.0.0`, unit names were case-insensitive. Unit class names are case-insensitive, but MUST contain only valid `name` characters. If other characters appear, a [SCHEMA_CHARACTER_INVALID](./Appendix_B.md#schema_character_invalid) error occurs.
+
+A unit class MUST NOT list a unit that can be formed by applying an SI unit modifier to another unit of the same class that has the `SIUnit` attribute; such a unit is derived, not listed. For example, `uV` is `u` + `V` and is not listed once `V` has `SIUnit`. This rule applies to standard schemas with versions >= `8.5.0` and to library schemas partnered with them; earlier standard schemas (`8.2.0` through `8.4.0` list `uV`) remain valid. A violation is a [SCHEMA_DUPLICATE_NODE](./Appendix_B.md#schema_duplicate_node) error. See appendix [A.1.1. Unit classes and units](./Appendix_A.md#a11-unit-classes-and-units) for the units of HED `8.5.0`.
 
 #### 3.1.4.5. Unit modifiers
 
 The unit modifier definition section lists the SI unit multiples and submultiples that are allowed to be prepended to units that have the `SIUnit` schema attribute.
 
 Unit modifiers can only be used with SI units and SI unit symbols. SI unit modifiers used with ordinary SI units have the `SIUnitModifier` attribute, while unit modifiers used with SI unit symbols have the `SIUnitSymbolModifier` attribute.
+
+A **compound unit** is a unit whose name contains `-per-` or a `^` exponent, such as `m-per-s`, `m-per-s^2`, `m^2`, `m^3`, and `mol-per-L`. Its components are unit symbols, and a compound unit that has the `SIUnit` attribute takes one SI unit symbol modifier on each component independently, never on the string as a whole. The grammar is:
+
+```text
+unit      := component ("-per-" component)*
+component := [modifier] base ["^" digits]
+```
+
+Here `base` is a component of the listed unit and `modifier` is an `SIUnitSymbolModifier`. Thus `cm-per-us`, `mm-per-s^2`, and `mm^3` are valid forms of `m-per-s`, `m-per-s^2`, and `m^3`, while `kmm-per-s` (two modifiers on one component), `m-per-sec` (not a symbol), and `m-per-S` (wrong case) are not. An exponent applies to the prefixed component, so `mm^3` is a cubic millimeter. The conversion factor of a compound form is the listed `conversionFactor` multiplied, for each component, by the modifier's `conversionFactor` raised to that component's exponent, negative for components after `-per-`: `cm-per-us` = 1.0 x 0.01 x (1e-6)^-1 = 10000 `m-per-s`, and `mm^3` = (0.001)^3 = 1e-9 `m^3`. A compound form that breaks these rules is a [UNITS_INVALID](./Appendix_B.md#units_invalid) error. Before specification version `4.0.0`, tools applied the modifier to the whole compound unit string.
 
 If a `SIUnitModifier`, or `SIUNitSymbolModifier` attribute appears in a section other than unit modifier section of the schema, a [SCHEMA_ATTRIBUTE_INVALID](./Appendix_B.md#schema_attribute_invalid) error occurs.
 
@@ -529,11 +541,11 @@ These tags may appear with or without a value. When used with a value, the tag t
 
 A placeholder or its direct parent tag may not be extended in any other way. Thus, tags that have placeholder children cannot be extended even if they inherit an `extensionAllowed` attribute from an ancestor. The parsers treat any child of these tags as a value substituted for the placeholder rather than as a tag extension.
 
-If a `unitClass` is specified as an attribute of the `#` node, then the units specified must be valid units for that `unitClass`.
+If a `unitClass` is specified as an attribute of the `#` node, then the units specified must be valid units for that `unitClass`. A `#` node has at most one unit class (see [3.1.4.4. Unit classes and units](#3144-unit-classes-and-units)), so a unit string is checked against exactly one unit class, unless that class is `anyUnits`, in which case it is checked against every unit class of the schema and a listed unit wins over a derived form.
 
 The characters that may be used in the value that replaces the `#` placeholder must be in the union of the values allowed by the `valueClass` attributes of the`#` node. If units are given, they may place additional restrictions on the allowed values.
 
-Units with the `unitPrefix` attribute, such as `$`, appear before the value. Units without the `unitPrefix` attribute appear after the value. **HED parsers assume that units are separated from values by a single blank regardless of the position of the units.**
+Units appear after the value. Units with the deprecated `unitPrefix` attribute (`$`) appear before the value. **HED parsers assume that units are separated from values by a single blank regardless of the position of the units.** A value with units is the number, one blank, and the unit: `Duration/3 ms` is valid, while `Duration/3ms` (no blank), `Duration/3  ms` (two blanks), and `Duration/ms` (no value) are [VALUE_INVALID](./Appendix_B.md#value_invalid) errors.
 
 Some unit classes have the `defaultUnits` attribute specifying the units that downstream analysis tools should assume if units are omitted.
 

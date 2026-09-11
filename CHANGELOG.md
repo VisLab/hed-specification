@@ -8,6 +8,11 @@ This is a breaking change:
 - The versions of the standard HED schema that were stored in `hedxml` for backwards compatibility has been removed.
 - The `tests` directory containing the JSON tests that HED validators must pass has been moved to the GitHub `hed-standard/hed-tests` repository.
 - Tools that write schema files include the Sources, Prefixes, and External annotations sections in every format, empty when the schema has no entries. Tools that read schema files require these sections in standard schemas with versions >= `8.5.0` and in library schemas partnered with those standard schemas; for compatibility they accept their omission from older standard schemas and from unpartnered library schemas and treat an omitted section as empty.
+- Units: all unit strings (names, symbols, and SI modifiers) are case-sensitive; unit names may be pluralized, symbols never. A value with units is the number, one blank, and the unit.
+- Units: a compound unit (`m-per-s`, `m-per-s^2`, `m^3`, `mol-per-L`) with `SIUnit` takes one SI modifier on each component, with the conversion factor computed component-wise; a modifier no longer applies to the whole string.
+- Units: `conversionFactor` is the factor by which a value in the unit is multiplied to obtain default units; a unit without one has no defined conversion. A unit class in a standard schema >= `8.5.0` (or a partnered library) may not list a unit derivable from another unit of the class by an SI modifier (SCHEMA_DUPLICATE_NODE); `defaultUnits` may be such a derived form.
+- Units: a `#` placeholder has at most one unit class and, when it has one, `valueClass=numericClass` (SCHEMA_ATTRIBUTE_VALUE_INVALID otherwise; the value-class rule is checked for standard schemas >= `8.5.0` and partnered libraries). A schema MAY define the empty pseudo unit class `anyUnits`; a placeholder with `unitClass=anyUnits` accepts a unit from any unit class, a listed unit winning over a derived form, and a string derived by two classes and listed by none is SCHEMA_DUPLICATE_NODE. HED `8.5.0` introduces `anyUnits` and `Quantity`. The `unitPrefix` attribute and `$` are deprecated as of HED `8.5.0`.
+- `hedId` values are assigned only at release and never reused; retired identifiers are recorded under `retired_ids` in hed-schemas `library_data.json`.
 
 ## Changes for HED specification 3.2.0
 

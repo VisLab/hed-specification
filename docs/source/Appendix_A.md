@@ -10,9 +10,9 @@ This section gives information about how the various auxiliary sections of the H
 
 ### A.1.1. Unit classes and units
 
-Unit classes allow annotators to express the units of values in a consistent way. The plurals of the various units are not explicitly listed, but are allowed as HED tools uses standard pluralize functions to expand the list of allowed units.
+Unit classes allow annotators to express the units of values in a consistent way. The plurals of the unit names are not explicitly listed, but are allowed (`feet`, `inches`, `seconds`; `hertz` is its own plural), as HED tools use standard pluralize functions to expand the list of allowed units. A `#` placeholder has at most one unit class. The pseudo unit class `anyUnits` (HED `8.5.0`) lists no units; a placeholder with `unitClass=anyUnits` accepts a unit from any unit class of the schema, and the value converts to the default units of that unit's class. See [3.1.4.4. Unit classes and units](./03_HED_formats.md#3144-unit-classes-and-units).
 
-Units corresponding to unit symbols (i.e., have a `unitSymbol` attribute) represent abbreviated versions of units and cannot be pluralized.
+Units corresponding to unit symbols (i.e., have a `unitSymbol` attribute) represent abbreviated versions of units and cannot be pluralized (`mss` and `Hzs` are invalid).
 
 Elements with the `SIUnit` modifier may be prefixed with a multiple or a sub-multiple modifier. If the SI unit does not also have the `unitSymbol` attribute, then multiples and sub-multiples with the `SIUnitModifier` attribute are used for the expansion.
 
@@ -20,7 +20,7 @@ On the other hand, units with both `SIUnit` and `unitSymbol` attributes are expa
 
 Note that some units such as byte are designated as SI units, although they are not part of the SI standard. However, they follow the same rules for unit modifiers as do SI units.
 
-```{list-table} Unit classes and units in HED 8.5.0 (* indicates unit symbol).
+```{list-table} Unit classes and units in HED 8.5.0 (* indicates unit symbol; a default unit such as mA that is not listed is a derived form).
 ---
 widths: 20 10 40
 header-rows: 1
@@ -34,21 +34,39 @@ header-rows: 1
 * - angleUnits
   - radian
   - radian, rad*, degree
+* - anyUnits
+  - (none)
+  - (none: accepts any unit of any unit class)
 * - areaUnits
   - m^2
   - m^2*
+* - chargeUnits
+  - C
+  - coulomb, C*
+* - concentrationUnits
+  - mol-per-L
+  - molar, mol-per-L*
 * - currencyUnits
-  - $
-  - dollar, $, euro, point
+  - dollar
+  - dollar, $* (deprecated), euro, point
+* - currentUnits
+  - mA
+  - ampere, A*
 * - electricPotentialUnits
   - uV
-  - V*, uV, volt
+  - V*, volt
+* - energyUnits
+  - J
+  - joule, J*, calorie
+* - forceUnits
+  - N
+  - newton, N*
 * - frequencyUnits
   - Hz
   - hertz, Hz*
 * - intensityUnits
   - dB
-  - dB, candela, cd*
+  - dB*, candela, cd*
 * - jerkUnits
   - m-per-s^3
   - m-per-s^3*
@@ -61,21 +79,30 @@ header-rows: 1
 * - physicalLengthUnits
   - m
   - foot, inch, meter, metre, m*, mile
+* - powerUnits
+  - mW
+  - watt, W*
+* - pressureUnits
+  - Pa
+  - pascal, Pa*, mmHg*
+* - resistanceUnits
+  - kOhm
+  - ohm, Ohm*
 * - speedUnits
   - m-per-s
-  - m-per-s*, mph, kph
+  - m-per-s*, mph*, kph*
 * - temperatureUnits
   - degree-Celsius
-  - degree-Celsius, oC*
+  - degree-Celsius, degree Celsius (deprecated), oC*
 * - timeUnits
   - s
-  - second, s*, day, month, minute, hour, year
+  - second, s*, day, week, month, minute, hour, year
 * - volumeUnits
   - m^3
-  - m^3*
+  - m^3*, liter, litre, L*
 * - weightUnits
   - g
-  - gram, g*, pound, lb
+  - g*, gram, pound, lb
 ```
 
 ### A.1.2. Unit modifiers
@@ -342,15 +369,15 @@ The `annotation` attribute provides a link from a HED schema element to a corres
 
 #### A.1.4.3. conversionFactor
 
-The `conversionFactor` attribute specifies the multiplicative factor needed to convert that unit or unit modifier to the default units of its unit class. This attribute was added in version `8.1.0` to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, a unit "minute" might have `conversionFactor=60` to convert to the default unit "second". When combined with unit modifiers, conversion factors are multiplied together to determine the overall conversion. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
+The `conversionFactor` attribute of a unit is the factor by which a value expressed in that unit is multiplied to convert it to the default units of its unit class; the `conversionFactor` of a unit modifier is the factor the modifier contributes. This attribute was added in version `8.1.0` to enable automatic unit conversion in tools and analyses. The attribute value must be a positive numeric value. For example, `minute` has `conversionFactor=60` because 2 minutes x 60 = 120 seconds, the default unit of `timeUnits`. A modifier's factor multiplies the unit's factor: `Duration/300 ms` converts as 300 x 0.001 (`m`) x 1.0 (`s`) = 0.3 s. For compound units the modifier factors are raised to the component exponents; see [3.1.4.5. Unit modifiers](./03_HED_formats.md#3145-unit-modifiers). When a unit has no `conversionFactor` (in HED `8.5.0`: `month`, `year`, `euro`, `point`, `candela`, `cd`), conversion to default units is undefined, and tools MUST NOT treat such a value as already being in default units; see [TEMPORAL_TAG_ERROR](./Appendix_B.md#temporal_tag_error) cause n for the consequence in timeline files. This attribute is particularly useful for units within the same physical dimension but with different scales (e.g., meters, feet, inches).
 
 #### A.1.4.4. defaultUnits
 
-The `defaultUnits` attribute specifies which unit should be assumed when a value is provided without explicit units for a placeholder that has a `unitClass` attribute. This attribute is applied to unit classes rather than individual tags. For example, the `timeUnits` class has the attribute `defaultUnits=s` (seconds). When a user provides a tag like `Duration/3` without units, tools interpret this as `Duration/3 s` because the `Duration` tag's `#` placeholder has `unitClass=timeUnits`, which has `defaultUnits=s`. This feature improves annotation convenience while maintaining unambiguous interpretation. The `defaultUnits` does not affect validation, but may be used by downstream tools.
+The `defaultUnits` attribute specifies which unit should be assumed when a value is provided without explicit units for a placeholder that has a `unitClass` attribute. This attribute is applied to unit classes rather than individual tags. For example, the `timeUnits` class has the attribute `defaultUnits=s` (seconds). When a user provides a tag like `Duration/3` without units, tools interpret this as `Duration/3 s` because the `Duration` tag's `#` placeholder has `unitClass=timeUnits`, which has `defaultUnits=s`. This feature improves annotation convenience while maintaining unambiguous interpretation. The `defaultUnits` does not affect validation, but may be used by downstream tools. The value MAY be a derived form of a listed unit rather than a listed unit: HED `8.5.0` has `defaultUnits=mA` for `currentUnits`, which lists only `ampere` and `A`, and likewise `uV`, `mW`, and `kOhm`; tools resolve such a value with the same modifier rules as annotation units. A value that is neither a listed unit nor a derived form of one is a [SCHEMA_ATTRIBUTE_VALUE_INVALID](./Appendix_B.md#schema_attribute_value_invalid) error, and a deprecated unit MUST NOT be the `defaultUnits` of a non-deprecated unit class ([SCHEMA_DEPRECATION_ERROR](./Appendix_B.md#schema_deprecation_error) cause h).
 
 #### A.1.4.5. deprecatedFrom
 
-The `deprecatedFrom` attribute indicates that a schema element is deprecated (no longer recommended for use) and specifies the schema version from which deprecation began. The attribute value must be a valid semantic schema version that is earlier than the current schema version. Since `deprecatedFrom` can be applied to any element type (tags, units, unit classes, schema attributes, etc.), it provides a comprehensive deprecation mechanism. Deprecated elements remain in the schema for backward compatibility but are subject to strict usage rules:
+The `deprecatedFrom` attribute indicates that a schema element is deprecated (no longer recommended for use). Its value is the last released schema version in which the element was not deprecated; the element is deprecated in every later version. For example, `$` carries `deprecatedFrom=8.4.0` in HED `8.5.0`, and `degree Celsius` carries `deprecatedFrom=8.2.0` from `8.3.0` on. The attribute value must be a released semantic schema version that is earlier than the current schema version. Since `deprecatedFrom` can be applied to any element type (tags, units, unit classes, schema attributes, etc.), it provides a comprehensive deprecation mechanism. Deprecated elements remain in the schema for backward compatibility but are subject to strict usage rules:
 
 - Deprecated tags cannot appear as values in `suggestedTag` or `relatedTag` attributes of non-deprecated tags.
 - Deprecated schema attributes, units, unit modifiers, or value classes cannot be applied to non-deprecated elements.
@@ -366,7 +393,7 @@ The `extensionAllowed` attribute indicates that annotators may add unlimited lev
 
 The `hedId` attribute provides a unique identifier for each element in the HED namespace. This identifier remains stable across schema versions and is used to track elements when names change or elements are restructured. The `hedId` format follows a structured pattern (e.g., `HED_0012001`) that categorizes elements by type. These identifiers are essential for maintaining references to HED elements in ontologies, linked data representations, and cross-version mappings. Tools use `hedId` values to maintain consistency when schemas evolve.
 
-A `hedId` value is the prefix `HED_` followed by a 7 digit integer. The standard schema occupies an ID range [0010000, 0039999]. Each library schema is assigned its own range of 20000 identifiers when the library is officially created. The assignment list is kept in the [library_data.json](https://raw.githubusercontent.com/hed-standard/hed-schemas/refs/heads/main/library_data.json) file in the [hed-standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository. Structural elements have their own ID range. For more information, see the section [8.3.2 Ontology Namespace](./08_HED_ontology.md#832-ontology-namespace).
+A `hedId` value is the prefix `HED_` followed by a 7 digit integer. The standard schema occupies an ID range [0010000, 0039999]. Each library schema is assigned its own range of 20000 identifiers when the library is officially created. The assignment list is kept in the [library_data.json](https://raw.githubusercontent.com/hed-standard/hed-schemas/refs/heads/main/library_data.json) file in the [hed-standard/hed-schemas](https://github.com/hed-standard/hed-schemas) GitHub repository. Structural elements have their own ID range. Identifiers are assigned only when a schema is released, never in a prerelease, and are never reused: an identifier that is withdrawn or whose element is removed from a released schema is recorded under `retired_ids` in the same `library_data.json` file (see [8.3.1. Schema namespaces versus the ontology namespace](./08_HED_ontology.md#831-schema-namespaces-versus-the-ontology-namespace)). For more information, see the section [8.3.2 Ontology Namespace](./08_HED_ontology.md#832-ontology-namespace).
 
 #### A.1.4.8. inLibrary
 
@@ -394,7 +421,7 @@ The `rooted` attribute specifies where a library schema node should be placed in
 
 #### A.1.4.14. SIUnit
 
-The `SIUnit` attribute indicates that a unit is an International System of Units (SI) unit and can be modified with SI unit prefixes (multiples and sub-multiples). Units with this attribute can be combined with modifiers like `kilo`, `mega`, `milli`, `micro`, etc. If a unit has the `SIUnit` attribute but not the `unitSymbol` attribute, it is modified using `SIUnitModifier` modifiers (e.g., `second` can become `kilosecond`, `millisecond`). If a unit has both `SIUnit` and `unitSymbol` attributes, it is modified using `SIUnitSymbolModifier` modifiers instead (e.g., `s` becomes `ks`, `ms`). The attribute enables consistent expression of scaled measurements.
+The `SIUnit` attribute indicates that a unit is an International System of Units (SI) unit and can be modified with SI unit prefixes (multiples and sub-multiples). Units with this attribute can be combined with modifiers like `kilo`, `mega`, `milli`, `micro`, etc. If a unit has the `SIUnit` attribute but not the `unitSymbol` attribute, it is modified using `SIUnitModifier` modifiers (e.g., `second` can become `kilosecond`, `millisecond`). If a unit has both `SIUnit` and `unitSymbol` attributes, it is modified using `SIUnitSymbolModifier` modifiers instead (e.g., `s` becomes `ks`, `ms`). A compound unit such as `m-per-s^2` with `SIUnit` takes one modifier on each component; see [3.1.4.5. Unit modifiers](./03_HED_formats.md#3145-unit-modifiers). The attribute enables consistent expression of scaled measurements.
 
 #### A.1.4.15. SIUnitModifier
 
@@ -426,11 +453,11 @@ The `unique` attribute indicates that a tag or its descendants can appear only o
 
 #### A.1.4.22. unitClass
 
-The `unitClass` attribute specifies which unit class the value of a placeholder (`#`) node can belong to. The attribute value must be a valid unit class defined in the schema (e.g., `timeUnits`, `physicalLengthUnits`, `frequencyUnits`). When a `unitClass` is specified, the value substituted for the placeholder may include units from that class, and validators will check that any units provided are valid members of the specified unit class. If the replacement value has no units and the unit class has `defaultUnits` defined, tools may assume those default units. The `unitClass` attribute can only be applied to `#` placeholder nodes.
+The `unitClass` attribute specifies which unit class the value of a placeholder (`#`) node can belong to. The attribute value must be exactly one valid unit class defined in the schema (e.g., `timeUnits`, `physicalLengthUnits`, `frequencyUnits`); a placeholder MUST NOT have more than one unit class, and a placeholder with a unit class MUST have `valueClass=numericClass` (specification `4.0.0`; checked for standard schemas >= `8.5.0` and libraries partnered with them). The value MAY be the pseudo unit class `anyUnits`, which makes the placeholder accept a unit from any unit class of the schema. When a `unitClass` is specified, the value substituted for the placeholder may include units from that class, and validators will check that any units provided are valid members of the specified unit class. If the replacement value has no units and the unit class has `defaultUnits` defined, tools may assume those default units. The `unitClass` attribute can only be applied to `#` placeholder nodes.
 
 #### A.1.4.23. unitPrefix
 
-The `unitPrefix` attribute indicates that a unit appears before its corresponding value rather than after it in annotations. Most units in HED appear after their values (e.g., `3 s`, `5 meters`), but certain units like currency symbols conventionally precede values (e.g., `$ 50`). Units with the `unitPrefix` attribute follow this reversed ordering convention. HED parsers recognize these prefix units and handle them appropriately during validation and processing. Even though prefix units appear before values, they are still separated from the value by a single space. Note: The `unitPrefix` attribute is being deprecated and should not be used in new schemas. It was introduced mainly for the dollar sign (`$`), and users should use the full unit name `dollar` instead.
+The `unitPrefix` attribute indicates that a unit appears before its corresponding value rather than after it in annotations. Most units in HED appear after their values (e.g., `3 s`, `5 meters`), but certain units like currency symbols conventionally precede values (e.g., `$ 50`). Units with the `unitPrefix` attribute follow this reversed ordering convention. HED parsers recognize these prefix units and handle them appropriately during validation and processing. Even though prefix units appear before values, they are still separated from the value by a single space. The `unitPrefix` attribute and the only unit that carries it, `$`, are deprecated as of HED `8.5.0` (`$` has `deprecatedFrom=8.4.0`) and MUST NOT be used in new schemas; currency is written with the unit name, as in `5 dollars`. Prefix units will be removed in a future major version.
 
 #### A.1.4.24. unitSymbol
 
