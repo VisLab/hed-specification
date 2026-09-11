@@ -272,7 +272,8 @@ See [3.2.8.3 Onset, Offset, and Inset](./03_HED_formats.md#3283-onset-offset-and
 ### UNITS_INVALID
 
 **a.** A tag has a value with units that are invalid or not of the correct unit class for the tag.\
-**b.** A unit modifier is applied to units that are not SI units.
+**b.** A unit modifier is applied to units that are not SI units.\
+**c.** A component of a compound unit (`m-per-s`, `m^3`) is not a schema unit symbol, differs in case from it, or carries more than one SI unit modifier (`kmm-per-s`, `m-per-sec`, `m-per-S`).
 
 See [3.2.4 Tags that take values](./03_HED_formats.md#324-tags-that-take-values) for more information.
 
@@ -297,7 +298,8 @@ This section is organized by the type of schema format that results in the error
 
 **a.** An attribute is used in the schema, but is not defined in the schema attribute section.\
 **b.** A schema attribute is applied to the incorrect type (e.g., an element with the unit definition does appear under an appropriate unit class).\
-**c.** A schema attribute is used in an invalid way
+**c.** A schema attribute is used in an invalid way\
+**d.** The pseudo unit class `anyUnits` lists a unit or has `defaultUnits`.
 
 | Attribute        | Invalid Usage Location                                    |
 | ---------------- | --------------------------------------------------------- |
@@ -323,14 +325,16 @@ This section is organized by the type of schema format that results in the error
 | ------------------ | ---------------------------------------------------------------------------------- |
 | `allowedCharacter` | Not a single character or one of:<br>`letters`, `blank`, `digits`, `alphanumeric`. |
 | `conversionFactor` | Not a positive numeric value.                                                      |
-| `defaultUnits`     | Not a valid unit in this unit class.                                               |
+| `defaultUnits`     | Not a unit, or a derived form of a unit, of this unit class.                       |
 | `deprecatedFrom`   | See [SCHEMA_DEPRECATION_ERROR](#schema_deprecation_error)                          |
 | `inLibrary`        | The value of an inLibrary attribute is for the wrong library.                      |
 | `relatedTag`       | Not an existing tag.                                                               |
 | `rooted`           | See [SCHEMA_LIBRARY_INVALID](#schema_library_invalid)                              |
 | `suggestedTag`     | Not an existing tag.                                                               |
-| `unitClass`        | Not an existing unit class.                                                        |
+| `unitClass`        | Not an existing unit class, more than one, or `valueClass` not `numericClass`.     |
 | `valueClass`       | Not an existing value class.                                                       |
+
+The `valueClass` condition in the `unitClass` row applies to standard schemas with versions >= `8.5.0` and to library schemas partnered with them; earlier standard schemas keep placeholders such as `Sampling-rate/#` that have a unit class and no value class (see [3.1.4.4. Unit classes and units](./03_HED_formats.md#3144-unit-classes-and-units)).
 
 #### SCHEMA_CHARACTER_INVALID
 
@@ -356,7 +360,9 @@ Note: tag extensions may contain `nonascii` characters.
 
 #### SCHEMA_DUPLICATE_NODE
 
-**a.** A schema node name appears in the schema more than once.
+**a.** A schema node name appears in the schema more than once.\
+**b.** In a standard schema with version >= `8.5.0`, or a library schema partnered with one, a unit class lists a unit that is an SI unit modifier applied to another unit of the same class (`uV` beside `V`).\
+**c.** A unit string is derived by two unit classes (an SI unit modifier applied to a unit of each, or a plural) and listed by neither, so it would be ambiguous on a placeholder with `unitClass=anyUnits`. A string listed in one class and derived in another is not an error: the listed unit wins. See [3.1.4.4. Unit classes and units](./03_HED_formats.md#3144-unit-classes-and-units).
 
 #### SCHEMA_HEADER_INVALID
 
