@@ -299,7 +299,7 @@ This section is organized by the type of schema format that results in the error
 **a.** An `annotation` value uses a prefix that is not a row of the Prefixes section.\
 **b.** The `prefix:id` of an `annotation` value is not a row of the External annotations section. A bare external term such as `glotto:afro1255` falls here; write `skos:exactMatch glotto:afro1255`.\
 **c.** A `dc:source` value names no row of the Sources section: it neither begins with a row's `source` name nor contains a URL under a row's `link`.\
-**d.** The value of a mapping property has the form `prefix:term` but its prefix is not a row of the Prefixes section.
+**d.** A value in prefix notation (`prefix:term`) has a prefix that is not a row of the Prefixes section, or the value of a SKOS mapping property (`skos:exactMatch`, `skos:closeMatch`) is not in prefix notation at all (`skos:exactMatch C25499`, `skos:exactMatch https://example.org/C25499`).
 
 The Prefixes, External annotations, and Sources rows of a partnered library's standard schema count as the library's own. Applies to standard schemas with versions >= `8.5.0` and to library schemas partnered with them.
 
